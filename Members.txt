@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 Antonio Diaz (BRANCH)
-Mani Jaishaanker
 Anudeep Balla - new branched
-=======
-Antonio Diaz
 Mani Jaishanker (Branched)
-Anudeep Balla
->>>>>>> ManiBranch
+
 
 Mohamed Hashi - Branched
 
