@@ -1,8 +1,8 @@
 Antonio Diaz
 Mani Jaishaanker
 Anudeep Balla
-<<<<<<< HEAD
+
 Mohamed Hashi
-=======
+
 veda vyas
->>>>>>> aed38a18057b5119bb657482a477fcc49be3a01d
+
