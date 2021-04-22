@@ -26,7 +26,13 @@ mongoose.connection;
 // link to router
 //var Product
 
+// Link to router module, similar to import (For all the users)
+var User = require("./routers/user.router.js")
+
+
 // middleware
+app.use("/user", User);
+
 //app.use("/product", Product);
 
 app.listen(9090, () => console.log("Running on server 9090"));
