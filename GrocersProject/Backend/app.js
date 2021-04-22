@@ -28,8 +28,13 @@ mongoose.connection;
 
 // link to product
 var ProductRotuer = require("./routers/product.router");
+// Link to router module, similar to import (For all the users)
+var User = require("./routers/user.router.js")
+
 
 // middleware
+app.use("/user", User);
+
 //app.use("/product", Product);
 app.use("/product", ProductRotuer);
 
