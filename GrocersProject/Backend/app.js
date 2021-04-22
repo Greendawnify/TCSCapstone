@@ -26,7 +26,11 @@ mongoose.connection;
 // link to router
 //var Product
 
+// link to product
+var ProductRotuer = require("./routers/product.router");
+
 // middleware
 //app.use("/product", Product);
+app.use("/product", ProductRotuer);
 
 app.listen(9090, () => console.log("Running on server 9090"));
