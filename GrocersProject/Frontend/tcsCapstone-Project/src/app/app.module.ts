@@ -15,6 +15,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {HttpClient} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
 
 
 
@@ -25,6 +26,7 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     EmployeeComponent,
     AdminComponent,
+    UserComponent,
 
   ],
   imports: [

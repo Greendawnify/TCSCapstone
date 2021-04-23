@@ -20,7 +20,7 @@
         <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
         <li class="nav-item"><a href="#" class="nav-link" >About</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-        <li *ngIf="isLogin" class="nav-item"><a href="#" class="nav-link" (click)="Logged_in()" >Login</a></li>
+        <li *ngIf="isLogin" class="nav-item"><a href="SignUp.html" class="nav-link" (click)="Logged_in()" >Login</a></li>
         <li *ngIf="isLogout" class="nav-item"><a href="#" class="nav-link" (click)="Logged_out()" >Logout</a></li>
       </ul>
     </div>
@@ -28,6 +28,6 @@
 </nav>
 
   
-<app-employee></app-employee>
+<app-user></app-user>
 </body>
 </html>
