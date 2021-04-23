@@ -1,0 +1,42 @@
+
+    
+    
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+      </head>
+      <body>
+        <button class="btn btn-primary" type="submit" (click)="Emp_visible()">Employee Tab</button>
+        <button class="btn btn-primary" type="submit" (click)="Prd_visible()">Product Tab</button>
+        
+        <div *ngIf="Employee">
+                <div   class="card" style="width: 15rem;">
+                <div class="card-body">
+                <h2 class="card-title">Delete Employee</h2>
+                <p class="card-text">Enter Employee ID to delete the employee</p>
+              
+                <input type="text" class="form-control" placeholder="Employee_ID" aria-label="Username" aria-describedby="basic-addon1">
+          
+                 <a href="#" class="btn btn-primary">Submit</a>
+                 </div>
+            </div>
+        </div>
+        
+
+        <div *ngIf="Product">
+            <div   class="card" style="width: 15rem;">
+                <div class="card-body">
+                  <h2 class="card-title">Delete Product</h2>
+                  <p class="card-text">Enter Product ID to delete the product</p>
+                  
+                  <input type="text" class="form-control" placeholder="Product_ID" aria-label="Username" aria-describedby="basic-addon1">
+              
+                  <a href="#" class="btn btn-primary">Submit</a>
+                </div>
+              </div>`
+            </div>
+      </body>
+      </html>
