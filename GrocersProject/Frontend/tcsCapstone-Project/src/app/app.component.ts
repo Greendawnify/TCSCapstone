@@ -7,10 +7,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isLogin:boolean= true;
+  isLogout:boolean=false;
 
   title = 'tcsCapstone-Project';
-  Emp_visible(){
+  Logged_in(){
     this.isLogin=false;
-    
+    this.isLogout=true;
+    }
+  Logged_out(){
+    this.isLogin=true;
+    this.isLogout=false;
+
   }
 }

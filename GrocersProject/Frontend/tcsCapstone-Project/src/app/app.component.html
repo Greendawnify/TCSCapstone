@@ -8,7 +8,7 @@
 </head>
 <body>
   
-  <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark " *ngIf="isLogin" >
+  <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark "  >
     <a href="#" class="navbar-brand">
       <!-- Logo Image -->
       <img src="" width="45" alt="" class="d-inline-block align-middle mr-2">
@@ -20,14 +20,14 @@
         <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
         <li class="nav-item"><a href="#" class="nav-link" >About</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-        <li class="nav-item"><a href="#" class="nav-link" (click)="Emp_visible()" >Login</a></li>
+        <li *ngIf="isLogin" class="nav-item"><a href="#" class="nav-link" (click)="Logged_in()" >Login</a></li>
+        <li *ngIf="isLogout" class="nav-item"><a href="#" class="nav-link" (click)="Logged_out()" >Logout</a></li>
       </ul>
     </div>
  
 </nav>
 
   
-<app-admin></app-admin>
-
+<app-employee></app-employee>
 </body>
 </html>
