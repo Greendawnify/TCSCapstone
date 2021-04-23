@@ -15,4 +15,12 @@ export class ProductServiceService {
     this.http.post('http://localhost:9090/product/addProduct', productRef).
     subscribe(res =>console.log(res), err => console.log(err));
   }
+
+  deleteProduct(ID:any){
+    return this.http.delete('http://localhost:9090/product/deleteProduct/'+ID, {responseType:'text'});
+  }
+
+  updateQuantity(productRef:any){
+
+  }
 }

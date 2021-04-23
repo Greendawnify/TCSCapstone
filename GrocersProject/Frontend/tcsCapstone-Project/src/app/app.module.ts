@@ -12,8 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { EmployeeComponent } from './employee/employee.component';
 import { AdminComponent } from './admin/admin.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import {HttpClient} from '@angular/common/http';
-import {NgForm} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 
@@ -36,7 +35,7 @@ import { FormsModule } from '@angular/forms';
     MatSidenavModule,
     MatToolbarModule,
     MatTabsModule,
-    FormsModule, HttpClient, NgForm
+    FormsModule, HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
