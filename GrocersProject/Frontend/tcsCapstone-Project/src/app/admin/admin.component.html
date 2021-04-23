@@ -15,23 +15,46 @@
          </div>
         
         <div *ngIf="Employee">
-                <div   class="card" style="width: 15rem;">
-                <div class="card-body">
-                <h2 class="card-title">Delete Employee</h2>
-                <p class="card-text">Enter Employee ID to delete the employee</p>
-              
-                <input type="text" class="form-control" placeholder="Employee_ID" aria-label="Username" aria-describedby="basic-addon1">
-          
-                 <a href="#" class="btn btn-dark">Submit</a>
-                 </div>
+            <div class="row" style="margin-left: 15%;margin-top: 5%;">
+                <div class="col-sm-4">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Add Employee</h5>
+                      
+                      <input type="text" class="form-control" placeholder="First Name" aria-label="fName" aria-describedby="basic-addon1">
+                     <p> </p>
+                     <input type="text" class="form-control" placeholder="Last Name" aria-label="lName" aria-describedby="basic-addon1">
+                     <p> </p>
+               
+                     <input type="text" class="form-control" placeholder="Address" aria-label="address" aria-describedby="basic-addon1">
+                     <p> </p>
+                     <input type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
+                     <p> </p>
+                     
+                      <a href="#" class="btn btn-dark">Submit</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Delete Emplyee</h5>
+                      <input type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1">
+                      <p> </p>
+                      <a href="#" class="btn btn-dark">Submit</a>
+                    </div>
+                  </div>
+                </div>
+                
             </div>
+            
         </div>
         
 
         <div *ngIf="Product">
             <div class="row" style="margin-left: 15%;margin-top: 5%;">
                 <div class="col-sm-3">
-                  <div class="card">
+                  <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Add Product</h5>
                       <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
@@ -41,7 +64,7 @@
                   </div>
                 </div>
                 <div class="col-sm-3">
-                  <div class="card">
+                  <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Delete Product</h5>
                       <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
@@ -51,7 +74,7 @@
                   </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="card">
+                    <div class="card bg-light mb-3">
                       <div class="card-body">
                         <h5 class="card-title">Update Product</h5>
                         <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
@@ -65,5 +88,6 @@
               </div>
             </div>
             
+        
       </body>
       </html>
