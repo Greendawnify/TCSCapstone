@@ -16,29 +16,31 @@
         
         <div *ngIf="Employee">
             <div class="row" style="margin-left: 15%;margin-top: 5%;">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <h5 class="card-title">Add Employee</h5>
+                      <h2 class="card-title">Add Employee</h2>
+                      <form #myform = "ngForm"  >
+                        <input type = "text" class="form-control" name = "Employee_Fname" placeholder = "Employee First Name" ngModel>
+                        <br/>
                       
-                      <input type="text" class="form-control" placeholder="First Name" aria-label="fName" aria-describedby="basic-addon1">
-                     <p> </p>
-                     <input type="text" class="form-control" placeholder="Last Name" aria-label="lName" aria-describedby="basic-addon1">
-                     <p> </p>
-               
-                     <input type="text" class="form-control" placeholder="Address" aria-label="address" aria-describedby="basic-addon1">
-                     <p> </p>
-                     <input type="email" class="form-control" placeholder="Email" aria-label="email" aria-describedby="basic-addon1">
-                     <p> </p>
-                     
-                      <a href="#" class="btn btn-dark">Submit</a>
+                        <input type = "text" class="form-control" name = "Employee_Lname" placeholder = "Employee Last Name" ngModel>
+                        <br/>
+                      
+                        <input type = "email" class="form-control" name = "Email"  placeholder = "Employee Email" ngModel>
+                        <br/>
+                        <input type = "text" class="form-control" name = "Address"  placeholder = "Employee Address" ngModel>
+                        <br/>
+                        <p></p>
+                        <a href="#" class="btn btn-dark">Submit</a>
+                      </form>
                     </div>
                   </div>
                 </div>
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <h5 class="card-title">Delete Emplyee</h5>
+                      <h2 class="card-title">Delete Emplyee</h2>
                       <input type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1">
                       <p> </p>
                       <a href="#" class="btn btn-dark">Submit</a>
@@ -57,9 +59,19 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Add Product</h5>
-                      <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
-                      <p> </p>
-                      <a href="#" class="btn btn-dark">Submit</a>
+                      <form #myform = "ngForm"  >
+                        <input type = "text" class="form-control" name = "Product_Name" placeholder = "Product Name" ngModel>
+                        <br/>
+                      
+                        <input type = "email" class="form-control" name = "Product_ID" placeholder = "Product ID" ngModel>
+                        <br/>
+                      
+                        <input type = "number" name = "Quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                        <br/>
+                        <p></p>
+                        <a href="#" class="btn btn-dark">Submit</a>
+                      </form>
+                      
                     </div>
                   </div>
                 </div>
@@ -77,11 +89,17 @@
                     <div class="card bg-light mb-3">
                       <div class="card-body">
                         <h5 class="card-title">Update Product</h5>
-                        <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
-                        <p> </p>
-                        <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
-                        <p> </p>
-                        <a href="#" class="btn btn-dark">Submit</a>
+                        <form #myform = "ngForm"  >
+                            
+                          
+                            <input type = "email" class="form-control" name = "Product_ID" placeholder = "Product ID" ngModel>
+                            <br/>
+                          
+                            <input name = "Quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                            <br/>
+                            <p></p>
+                            <a href="#" class="btn btn-dark">Submit</a>
+                          </form>
                       </div>
                     </div>
                   </div>
