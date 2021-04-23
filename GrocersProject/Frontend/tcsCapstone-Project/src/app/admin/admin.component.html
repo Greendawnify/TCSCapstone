@@ -57,9 +57,19 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Add Product</h5>
-                      <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
-                      <p> </p>
-                      <a href="#" class="btn btn-dark">Submit</a>
+                      <form #myform = "ngForm"  >
+                        <input type = "text" class="form-control" name = "Product_Name" placeholder = "Product Name" ngModel>
+                        <br/>
+                      
+                        <input type = "email" class="form-control" name = "Product_ID" placeholder = "Product ID" ngModel>
+                        <br/>
+                      
+                        <input name = "Quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                        <br/>
+                        <p></p>
+                        <a href="#" class="btn btn-dark">Submit</a>
+                      </form>
+                      
                     </div>
                   </div>
                 </div>

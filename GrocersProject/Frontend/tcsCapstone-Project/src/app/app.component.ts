@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  isLogin:boolean= true;
+
   title = 'tcsCapstone-Project';
+  Emp_visible(){
+    this.isLogin=false;
+    
+  }
 }
