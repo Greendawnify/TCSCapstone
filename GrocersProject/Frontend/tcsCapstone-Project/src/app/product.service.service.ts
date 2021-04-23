@@ -16,11 +16,11 @@ export class ProductServiceService {
     subscribe(res =>console.log(res), err => console.log(err));
   }
 
-  deleteProduct(ID:any){
+  deleteProduct(ID:any):any{
     return this.http.delete('http://localhost:9090/product/deleteProduct/'+ID, {responseType:'text'});
   }
 
-  updateQuantity(productRef:any){
-
+  updateQuantity(updateRef:any):any{
+    return this.http.put('http://localhost:9090/product/updateQuantity', updateRef, {responseType:'text'});
   }
 }

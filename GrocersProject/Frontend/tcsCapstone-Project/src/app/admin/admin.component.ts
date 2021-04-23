@@ -32,13 +32,15 @@ export class AdminComponent implements OnInit {
 
   }
 
-  deleteProduct(productRef:any){
-    this.productService.deleteProduct(productRef.id).subscribe((result:string) =>{
+  deleteProduct(deleteRef:any){
+    this.productService.deleteProduct(deleteRef.id).subscribe((result:string) =>{
       console.log(result);
     })
   }
 
-  updateProductQuantity(productRef:any){}
+  updateProductQuantity(updateRef:any){
+    this.productService.updateQuantity(updateRef).subscribe((result:string) => console.log(result));
+  }
 
 
   
