@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductServiceService } from './../product.service.service';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
   Employee:boolean= false;
   Product:boolean=false;
-  constructor() { }
+  constructor(public productService:ProductServiceService) { }
 
   ngOnInit(): void {
   }
@@ -22,6 +23,22 @@ export class AdminComponent implements OnInit {
     this.Product=true;
     
   }
+
+  addProduct(productRef:any){
+    this.productService.addProduct(productRef);
+  }
+
+  addEmployee(employeeRef:any){
+
+  }
+
+  deleteProduct(productRef:any){
+    this.productService.deleteProduct(productRef.id).subscribe((result:string) =>{
+      console.log(result);
+    })
+  }
+
+  updateProductQuantity(productRef:any){}
 
 
   
