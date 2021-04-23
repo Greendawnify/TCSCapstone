@@ -8,7 +8,11 @@ let ProductSchema = mongoose.Schema({
   cost: Number,
   discount: Number,
 });
-
-let ProductModel = mongoose.model("", ProductSchema, "Product");
+let ProductModel;
+try {
+  ProductModel = mongoose.model("product");
+} catch {
+  ProductModel = mongoose.model("product", ProductSchema);
+}
 
 module.exports = ProductModel;

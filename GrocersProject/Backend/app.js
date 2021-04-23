@@ -24,14 +24,14 @@ mongoose.connect(url, mongooseDbOptions);
 mongoose.connection;
 
 // link to router
-//var Product
+var AdminRouter = require("./routers/admin.router");
 
 // link to product
 var ProductRotuer = require("./routers/product.router");
 // Link to router module, similar to import (For all the users)
-var User = require("./routers/user.router.js")
+var User = require("./routers/user.router.js");
 
-
+app.use("/admin", AdminRouter);
 // middleware
 app.use("/user", User);
 
