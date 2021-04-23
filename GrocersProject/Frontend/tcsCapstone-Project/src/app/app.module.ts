@@ -16,6 +16,7 @@ import {HttpClient} from '@angular/common/http';
 import {NgForm} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -27,6 +28,7 @@ import { UserComponent } from './user/user.component';
     EmployeeComponent,
     AdminComponent,
     UserComponent,
+    LoginComponent,
 
   ],
   imports: [

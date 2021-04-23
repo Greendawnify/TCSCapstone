@@ -17,17 +17,16 @@
     </a>
     <div id="navbarSupportedContent" class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
+        <li class="nav-item active"><a (click)="home_Page()" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
         <li class="nav-item"><a href="#" class="nav-link" >About</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-        <li *ngIf="isLogin" class="nav-item"><a href="#" class="nav-link" (click)="Logged_in()" >Login</a></li>
-        <li *ngIf="isLogout" class="nav-item"><a href="#" class="nav-link" (click)="Logged_out()" >Logout</a></li>
+        <li  class="nav-item"><button  class="btn btn-dark"(click)="Logged_in()" >Login</button></li>
+        <li class="nav-item"><a href="#" class="nav-link"  >Logout</a></li>
       </ul>
     </div>
  
 </nav>
-
-  
-<app-user></app-user>
+ 
+<router-outlet></router-outlet>
 </body>
 </html>
