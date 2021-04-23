@@ -31,11 +31,15 @@ var ProductRotuer = require("./routers/product.router");
 // Link to router module, similar to import (For all the users)
 var User = require("./routers/user.router.js");
 
+var EmployeeRouter = require("./routers/employee.router");
+
 app.use("/admin", AdminRouter);
 // middleware
 app.use("/user", User);
 
 //app.use("/product", Product);
 app.use("/product", ProductRotuer);
+
+app.use("/employee", EmployeeRouter);
 
 app.listen(9090, () => console.log("Running on server 9090"));
