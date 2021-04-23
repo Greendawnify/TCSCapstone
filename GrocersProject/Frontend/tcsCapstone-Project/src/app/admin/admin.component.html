@@ -1,0 +1,69 @@
+
+    
+    
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document</title>
+      </head>
+      <body>
+          <div >
+        <button style="margin-left: 30%;" class="btn btn-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
+        <button style="margin-left: 20%;"class="btn btn-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
+         </div>
+        
+        <div *ngIf="Employee">
+                <div   class="card" style="width: 15rem;">
+                <div class="card-body">
+                <h2 class="card-title">Delete Employee</h2>
+                <p class="card-text">Enter Employee ID to delete the employee</p>
+              
+                <input type="text" class="form-control" placeholder="Employee_ID" aria-label="Username" aria-describedby="basic-addon1">
+          
+                 <a href="#" class="btn btn-dark">Submit</a>
+                 </div>
+            </div>
+        </div>
+        
+
+        <div *ngIf="Product">
+            <div class="row" style="margin-left: 15%;margin-top: 5%;">
+                <div class="col-sm-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Add Product</h5>
+                      <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
+                      <p> </p>
+                      <a href="#" class="btn btn-dark">Submit</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Delete Product</h5>
+                      <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
+                      <p> </p>
+                      <a href="#" class="btn btn-dark">Submit</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Update Product</h5>
+                        <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
+                        <p> </p>
+                        <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
+                        <p> </p>
+                        <a href="#" class="btn btn-dark">Submit</a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            
+      </body>
+      </html>
