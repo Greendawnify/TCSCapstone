@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductServiceService } from './../product.service.service';
+import { Product } from './../model.product';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  products:Product[] = new Array;
+  constructor(public productService:ProductServiceService) { }
 
   ngOnInit(): void {
+    this.productService.getAllProducts().subscribe(res => this.products = res);
   }
 
   cards = [
