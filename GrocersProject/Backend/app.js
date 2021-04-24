@@ -33,6 +33,8 @@ var User = require("./routers/user.router.js");
 
 var EmployeeRouter = require("./routers/employee.router");
 
+var RequestRouter = require("./routers/request.router");
+
 app.use("/admin", AdminRouter);
 // middleware
 app.use("/user", User);
@@ -41,5 +43,7 @@ app.use("/user", User);
 app.use("/product", ProductRotuer);
 
 app.use("/employee", EmployeeRouter);
+
+app.use("/request", RequestRouter);
 
 app.listen(9090, () => console.log("Running on server 9090"));

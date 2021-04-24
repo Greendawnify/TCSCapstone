@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { ProductServiceService } from './../product.service.service';
+import { RequestService } from './../request.service';
+import { Request } from './../request.model';
 
 @Component({
   selector: 'app-admin',
@@ -11,10 +13,15 @@ export class AdminComponent implements OnInit {
   Employee:boolean= false;
   Product:boolean=false;
   deleteMsg?:string;
-  constructor(public productService:ProductServiceService,public empService:EmployeeService) { }
+  requests:Request[] = new Array;
+  constructor(
+    public productService:ProductServiceService,
+    public empService:EmployeeService,
+    public requestService:RequestService
+    ) { }
 
   ngOnInit(): void {
-    
+    this.requestService.getAllRequests().subscribe(res => this.requests = res);
   }
 
   Emp_visible(){
@@ -59,7 +66,7 @@ export class AdminComponent implements OnInit {
     this.productService.updateQuantity(updateRef).subscribe((result:string) => console.log(result));
   }
 
- 
+  
   
 
 }

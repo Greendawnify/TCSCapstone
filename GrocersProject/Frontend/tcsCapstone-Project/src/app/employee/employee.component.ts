@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from './../request.service';
 
 @Component({
   selector: 'app-employee',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public requestService:RequestService) { }
 
   ngOnInit(): void {
+  }
+
+  createRequest(request:any){
+    // the values in the body have to be Type, and Description
+    this.requestService.createRequest(request);
   }
 
 }
