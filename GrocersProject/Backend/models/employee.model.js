@@ -7,16 +7,8 @@ let EmployeeSchema = mongoose.Schema({
   firstname: String,
   lastname: String,
   emailid: String,
-  resetpwd: String,
-  orders_status: [
-    {
-      oId: Number,
-      shipped: Boolean,
-      outdelivery: Boolean,
-      delivered: { type: Date, default: Date.now },
-      cancelled: Boolean,
-    },
-  ],
+  // resetpwd: String,
+  resetpwd: Boolean
 });
 let EmployeeModel;
 try {

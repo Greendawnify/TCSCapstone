@@ -60,7 +60,8 @@ let deleteEmployeeId= (req,res)=> {
 let updateEmployeePassword = (req,res) =>{
     let cId = req.body.cId;
     let updatePassword = req.body.password;
-    EmployeeModel.updateMany({_id:cId}, {$set:{password:updatePassword}}, (err,result)=>{
+    let resetpwd= false;
+    EmployeeModel.updateMany({_id:cId}, {$set:{password:updatePassword,resetpwd:resetpwd}}, (err,result)=>{
         if (!err){
             if(result.nModified>0){
                 res.send("Employee Record updated succesfully")
