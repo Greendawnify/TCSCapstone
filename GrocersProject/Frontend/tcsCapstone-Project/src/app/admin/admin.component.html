@@ -82,7 +82,7 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Delete Product</h5>
-                      <form #productRef = "ngForm"  (ngSubmit) = "deleteProduct(productRef.value)">
+                      <form #deleteRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value)">
                         <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel>
                         <br/>
 
@@ -95,7 +95,7 @@
                     <div class="card bg-light mb-3">
                       <div class="card-body">
                         <h5 class="card-title">Update Product</h5>
-                        <form #productRef = "ngForm" (ngSubmit) = 'updateProductQuantity(productRef.value)' >
+                        <form #updateRef = "ngForm" (ngSubmit) = 'updateProductQuantity(updateRef.value)' >
                             
                           
                             <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel>

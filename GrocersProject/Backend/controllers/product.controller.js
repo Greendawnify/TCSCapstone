@@ -24,9 +24,13 @@ let deleteProduct = (req, res) => {
   let id = req.params.id;
   ProductModel.deleteOne({ _id: id }, (err, result) => {
     if (!err) {
-      res.send("record deleted success " + result);
+      if (result.deletedCount > 0) {
+        res.send("record deleted succesfully");
+      } else {
+        res.send("record not present");
+      }
     } else {
-      res.send("error generated while deleting");
+      res.send("error generated while deleting " + err);
     }
   });
 };
