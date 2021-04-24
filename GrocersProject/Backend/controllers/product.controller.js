@@ -7,7 +7,7 @@ let addProduct = (req, res) => {
     name: req.body.name,
     quantity: req.body.quantity,
     cost: req.body.cost,
-    discount: req.body.discount,
+    discount: 0,
   });
 
   product.save((err, result) => {

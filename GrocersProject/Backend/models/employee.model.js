@@ -7,7 +7,7 @@ let EmployeeSchema = mongoose.Schema({
   firstname: String,
   lastname: String,
   emailid: String,
-  resetpwd: (String = 1),
+  resetpwd: String,
   orders_status: [
     {
       oId: Number,
