@@ -18,6 +18,8 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartComponent } from './cart/cart.component';
+
 
 
 
@@ -34,6 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UserComponent,
     LoginComponent,
     ProfileComponent,
+    CartComponent,
 
   ],
   imports: [
