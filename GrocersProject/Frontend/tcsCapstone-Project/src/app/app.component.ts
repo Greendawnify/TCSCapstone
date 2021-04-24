@@ -21,6 +21,9 @@ export class AppComponent {
     
       this.router.navigate(["user"])
       }
+      Profile(){
     
+        this.router.navigate(["profile"])
+        }
   
 }

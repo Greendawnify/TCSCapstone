@@ -16,5 +16,11 @@ export class LoginComponent implements OnInit {
   signUp(){
     this.router.navigate(["user"])
     }
+    AdminSignUp(){
+      this.router.navigate(["admin"])
+    }
+    EmployeeSignUp(){
+      this.router.navigate(["employee"])
+    }
 }
 
