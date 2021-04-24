@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from './../request.service';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-employee',
@@ -8,7 +9,7 @@ import { RequestService } from './../request.service';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(public requestService:RequestService) { }
+  constructor(public requestService:RequestService,public employeeSer: EmployeeService) { }
 
   ngOnInit(): void {
   }
@@ -18,4 +19,10 @@ export class EmployeeComponent implements OnInit {
     this.requestService.createRequest(request);
   }
 
+
+  updateEmployeePwd(empRef:any){
+    console.log(empRef);
+    this.employeeSer.updateEmployeePassword(empRef).subscribe((result:string)=> {
+    });
+  }
 }
