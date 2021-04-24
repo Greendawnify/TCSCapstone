@@ -19,4 +19,9 @@ export class EmployeeService {
   deleteEmployeeById(id:any):any {
     return this.http.delete("http://localhost:9090/employee/deleteEmployeeById/"+id, {responseType:"text"});
   }
+
+
+  updateEmployeePassword(updateUpdateRef:any):any{
+    return this.http.put('http://localhost:9090/employee/updateEmployeeByPassword', updateUpdateRef, {responseType:'text'});
+  }
 }
