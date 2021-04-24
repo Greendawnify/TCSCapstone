@@ -16,6 +16,11 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+
 
 
 
@@ -28,6 +33,7 @@ import { LoginComponent } from './login/login.component';
     AdminComponent,
     UserComponent,
     LoginComponent,
+    ProfileComponent,
 
   ],
   imports: [
@@ -39,7 +45,7 @@ import { LoginComponent } from './login/login.component';
     MatSidenavModule,
     MatToolbarModule,
     MatTabsModule,
-    FormsModule, HttpClientModule
+    FormsModule, HttpClientModule,NgbModule    
   ],
   providers: [],
   bootstrap: [AppComponent]
