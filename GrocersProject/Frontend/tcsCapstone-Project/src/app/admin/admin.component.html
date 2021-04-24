@@ -20,7 +20,7 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h2 class="card-title">Add Employee</h2>
-                      <form #myform = "ngForm"  >
+                      <form #employeeRef = "ngForm"  (ngSubmit) = "addEmployee(employeeRef.value)">
                         <input type = "text" class="form-control" name = "Employee_Fname" placeholder = "Employee First Name" ngModel>
                         <br/>
                       
@@ -32,7 +32,7 @@
                         <input type = "text" class="form-control" name = "Address"  placeholder = "Employee Address" ngModel>
                         <br/>
                         <p></p>
-                        <a href="#" class="btn btn-dark">Submit</a>
+                        <input type="submit" value="Submit">
                       </form>
                     </div>
                   </div>
@@ -49,8 +49,8 @@
                 </div>
                 
             </div>
-            
         </div>
+      
         
 
         <div *ngIf="Product">
@@ -59,17 +59,20 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Add Product</h5>
-                      <form #myform = "ngForm"  >
-                        <input type = "text" class="form-control" name = "Product_Name" placeholder = "Product Name" ngModel>
+                      <form #productRef = "ngForm"  (ngSubmit) = "addProduct(productRef.value)">
+                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel>
+                        <br/>
+
+                        <input type = "text" class="form-control" name = "name" placeholder = "Product Name" ngModel>
                         <br/>
                       
-                        <input type = "email" class="form-control" name = "Product_ID" placeholder = "Product ID" ngModel>
-                        <br/>
-                      
-                        <input type = "number" name = "Quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                        <input type = "number" name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                        <br>
+
+                        <input type = "number" name = "cost" class="form-control" placeholder = "Cost of product" ngModel>
                         <br/>
                         <p></p>
-                        <a href="#" class="btn btn-dark">Submit</a>
+                        <input type="submit" value="Submit">
                       </form>
                       
                     </div>
@@ -79,9 +82,12 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Delete Product</h5>
-                      <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
-                      <p> </p>
-                      <a href="#" class="btn btn-dark">Submit</a>
+                      <form #deleteRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value)">
+                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel>
+                        <br/>
+
+                        <input type="submit" value="Submit">
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -89,16 +95,16 @@
                     <div class="card bg-light mb-3">
                       <div class="card-body">
                         <h5 class="card-title">Update Product</h5>
-                        <form #myform = "ngForm"  >
+                        <form #updateRef = "ngForm" (ngSubmit) = 'updateProductQuantity(updateRef.value)' >
                             
                           
-                            <input type = "email" class="form-control" name = "Product_ID" placeholder = "Product ID" ngModel>
+                            <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel>
                             <br/>
                           
-                            <input name = "Quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                            <input name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel>
                             <br/>
                             <p></p>
-                            <a href="#" class="btn btn-dark">Submit</a>
+                            <input type="submit" value="Submit">
                           </form>
                       </div>
                     </div>

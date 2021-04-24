@@ -12,9 +12,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { EmployeeComponent } from './employee/employee.component';
 import { AdminComponent } from './admin/admin.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import {HttpClient} from '@angular/common/http';
-import {NgForm} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CartComponent } from './cart/cart.component';
+
+
+
+
 
 
 
@@ -25,6 +33,10 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     EmployeeComponent,
     AdminComponent,
+    UserComponent,
+    LoginComponent,
+    ProfileComponent,
+    CartComponent,
 
   ],
   imports: [
@@ -36,7 +48,7 @@ import { FormsModule } from '@angular/forms';
     MatSidenavModule,
     MatToolbarModule,
     MatTabsModule,
-    FormsModule, HttpClient, NgForm
+    FormsModule, HttpClientModule,NgbModule    
   ],
   providers: [],
   bootstrap: [AppComponent]

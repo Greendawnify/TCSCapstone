@@ -7,7 +7,7 @@ let addProduct = (req, res) => {
     name: req.body.name,
     quantity: req.body.quantity,
     cost: req.body.cost,
-    discount: req.body.discount,
+    discount: 0,
   });
 
   product.save((err, result) => {
@@ -24,9 +24,13 @@ let deleteProduct = (req, res) => {
   let id = req.params.id;
   ProductModel.deleteOne({ _id: id }, (err, result) => {
     if (!err) {
-      res.send("record deleted success " + result);
+      if (result.deletedCount > 0) {
+        res.send("record deleted succesfully");
+      } else {
+        res.send("record not present");
+      }
     } else {
-      res.send("error generated while deleting");
+      res.send("error generated while deleting " + err);
     }
   });
 };
