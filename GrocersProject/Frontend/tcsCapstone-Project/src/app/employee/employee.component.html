@@ -15,12 +15,14 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h3 class="card-title">Request Add Products</h3>
+                      <form #myform = "ngForm" >
                       <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
                       <p> </p>
                       <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
                       <a href="#" class="btn btn-dark">Submit</a>
+                    </form>
                     </div>
                   </div>
                 </div>
@@ -29,6 +31,7 @@
                     <div class="card bg-light mb-3">
                       <div class="card-body">
                         <h3 class="card-title">Order Status Update</h3>
+                        <form #myform = "ngForm"  >
                         <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
                         <p> </p>
                         <div class="input-group">
@@ -45,6 +48,7 @@
                           <p> </p>
                           <p> </p>
                         <a href="#" class="btn btn-dark">Submit</a>
+                    </form>
                       </div>
                     </div>
                   </div>

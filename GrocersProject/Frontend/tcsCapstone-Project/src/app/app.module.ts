@@ -14,6 +14,8 @@ import { AdminComponent } from './admin/admin.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -24,6 +26,8 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     EmployeeComponent,
     AdminComponent,
+    UserComponent,
+    LoginComponent,
 
   ],
   imports: [

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -6,11 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor(public router:Router) { }  
   isLogin:boolean= true;
+  isLogout:boolean=false;
 
   title = 'tcsCapstone-Project';
-  Emp_visible(){
-    this.isLogin=false;
+  Logged_in(){
     
-  }
+    this.router.navigate(["login"])
+    }
+    home_Page(){
+    
+      this.router.navigate(["user"])
+      }
+    
+  
 }

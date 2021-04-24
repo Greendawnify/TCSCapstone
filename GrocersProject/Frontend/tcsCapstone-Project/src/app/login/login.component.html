@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="row" style="margin-left: 15%;margin-top: 5%; border-right: 2px solid rgb(0, 0, 0) !important;">
+        <div class="col-sm-6">
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <h2 class="card-title">Sign-Up</h2>
+              <form #myform = "ngForm"  >
+                <input type = "text" class="form-control" name = "User_Fname" placeholder = "Your First Name" ngModel>
+                <br/>
+              
+                <input type = "text" class="form-control" name = "User_Lname" placeholder = "Your Last Name" ngModel>
+                <br/>
+              
+                <input type = "email" class="form-control" name = "Email"  placeholder = "Your Email" ngModel>
+                <br/>
+                <input type = "text" class="form-control" name = "Address"  placeholder = "Your Address" ngModel>
+                <br/>
+                <p></p>
+                <button  class="btn btn-dark" (click)="signUp()">Sign-Up</button>
+              </form>
+              
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4" >
+          <div class="card bg-light mb-3">
+            <div class="card-body">
+              <h2 class="card-title">Sign-IN</h2>
+              <form #myform = "ngForm"  >
+                
+
+             
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">@</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                  </div>
+                <br>
+              <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+              <p> </p>
+              <button  class="btn btn-dark" (click)="signUp()" >Login</button>
+            </form>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+
+</body>
+</html>

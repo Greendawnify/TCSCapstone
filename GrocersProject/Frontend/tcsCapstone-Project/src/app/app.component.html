@@ -8,7 +8,7 @@
 </head>
 <body>
   
-  <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark " *ngIf="isLogin" >
+  <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-dark "  >
     <a href="#" class="navbar-brand">
       <!-- Logo Image -->
       <img src="" width="45" alt="" class="d-inline-block align-middle mr-2">
@@ -17,17 +17,16 @@
     </a>
     <div id="navbarSupportedContent" class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active"><a href="#" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
+        <li class="nav-item active"><a (click)="home_Page()" class="nav-link">Home <span class="sr-only">(current)</span></a></li>
         <li class="nav-item"><a href="#" class="nav-link" >About</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-        <li class="nav-item"><a href="#" class="nav-link" (click)="Emp_visible()" >Login</a></li>
+        <li  class="nav-item"><button  class="btn btn-dark"(click)="Logged_in()" >Login</button></li>
+        <li class="nav-item"><a href="#" class="nav-link"  >Logout</a></li>
       </ul>
     </div>
  
 </nav>
-
-  
-<app-admin></app-admin>
-
+ 
+<router-outlet></router-outlet>
 </body>
 </html>
