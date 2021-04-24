@@ -1,6 +1,3 @@
-
-    
-    
       <!DOCTYPE html>
       <html lang="en">
       <head>
@@ -21,15 +18,17 @@
                     <div class="card-body">
                       <h2 class="card-title">Add Employee</h2>
                       <form #employeeRef = "ngForm"  (ngSubmit) = "addEmployee(employeeRef.value)">
-                        <input type = "text" class="form-control" name = "Employee_Fname" placeholder = "Employee First Name" ngModel>
+                        <input type = "text" class="form-control" name = "cId" placeholder = "Employee ID" ngModel>
+                        <br>
+                        <input type = "text" class="form-control" name = "firstname" placeholder = "Employee First Name" ngModel>
                         <br/>
-                      
-                        <input type = "text" class="form-control" name = "Employee_Lname" placeholder = "Employee Last Name" ngModel>
+                        <input type = "text" class="form-control" name = "lastname" placeholder = "Employee Last Name" ngModel>
                         <br/>
-                      
-                        <input type = "email" class="form-control" name = "Email"  placeholder = "Employee Email" ngModel>
+                        <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Email" ngModel>
+                        <br>
+                        <input type = "password" class="form-control" name = "password"  placeholder = "Employee default password" ngModel>
                         <br/>
-                        <input type = "text" class="form-control" name = "Address"  placeholder = "Employee Address" ngModel>
+                        <!-- <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Address" ngModel> -->
                         <br/>
                         <p></p>
                         <input type="submit" value="Submit">
@@ -40,11 +39,15 @@
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <h2 class="card-title">Delete Emplyee</h2>
-                      <input type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1">
-                      <p> </p>
-                      <a href="#" class="btn btn-dark">Submit</a>
+                      <div>
+                        <h2 class="card-title">Delete Employee</h2>
+                        <input name = "id" type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1" #empRef ngModel>
+                        <input type="button" value="Submit"  (click)="deleteEmployee(empRef.value)"/><br/>
+                     
+                      <!-- <a href="#" class="btn btn-dark">Submit</a> -->
+                      </div>
                     </div>
+                    {{deleteMsg}}
                   </div>
                 </div>
                 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../employee.service';
 import { ProductServiceService } from './../product.service.service';
 
 @Component({
@@ -9,9 +10,11 @@ import { ProductServiceService } from './../product.service.service';
 export class AdminComponent implements OnInit {
   Employee:boolean= false;
   Product:boolean=false;
-  constructor(public productService:ProductServiceService) { }
+  deleteMsg?:string;
+  constructor(public productService:ProductServiceService,public empService:EmployeeService) { }
 
   ngOnInit(): void {
+    
   }
 
   Emp_visible(){
@@ -29,7 +32,21 @@ export class AdminComponent implements OnInit {
   }
 
   addEmployee(employeeRef:any){
+    console.log(employeeRef);
+    this.empService.addEmployeeDetails(employeeRef);
+    
+    
 
+  }
+  // deleteEmployee(idRef.value) if(confirm("Are you sure to delete "+name))
+  deleteEmployee(id:any){
+    console.log("id is "+id);
+    if(confirm("Are you sure to delete")){
+      this.empService.deleteEmployeeById(id).subscribe((result:string)=> {
+        this.deleteMsg=result;
+    })
+    }
+ 
   }
 
   deleteProduct(productRef:any){
@@ -40,7 +57,7 @@ export class AdminComponent implements OnInit {
 
   updateProductQuantity(productRef:any){}
 
-
+ 
   
 
 }

@@ -7,7 +7,7 @@ let EmployeeSchema = mongoose.Schema({
   firstname: String,
   lastname: String,
   emailid: String,
-  resetpwd: String,
+  // resetpwd: String,
   resetpwd: Boolean
 });
 let EmployeeModel;
