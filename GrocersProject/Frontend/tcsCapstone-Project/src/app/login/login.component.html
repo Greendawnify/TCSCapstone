@@ -12,19 +12,29 @@
           <div class="card bg-light mb-3">
             <div class="card-body">
               <h2 class="card-title">Sign-Up</h2>
-              <form #myform = "ngForm"  >
-                <input type = "text" class="form-control" name = "User_Fname" placeholder = "Your First Name" ngModel>
+              <form #mySignUpForm = "ngForm"  (ngSubmit)="signUserUp(mySignUpForm.value)">
+                <input type = "text" class="form-control" name = "fName" placeholder = "Your First Name" ngModel>
+                <br/>             
+                <input type = "text" class="form-control" name = "lName" placeholder = "Your Last Name" ngModel>
+                <br/>     
+                <input type = "email" class="form-control" name = "email"  placeholder = "Your Email" ngModel>
                 <br/>
-              
-                <input type = "text" class="form-control" name = "User_Lname" placeholder = "Your Last Name" ngModel>
+                <input type = "tel" class="form-control" name = "phoneNum"  placeholder = "Phone NUmber" ngModel>
                 <br/>
-              
-                <input type = "email" class="form-control" name = "Email"  placeholder = "Your Email" ngModel>
+                <input type = "text" class="form-control" name = "pWord"  placeholder = "Password" ngModel>
                 <br/>
-                <input type = "text" class="form-control" name = "Address"  placeholder = "Your Address" ngModel>
+                <input type = "text" class="form-control" name = "dob"  placeholder = "Date of Birth: MM/DD/YR" ngModel>
+                <br/>
+                <input type = "text" class="form-control" name = "street"  placeholder = "Street" ngModel>
+                <br/>
+                <input type = "text" class="form-control" name = "city"  placeholder = "City" ngModel>
+                <br/>
+                <input type = "text" class="form-control" name = "state"  placeholder = "State" ngModel>
+                <br/>
+                <input type = "number" class="form-control" name = "zip"  placeholder = "Zip" ngModel>
                 <br/>
                 <p></p>
-                <button  class="btn btn-dark" (click)="signUp()">Sign-Up</button>
+                <button  class="btn btn-dark">Sign-Up</button>
                 
               </form>
               
@@ -35,7 +45,7 @@
           <div class="card bg-light mb-3">
             <div class="card-body">
               <h2 class="card-title">Sign-IN</h2>
-              <form #myform = "ngForm"  >
+              <form #myform = "ngForm">
                 
 
              
@@ -43,22 +53,20 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">@</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input #signInInputID type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                   </div>
                 <br>
-              <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-              <p> </p>
-              <button  class="btn btn-dark" (click)="signUp()" >Login</button>
-              <button  class="btn btn-dark" (click)="AdminSignUp()" >Admin Login</button>
-              <button  class="btn btn-dark" (click)="EmployeeSignUp()" >Employee Login</button>
-
-
+                <input #signInPasswordID type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+                <p> </p>
+                <button  class="btn btn-dark" (click)="signIn(signInInputID.value, signInPasswordID.value)" >Login</button>
+                <button  class="btn btn-dark" (click)="AdminSignUp(signInInputID.value, signInPasswordID.value)" >Admin Login</button>
+                <button  class="btn btn-dark" (click)="EmployeeSignUp(signInInputID.value, signInPasswordID.value)" >Employee Login</button>
 
                 <p></p>
                     <p> </p>
 
                 
-              <button style="margin-left: 20%;" class="btn btn-link" (click)="triggerModal(modalData)">Forgot Password/Username</button>
+                <button style="margin-left: 20%;" class="btn btn-link" (click)="triggerModal(modalData)">Forgot Password/Username</button>
 
               <ng-template #modalData let-modal>
                 <div class="modal-header">
