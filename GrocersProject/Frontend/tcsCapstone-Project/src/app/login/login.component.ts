@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
+import { AdminService } from './../admin.service';
+import { Admin } from './../admin.model';
+
 
 
 
@@ -12,8 +15,14 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent implements OnInit {
   closeModal: string="";
+  adminRecord:Object ={};
   
-  constructor(private modalService: NgbModal,public router:Router, public useService:UserService) {}
+  constructor(
+    private modalService: NgbModal,
+    public router:Router, 
+    public useService:UserService,
+    public adminService:AdminService,
+    ) {}
   ngOnInit(): void {
   }
   
@@ -40,7 +49,15 @@ export class LoginComponent implements OnInit {
 
 
   AdminSignUp(userID:any, userPword:any){
-    this.router.navigate(["admin"])
+
+    this.adminRecord = this.adminService.checkAdminCredentials(userID, userPword);
+
+    if(this.adminRecord){
+      this.router.navigate(["admin"]);
+    }else{
+      console.log('adminnrecord doesnt exist');
+    }
+    
   }
   EmployeeSignUp(userID:any, userPword:any){
     this.router.navigate(["employee"])
