@@ -24,7 +24,7 @@ let getUserDetails =(req,res)=> {
     })
 } */
 
-let storeUserDetails = (req,res)=> {
+let signUpUserDetails = (req,res)=> {
     let user = new UserModel({
         isLocked: false,
         loginTries: 3,
@@ -32,6 +32,7 @@ let storeUserDetails = (req,res)=> {
         lName: req.body.lName,
         email: req.body.email,
         pWord: req.body.pWord,
+        phoneNum: req.body.phoneNum,
         dob: req.body.dob,
         street: req.body.street,
         city: req.body.city,
@@ -113,7 +114,8 @@ let signInUser = (req,res)=> {
 
                             // Reset the user's number of tries, once they login correctly
                             UserModel.updateOne({email:uEmail}, {$set:{loginTries:3}}, (err, result)=>{});
-                            res.json("Data is: " + dataP);
+                            res.json(dataP);
+                            
                         }      
                     }
                     else{
@@ -167,4 +169,4 @@ let updateProductPrice= (req,res)=> {
 
 //module.exports={getProductDetails,getProductById,storeProductDetails,deleteProductById,updateProductPrice}
 
-module.exports = {getUserDetails, storeUserDetails, signInUser};
+module.exports = {getUserDetails, signUpUserDetails, signInUser};

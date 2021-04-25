@@ -9,7 +9,7 @@ let UserSchema = mongoose.Schema({
   email: String,
   pWord: String,
   dob: String, // Change to Date type
-  phoneNum: Number,
+  phoneNum: String,
   street: String,
   city: String,
   state: String,
