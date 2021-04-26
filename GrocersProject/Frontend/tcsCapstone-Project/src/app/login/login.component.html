@@ -52,7 +52,7 @@
                     </div>
                   </div>
                   <br>
-                <button style="margin-left:80% ;" class="btn btn-dark">Sign-Up</button>
+                <button type="button" style="margin-left:80% ;" class="btn btn-dark">Sign-Up</button>
                 
               </form>
               
@@ -76,15 +76,15 @@
                 <br>
                 <input #signInPasswordID type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
                 <p> </p>
-                <button  class="btn btn-dark" (click)="signIn(signInInputID.value, signInPasswordID.value)" >Login</button>
-                <button  class="btn btn-dark" (click)="adminSignIn(signInInputID.value, signInPasswordID.value)" >Admin Login</button>
-                <button  class="btn btn-dark" (click)="EmployeeSignUp(signInInputID.value, signInPasswordID.value)" >Employee Login</button>
+                <button type="button" class="btn btn-dark" (click)="signIn(signInInputID.value, signInPasswordID.value)" >Login</button>
+                <button type="button" class="btn btn-dark" (click)="adminSignIn(signInInputID.value, signInPasswordID.value)" >Admin Login</button>
+                <button type="button" class="btn btn-dark" (click)="employeeSignin(signInInputID.value, signInPasswordID.value)" >Employee Login</button>
 
                 <p></p>
                     <p> </p>
 
                 
-                <button style="margin-left: 20%;" class="btn btn-link" (click)="triggerModal(modalData)">Forgot Password/Username</button>
+                <button type="button" style="margin-left: 20%;" class="btn btn-link" (click)="triggerModal(modalData)">Forgot Password/Username</button>
 
               <ng-template #modalData let-modal>
                 <div class="modal-header">

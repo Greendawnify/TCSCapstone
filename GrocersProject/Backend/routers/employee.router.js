@@ -9,7 +9,7 @@ router.get("/retrieveEmployeeById/:cId", EmployeeController.getEmployeeById);
 router.post("/storeEmployeeDetails",EmployeeController.storeEmployeeDetails);
 router.delete("/deleteEmployeeById/:cId",EmployeeController.deleteEmployeeId);
 router.put("/updateEmployeeByPassword",EmployeeController.updateEmployeePassword);
-
+router.get("/validateEmployee/:cId",EmployeeController.validateEmployee);
 
 module.exports=router;
 

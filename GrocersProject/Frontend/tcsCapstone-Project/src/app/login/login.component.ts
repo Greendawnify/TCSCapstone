@@ -4,7 +4,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
 import { AdminService } from './../admin.service';
 import { Admin } from './../admin.model';
-
+import { EmployeeService } from '../employee.service';
 
 
 
@@ -22,22 +22,33 @@ export class LoginComponent implements OnInit {
     public router:Router, 
     public useService:UserService,
     public adminService:AdminService,
+    public empService:EmployeeService 
     ) {}
   ngOnInit(): void {
   }
-  
+
   signIn(userID:any, userPword:any){
     console.log(userID, userPword);
-    this.useService.signUserDetailsInfo(userID, userPword).subscribe(result => {
-      console.log(result)
-      if(result?.length>0){
-        
-        //this.resultMsg="id is "+result[0]._id+" Product Name "+result[0].pname+" Price "+result[0].price;
-      }else {
-        //this.resultMsg="Product is not present";
+    
+    let tempObj = {"email":userID, "pWord": userPword};
+
+    
+    this.useService.signUserDetailsInfo(tempObj).subscribe(result=> {
+      if(result != null){
+        if(result.msg == "You are locked out! Raise ticket!")
+          alert(result.msg);
+        else{
+          if(result.msg == "Password correct")
+          this.router.navigate(["user"]);
+          else if(result.msg == "Email not found")
+            alert("Email not found");
+          else if(result.loginTries == 3 || result.loginTries == 2 || result.loginTries == 1)
+            alert("Incorrect Password! " + result.loginTries + " tries left!");
+          else if(result.msg == "Your number of tries depleted. You are locked out! Raise ticket!")
+            alert(result.msg);
+        }
       }
     });
-    //this.router.navigate(["user"])
   }
   
   
@@ -53,7 +64,7 @@ export class LoginComponent implements OnInit {
       console.log(res);
       if(res != null){
         if(userPassword == res.password){
-          console.log('same password')
+          
           this.router.navigate(["admin"]);
         }else{
           console.log('wrong password');
@@ -62,9 +73,18 @@ export class LoginComponent implements OnInit {
     }, err => console.log(err));
   };
 
-
-  EmployeeSignUp(userID:any, userPword:any){
-    this.router.navigate(["employee"])
+  employeeSignin(userID:any,userPword:any) {
+    this.empService.validateEmpLogin(userID).subscribe(result => {
+      // console.log(result);
+      if(result != null){
+        if(userPword == result.password){
+          alert("Login Sucess")
+          this.router.navigate(["employee"]);
+        }else{
+          alert("Wrong Password")
+        }
+      }
+    }, error =>console.log(error));
   }
 
   triggerModal(content:any) {

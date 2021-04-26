@@ -16,8 +16,8 @@ export class UserService {
     subscribe(result=>console.log(result),error=>console.log(error));
   }
 
-  signUserDetailsInfo(userID: any, userPword : any):Observable<User[]>{
-    return this.http.get<User[]>("http://localhost:9090/user/userSignIn")
+  signUserDetailsInfo(uIDandpWord: any):Observable<any>{
+    return this.http.get<any>("http://localhost:9090/user/userSignIn/"+uIDandpWord.email+"/"+uIDandpWord.pWord);
   }
 
   updateProfile(profileRef:any){
@@ -31,17 +31,15 @@ export class UserService {
       cost
     }
 
-    let funds: any;
+    return this.http.post("http://localhost:9090/user/checkFunds", newobj, {responseType:'text'});
 
-    
+  };
 
-    this.http.post("http://localhost:9090/user/checkFunds", newobj, {responseType:'text'}).
-    subscribe((res:any) => {
-      console.log("Proper funds gave me", res);
-      funds = res;
-    }, err => console.log(err));
+  updateFunds(fundsRef:any){
 
-    return funds;
+    return this.http.put("http://localhost:9090/user/updateFunds", fundsRef, {responseType:"text"});
   }
+
+  checkout(){}
 
 }

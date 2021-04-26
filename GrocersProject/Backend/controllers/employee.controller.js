@@ -77,10 +77,22 @@ let updateEmployeePassword = (req, res) => {
   );
 };
 
+//http://localhost:9090/employee/validateEmployee
+let validateEmployee = (req, res) => {
+  let cid=req.params.cId;
+    
+    EmployeeModel.find({_id:cid}, (err, result) => {
+      if (!err) {
+        res.json(result[0]);
+      }
+    });
+  };
+
 module.exports = {
   geEmpoyeeDetails,
   storeEmployeeDetails,
   getEmployeeById,
   deleteEmployeeId,
   updateEmployeePassword,
+  validateEmployee
 };
