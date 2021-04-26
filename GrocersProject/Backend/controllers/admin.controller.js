@@ -17,12 +17,12 @@ let addAdmin = (req, res) => {
 };
 
 let checkCredentials = (req, res) => {
-  let checkID = req.params.id;
-  let checkPassword = req.params.password;
+  let checkId = req.body.id;
+  let checkPassword = req.body.password;
 
-  AdminModel.find({ id: checkID, password: checkPassword }, (err, result) => {
+  AdminModel.find({ id: checkId, password: checkPassword }, (err, result) => {
     if (!err) {
-      res.json(result);
+      res.json(result[0]);
       res.send("Found Admin");
     } else {
       res.send("Didn't find Admin");
