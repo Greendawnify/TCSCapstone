@@ -36,7 +36,7 @@ export class UserService {
     
 
     this.http.post("http://localhost:9090/user/checkFunds", newobj, {responseType:'text'}).
-    subscribe(res => {
+    subscribe((res:any) => {
       console.log("Proper funds gave me", res);
       funds = res;
     }, err => console.log(err));

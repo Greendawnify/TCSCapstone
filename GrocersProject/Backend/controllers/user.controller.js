@@ -291,10 +291,11 @@ let checkProperFunds = (req, res) => {
 
   UserModel.find({ email: id }, (err, result) => {
     if (!err) {
+      console.log("Result:", result);
       console.log(result.funds);
-      if (result.funds > cost) {
+      if (result[0].funds > cost) {
         let newFunds = {};
-        newFunds.fund = cost - result.funds;
+        newFunds.fund = result[0].funds - cost;
         newFunds.approved = true;
         newFunds.error = "";
         res.json(newFunds);
