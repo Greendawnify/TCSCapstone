@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../user.service';
+
 
 
 
@@ -17,8 +19,8 @@ export class ProfileComponent implements OnInit {
   }
   
   
-  constructor(private modalService: NgbModal) {}
-    
+  constructor(private modalService: NgbModal,public useService:UserService,) {}
+  
   triggerModal(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
@@ -35,6 +37,11 @@ export class ProfileComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+  update_User(myUpdateForm:any){
+    console.log(myUpdateForm);
+    this.useService.signUpUserDetails(myUpdateForm);
+    //this.proService.storeProductDetailsInfo(productRef);
   }
  
 }

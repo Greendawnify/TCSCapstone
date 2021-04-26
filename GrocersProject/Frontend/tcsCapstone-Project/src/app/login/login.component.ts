@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     this.useService.signUserDetailsInfo(userID, userPword).subscribe(result => {
       console.log(result)
       if(result?.length>0){
+        
         //this.resultMsg="id is "+result[0]._id+" Product Name "+result[0].pname+" Price "+result[0].price;
       }else {
         //this.resultMsg="Product is not present";
