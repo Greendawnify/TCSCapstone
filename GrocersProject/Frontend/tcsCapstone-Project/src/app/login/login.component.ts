@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       console.log(res);
       if(res != null){
         if(userPassword == res.password){
-          console.log('same password')
+          
           this.router.navigate(["admin"]);
         }else{
           console.log('wrong password');

@@ -10,6 +10,6 @@ router.post("/checkout", UserController.checkout);
 router.post("/checkFunds", UserController.checkProperFunds);
 router.get("/getUser", UserController.getSingleUser);
 router.put("/editProfile", UserController.editProfile);
-router.put("updateFunds", UserController.updateFunds);
+router.put("/updateFunds", UserController.updateFunds);
 
 module.exports = router;

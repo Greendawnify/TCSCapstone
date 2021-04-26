@@ -141,7 +141,7 @@ let editProfile = (req, res) => {
   let city = req.body.city;
   let street = req.body.street;
   let zip = req.body.zip;
-  let email = req.body.address;
+  let email = req.body.email;
   let fname = req.body.fname;
   let lname = req.body.lname;
   let newString = "UPDATES: ";
@@ -313,6 +313,7 @@ let checkProperFunds = (req, res) => {
 let checkout = (req, res) => {
   let userID = req.body.user;
   let newFunds = req.body.newFunds;
+  let newString = "";
 
   let orderObj = {
     id: 134,
@@ -323,12 +324,11 @@ let checkout = (req, res) => {
 
   UserModel.updateOne(
     { email: userID },
-    { $push: { Orders: orderObj } },
     { $set: { funds: newFunds } },
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
-          res.send("record updated successfully");
+          newString += "Updated funds in User. ";
         } else {
           res.send("record was not found in checkout");
         }
@@ -337,6 +337,24 @@ let checkout = (req, res) => {
       }
     }
   );
+
+  UserModel.updateOne(
+    { email: userID },
+    { $push: { Orders: orderObj } },
+    (err, result) => {
+      if (!err) {
+        if (result.nModified > 0) {
+          newString += "Order added to user. ";
+        } else {
+          res.send("record was not found in checkout");
+        }
+      } else {
+        res.send("error occured in checkolut");
+      }
+    }
+  );
+
+  res.send(newString);
 };
 
 let getSingleUser = (req, res) => {
@@ -356,20 +374,21 @@ let updateFunds = (req, res) => {
   let account = req.body.account;
   let amount = req.body.amount;
 
-  UserModel.find({ emial: id, actNum: account }, (err1, result1) => {
+  UserModel.find({ email: id, actNum: account }, (err1, result1) => {
     if (!err1) {
       // we have the right user with account
-      if (result1.balance > amount) {
+      if (result1[0].balance > amount) {
         // subtract from balance and add to funds
-        let newBalance = result1.balance - amount;
-        let newFunds = result1.funds + amount;
+        let newBalance = result1[0].balance - amount;
+        let newFunds = result1[0].funds + amount;
         UserModel.updateOne(
           { email: id, actNum: account },
           { $set: { balance: newBalance, funds: newFunds } },
           (err2, result2) => {
             if (!err2) {
               if (result2.nModified > 0) {
-                res.send("Updated balance and funds");
+                let obj = { approved: true };
+                res.json(obj);
               } else {
                 res.send("couldnt find account");
               }

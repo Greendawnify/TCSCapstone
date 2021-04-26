@@ -31,17 +31,15 @@ export class UserService {
       cost
     }
 
-    let funds: any;
+    return this.http.post("http://localhost:9090/user/checkFunds", newobj, {responseType:'text'});
 
-    
+  };
 
-    this.http.post("http://localhost:9090/user/checkFunds", newobj, {responseType:'text'}).
-    subscribe((res:any) => {
-      console.log("Proper funds gave me", res);
-      funds = res;
-    }, err => console.log(err));
+  updateFunds(fundsRef:any){
 
-    return funds;
+    return this.http.put("http://localhost:9090/user/updateFunds", fundsRef, {responseType:"text"});
   }
+
+  checkout(){}
 
 }

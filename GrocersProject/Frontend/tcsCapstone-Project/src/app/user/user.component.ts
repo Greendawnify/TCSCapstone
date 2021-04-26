@@ -49,14 +49,24 @@ export class UserComponent implements OnInit {
     this.userService.updateProfile(profileRef).subscribe((res:string) => console.log(res))
   }
 
-  checkFunds(id:string, cost:number){
-    let approvedCart :any;
-    approvedCart =  this.userService.checkProperFunds(id, cost);
+  updateFunds(fundsRef:any){
 
-    console.log(approvedCart);
-    // if we have the approved cart fill its values into the cart object inside session/local storage
-    
-  }
+    this.userService.updateFunds(fundsRef).subscribe((res:any) =>{
+      console.log(res);
+      if(res.approved == true){
+        // database funds have been nupdated and can be properly displayed
+      }
+    })
+  };
+
+  checkFunds(id:string, cost:number){
+    this.userService.checkProperFunds(id, cost).
+    subscribe((res:any) =>{
+      if(res.approved == true){
+        // fill cart with its values into the cart object inside session/local storage
+      }
+    });
+  };
 
   checkout(){
     // get cart object from session storiage/local storage
@@ -65,7 +75,5 @@ export class UserComponent implements OnInit {
       products:[string],
       approved :boolean
     }
-
-
-  }
+  };
 }
