@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductServiceService } from './../product.service.service';
 import { Product } from './../model.product';
+import { UserService } from './../user.service';
 
 @Component({
   selector: 'app-user',
@@ -10,7 +11,7 @@ import { Product } from './../model.product';
 export class UserComponent implements OnInit {
 
   products:Product[] = new Array;
-  constructor(public productService:ProductServiceService) { }
+  constructor(public productService:ProductServiceService, public userService:UserService) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
@@ -42,4 +43,29 @@ export class UserComponent implements OnInit {
     },
 
   ];
+
+  editProfile(profileRef:any){
+    console.log(profileRef);
+    this.userService.updateProfile(profileRef).subscribe((res:string) => console.log(res))
+  }
+
+  checkFunds(id:string, cost:number){
+    let approvedCart :any;
+    approvedCart =  this.userService.checkProperFunds(id, cost);
+
+    console.log(approvedCart);
+    // if we have the approved cart fill its values into the cart object inside session/local storage
+    
+  }
+
+  checkout(){
+    // get cart object from session storiage/local storage
+    type cart ={
+      cost:number,
+      products:[string],
+      approved :boolean
+    }
+
+
+  }
 }

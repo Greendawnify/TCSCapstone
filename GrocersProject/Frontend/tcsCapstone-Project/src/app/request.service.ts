@@ -12,7 +12,7 @@ export class RequestService {
   constructor(public http:HttpClient) { }
 
   createRequest(request:any){
-    this.http.post("http://localhost:9090/request/createRequest", request).
+    this.http.post("http://localhost:9090/request/createRequest", request, {responseType:'text'}).
     subscribe(res => console.log(res), (err) =>console.log(err));
   }
 

@@ -16,18 +16,14 @@ let addAdmin = (req, res) => {
   });
 };
 
-let checkCredentials = (req, res) => {
-  let checkId = req.body.id;
-  let checkPassword = req.body.password;
+let getAdmin = (req, res) => {
+  let aid = req.params.id;
 
-  AdminModel.find({ id: checkId, password: checkPassword }, (err, result) => {
+  AdminModel.find({ id: aid }, (err, result) => {
     if (!err) {
       res.json(result[0]);
-      res.send("Found Admin");
-    } else {
-      res.send("Didn't find Admin");
     }
   });
 };
 
-module.exports = { addAdmin, checkCredentials };
+module.exports = { addAdmin, getAdmin };

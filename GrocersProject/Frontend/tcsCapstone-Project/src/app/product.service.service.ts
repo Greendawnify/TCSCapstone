@@ -12,7 +12,7 @@ export class ProductServiceService {
   constructor(public http:HttpClient) { }
 
   addProduct(productRef:any){
-    this.http.post('http://localhost:9090/product/addProduct', productRef).
+    this.http.post('http://localhost:9090/product/addProduct', productRef, {responseType:'text'}).
     subscribe(res =>console.log(res), err => console.log(err));
   }
 

@@ -295,9 +295,11 @@ let checkProperFunds = (req, res) => {
       if (result.funds > cost) {
         let newFunds = {};
         newFunds.fund = cost - result.funds;
+        newFunds.approved = true;
+        newFunds.error = "";
         res.json(newFunds);
       } else {
-        let errorObj = { error: "not enough funds" };
+        let errorObj = { fund: 0, error: "not enough funds", approved: false };
         res.json(errorObj);
       }
     } else {

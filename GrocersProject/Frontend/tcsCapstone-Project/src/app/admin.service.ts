@@ -10,21 +10,12 @@ import { Admin } from './admin.model';
 export class AdminService {
 
   adminRecord:Object = {};
+  record:boolean = false;;
+  num:number = -1;
   constructor(public http:HttpClient) { }
 
+  adminCredentials(id:string):Observable<any>{
 
-  checkAdminCredentials(id:string, password:string):Object{
-    let obj = {
-      id,
-      password
-    };
-
-    this.http.post('http://localhost:9090/admin/checkCredentials', obj).
-    subscribe(res => {
-      console.log(res);
-      this.adminRecord = res;
-    }, err => console.log(err));
-
-    return this.adminRecord;
-  }
+      return this.http.get<any>('http://localhost:9090/admin/getAdmin/' + id);
+    }
 }

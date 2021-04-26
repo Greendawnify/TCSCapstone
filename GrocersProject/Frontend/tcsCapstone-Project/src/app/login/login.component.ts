@@ -46,19 +46,22 @@ export class LoginComponent implements OnInit {
     //this.proService.storeProductDetailsInfo(productRef);
   }
 
+  adminSignIn(userID:any, userPassword:any){
+    this.adminService.adminCredentials(userID).
+    subscribe(res => {
+      console.log(res);
+      if(res != null){
+        if(userPassword == res.password){
+          console.log('same password')
+          this.router.navigate(["admin"]);
+        }else{
+          console.log('wrong password');
+        }
+      }
+    }, err => console.log(err));
+  };
 
 
-  AdminSignUp(userID:any, userPword:any){
-
-    this.adminRecord = this.adminService.checkAdminCredentials(userID, userPword);
-
-    if(this.adminRecord){
-      this.router.navigate(["admin"]);
-    }else{
-      console.log('adminnrecord doesnt exist');
-    }
-    
-  }
   EmployeeSignUp(userID:any, userPword:any){
     this.router.navigate(["employee"])
   }

@@ -36,10 +36,10 @@ let deleteProduct = (req, res) => {
 };
 
 // retrieve product info by ID
-let getProduct = (req, res) => {
-  let id = req.params.id;
-  ProductModel.find();
-};
+// let getProduct = (req, res) => {
+//   let id = req.params.id;
+//   ProductModel.find();
+// };
 
 // retreive all products
 let getAllProducts = (req, res) => {
