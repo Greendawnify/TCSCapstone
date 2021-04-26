@@ -19,22 +19,40 @@
                 <br/>     
                 <input type = "email" class="form-control" name = "email"  placeholder = "Your Email" ngModel>
                 <br/>
-                <input type = "tel" class="form-control" name = "phoneNum"  placeholder = "Phone NUmber" ngModel>
+                <input type = "tel" class="form-control" name = "phoneNum"  placeholder = "Phone Number" ngModel>
                 <br/>
-                <input type = "text" class="form-control" name = "pWord"  placeholder = "Password" ngModel>
+                <input type = "password" class="form-control" name = "pWord"  placeholder = "Password" ngModel>
                 <br/>
-                <input type = "text" class="form-control" name = "dob"  placeholder = "Date of Birth: MM/DD/YR" ngModel>
+                <input type = "date" class="form-control" name = "dob"  placeholder = "Date of Birth: MM/DD/YR" ngModel>
                 <br/>
-                <input type = "text" class="form-control" name = "street"  placeholder = "Street" ngModel>
+                <input type = "address" class="form-control" name = "street"  placeholder = "Street" ngModel>
                 <br/>
-                <input type = "text" class="form-control" name = "city"  placeholder = "City" ngModel>
+                <input type="text" class="form-control"  name = "city" id="validationCustom03" placeholder = "City"  required>
+                <div class="invalid-feedback">
+                      Please provide a valid city.
+                 </div>
+                 
                 <br/>
-                <input type = "text" class="form-control" name = "state"  placeholder = "State" ngModel>
+                <input type = "state" class="form-control" name = "state"  placeholder = "State" ngModel>
                 <br/>
-                <input type = "number" class="form-control" name = "zip"  placeholder = "Zip" ngModel>
+         
+                <input type="text" class="form-control" id="validationCustom05"  placeholder = "Zipcode" required ngModel>
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
                 <br/>
                 <p></p>
-                <button  class="btn btn-dark">Sign-Up</button>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                      Agree to terms and conditions
+                    </label>
+                    <div class="invalid-feedback">
+                      You must agree before submitting.
+                    </div>
+                  </div>
+                  <br>
+                <button style="margin-left:80% ;" class="btn btn-dark">Sign-Up</button>
                 
               </form>
               
