@@ -25,9 +25,9 @@
                 <br/>
                 <input type = "date" class="form-control" name = "dob"  placeholder = "Date of Birth: MM/DD/YR" ngModel>
                 <br/>
-                <input type = "address" class="form-control" name = "street"  placeholder = "Street" ngModel>
+                <input type = "text" class="form-control" name = "street"  placeholder = "Street" ngModel>
                 <br/>
-                <input type="text" class="form-control"  name = "city" id="validationCustom03" placeholder = "City"  required>
+                <input type="text" class="form-control"  name = "city" id="validationCustom03" placeholder = "City" required ngModel>
                 <div class="invalid-feedback">
                       Please provide a valid city.
                  </div>
@@ -36,14 +36,14 @@
                 <input type = "state" class="form-control" name = "state"  placeholder = "State" ngModel>
                 <br/>
          
-                <input type="text" class="form-control" id="validationCustom05"  placeholder = "Zipcode" required ngModel>
+                <input type="text" class="form-control" name = "zip" id="validationCustom05"  placeholder = "Zipcode" required ngModel>
                 <div class="invalid-feedback">
                   Please provide a valid zip.
                 </div>
                 <br/>
                 <p></p>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required ngModel>
                     <label class="form-check-label" for="invalidCheck">
                       Agree to terms and conditions
                     </label>
@@ -52,7 +52,7 @@
                     </div>
                   </div>
                   <br>
-                <button type="button" style="margin-left:80% ;" class="btn btn-dark">Sign-Up</button>
+                <input type="submit" value="Sign-Up" style="margin-left:80%;" class="btn btn-dark">  
                 
               </form>
               

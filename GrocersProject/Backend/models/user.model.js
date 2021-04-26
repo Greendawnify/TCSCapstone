@@ -8,7 +8,7 @@ let UserSchema = mongoose.Schema({
   lName: String,
   email: String,
   pWord: String,
-  dob: String, // Change to Date type
+  dob: Date, // Change to Date type
   phoneNum: String,
   street: String,
   city: String,
