@@ -16,8 +16,8 @@ export class UserService {
     subscribe(result=>console.log(result),error=>console.log(error));
   }
 
-  signUserDetailsInfo(userID: any, userPword : any):Observable<User[]>{
-    return this.http.get<User[]>("http://localhost:9090/user/userSignIn")
+  signUserDetailsInfo(uIDandpWord: any):Observable<any>{
+    return this.http.get<any>("http://localhost:9090/user/userSignIn/"+uIDandpWord.email+"/"+uIDandpWord.pWord);
   }
 
   updateProfile(profileRef:any){

@@ -57,81 +57,127 @@ let signUpUserDetails = (req, res) => {
   });
 };
 
-let signInUser = (req, res) => {
-  let uEmail = req.body.email; //passing id through path param
-  let uPassword = req.body.pWord;
-
-  // Looking for the user through email
-  UserModel.find({ email: uEmail }, (err, data) => {
-    if (!err) {
-      // If no initial err, then check if the user input email is found
-      // If not found then user does not exist, no need to lock the
-      // potential user out
-      if (data.length == 0) {
-        res.send("Email not found: " + data);
-      }
-
-      // If the email id exists in the db, then proceed to check the inputed
-      // password
-      else {
-        // Looking for the user inputed password
-        UserModel.find({ pWord: uPassword }, (errP, dataP) => {
-          if (!errP) {
-            // If the password is not found, then the user probably input
-            // the password wrong, three trials begin for the user with the
-            // correct email id
-            if (dataP.length == 0) {
-              // Check if the user with the inputed email id is locked out if not and the
-              // inputed password is incorrect, then decrement their number of tries
-              // if the number of tries associated with the email id reaches 0, then lock that account
-              if (data[0].isLocked == false) {
-                if (data[0].loginTries > 0) {
-                  res.send(
-                    "Incorrect Password! " + data[0].loginTries + " tries left!"
-                  );
-                  let tempLoginTries = data[0].loginTries;
-                  tempLoginTries--;
-                  UserModel.updateOne(
-                    { email: uEmail },
-                    { $set: { loginTries: tempLoginTries } },
-                    (err, result) => {}
-                  );
-                } else {
-                  res.send(
-                    "Your number of tries depleted. You are locked out! Raise ticket!"
-                  );
-                  UserModel.updateOne(
-                    { email: uEmail },
-                    { $set: { isLocked: true } },
-                    (err, result) => {}
-                  );
+let signInUser = (req,res)=> {
+    
+    let uEmail = req.params.email;       //passing id through path param 
+    let uPassword = req.params.pWord;
+    
+    // Looking for the user through email
+    UserModel.find({email:uEmail},(err,data)=> {
+        if(!err){
+            
+            // If no initial err, then check if the user input email is found
+            // If not found then user does not exist, no need to lock the 
+            // potential user out
+            if(data.length == 0){
+                let tempJSON = {
+                    "msg":"Email not found"
                 }
-              } else {
-                res.send("You are locked out! Raise ticket!");
-              }
+                res.json(tempJSON);
+                //res.send(false);
             }
 
-            // User input correct credentials, proceed forward
-            else {
-              // Reset the user's number of tries, once they login correctly
-              UserModel.updateOne(
-                { email: uEmail },
-                { $set: { loginTries: 3 } },
-                (err, result) => {}
-              );
-              res.json(dataP);
+            // If the email id exists in the db, then proceed to check the inputed
+            // password
+            else{
+                // Check if the user is locked out
+                if(data[0].isLocked == true){
+                    let tempJSON = {
+                        "msg":"You are locked out! Raise ticket!"
+                    }
+                    res.json(tempJSON);
+                }
+                // If the user is not locked out then log in
+                else{
+                    //res.send("Email found: " + data);
+                    // Looking for the user inputed password
+                    UserModel.find({pWord:uPassword}, (errP, dataP) =>{
+
+                        if(!errP){
+                            
+                            // If the password is not found, then the user probably input
+                            // the password wrong, three trials begin for the user with the
+                            // correct email id 
+                            if(dataP.length == 0){   
+                                // Check if the user with the inputed email id is locked out if not and the
+                                // inputed password is incorrect, then decrement their number of tries
+                                // if the number of tries associated with the email id reaches 0, then lock that account
+                                if(data[0].isLocked == false){
+                                    if(data[0].loginTries > 0){
+                                        //res.send(false);
+                                        //res.send("Incorrect Password! " + data[0].loginTries + " tries left!");
+                                        let tempLoginTries = data[0].loginTries;
+                                        tempLoginTries--;
+                                        UserModel.updateOne({email:uEmail}, {$set:{loginTries:tempLoginTries}}, (err, result)=>{});
+                                        let tempJSON = {
+                                            "loginTries": data[0].loginTries
+                                        }
+                                        res.json(tempJSON);
+                                        //res.send("Incorrect Password! " + data[0].loginTries + " tries left!");
+                                    }
+                                    else{
+                                        
+                                        //res.send("Your number of tries depleted. You are locked out! Raise ticket!");
+                                        //res.send(false);
+                                        UserModel.updateOne({email:uEmail}, {$set:{isLocked:true}}, (err, result)=>{});
+                                        let tempJSON = {
+                                            "msg":"Your number of tries depleted. You are locked out! Raise ticket!"
+                                        }
+                                        res.json(tempJSON);
+                                        //res.send("Your number of tries depleted. You are locked out! Raise ticket!");
+                                    }
+                                }
+                                else if(data[0].isLocked == true){
+                                    //res.send(false);
+                                    let tempJSON = {
+                                        "msg":"You are locked out! Raise ticket!"
+                                    }
+                                    res.json(tempJSON);
+                                    //res.send("You are locked out! Raise ticket!");
+                                }
+                            }
+
+                            // User input correct credentials, proceed forward
+                            else{
+                                //res.send("Password correct");
+                                // Reset the user's number of tries, once they login correctly
+                                UserModel.updateMany({email:uEmail}, {$set:{loginTries:3, isLocked:false}}, (err, result)=>{
+                                    //res.json(result); 
+                                });
+                                //dataP = JSON.parse(dataP);
+                                //res.send("Password correct");
+                                let tempJSON = {
+                                    "msg":"Password correct"
+                                }
+                                res.json(tempJSON);
+                                //res.json(dataP);                           
+                            }      
+                        }
+                        else{
+                            //res.send(false);
+                            let tempJSON = {
+                                "msg":"Finding Password Error: " + errP
+                            }
+                            res.json(tempJSON);
+                            //res.send("Finding Password Error: " + errP);
+                        }
+                    })
+                }
+                
+                //res.send("Data is: " + data);
             }
-          } else {
-            res.send("Finding Error: " + err);
-          }
-        });
-        //res.send("Data is: " + data);
-      }
-    } else {
-      res.send("Finding Error: " + err);
-    }
-  });
-};
+        }
+        else{
+            //res.send(false);
+            let tempJSON = {
+                "msg":"Finding Password Error: " + err
+            }
+            res.json(tempJSON);
+            //res.send("Finding Email Error" + err);
+        }
+    })
+    
+}
 
 let editProfile = (req, res) => {
   let id = req.body.id;

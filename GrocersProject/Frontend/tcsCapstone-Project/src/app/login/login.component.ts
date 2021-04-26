@@ -26,18 +26,29 @@ export class LoginComponent implements OnInit {
     ) {}
   ngOnInit(): void {
   }
-  
+
   signIn(userID:any, userPword:any){
     console.log(userID, userPword);
-    this.useService.signUserDetailsInfo(userID, userPword).subscribe(result => {
-      console.log(result)
-      if(result?.length>0){
-        //this.resultMsg="id is "+result[0]._id+" Product Name "+result[0].pname+" Price "+result[0].price;
-      }else {
-        //this.resultMsg="Product is not present";
+    
+    let tempObj = {"email":userID, "pWord": userPword};
+
+    
+    this.useService.signUserDetailsInfo(tempObj).subscribe(result=> {
+      if(result != null){
+        if(result.msg == "You are locked out! Raise ticket!")
+          alert(result.msg);
+        else{
+          if(result.msg == "Password correct")
+          this.router.navigate(["user"]);
+          else if(result.msg == "Email not found")
+            alert("Email not found");
+          else if(result.loginTries == 3 || result.loginTries == 2 || result.loginTries == 1)
+            alert("Incorrect Password! " + result.loginTries + " tries left!");
+          else if(result.msg == "Your number of tries depleted. You are locked out! Raise ticket!")
+            alert(result.msg);
+        }
       }
     });
-    //this.router.navigate(["user"])
   }
   
   
