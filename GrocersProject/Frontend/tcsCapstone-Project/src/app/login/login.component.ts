@@ -4,7 +4,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
 import { AdminService } from './../admin.service';
 import { Admin } from './../admin.model';
-
+import { EmployeeService } from '../employee.service';
 
 
 
@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     public router:Router, 
     public useService:UserService,
     public adminService:AdminService,
+    public empService:EmployeeService 
     ) {}
   ngOnInit(): void {
   }
@@ -61,9 +62,18 @@ export class LoginComponent implements OnInit {
     }, err => console.log(err));
   };
 
-
-  EmployeeSignUp(userID:any, userPword:any){
-    this.router.navigate(["employee"])
+  employeeSignin(userID:any,userPword:any) {
+    this.empService.validateEmpLogin(userID).subscribe(result => {
+      // console.log(result);
+      if(result != null){
+        if(userPword == result.password){
+          alert("Login Sucess")
+          this.router.navigate(["employee"]);
+        }else{
+          alert("Wrong Password")
+        }
+      }
+    }, error =>console.log(error));
   }
 
   triggerModal(content:any) {
