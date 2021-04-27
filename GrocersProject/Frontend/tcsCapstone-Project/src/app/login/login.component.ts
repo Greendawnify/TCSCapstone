@@ -54,7 +54,16 @@ export class LoginComponent implements OnInit {
   
   signUserUp(mySignUpForm:any){
     console.log(mySignUpForm);
-    this.useService.signUpUserDetails(mySignUpForm);
+    this.useService.signUpUserDetails(mySignUpForm).subscribe(data => {
+      if(data != null){
+        if(data = "Record stored successfully!"){
+          console.log(mySignUpForm);
+          this.useService.generateUserID(mySignUpForm).subscribe((resultFinal:string)=> {  
+            alert(resultFinal);
+          });
+        }
+      }
+    });
     //this.proService.storeProductDetailsInfo(productRef);
   }
 
