@@ -2,6 +2,7 @@ let mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 let RequestSchema = mongoose.Schema({
+  sender: String,
   type: String,
   description: String,
 });

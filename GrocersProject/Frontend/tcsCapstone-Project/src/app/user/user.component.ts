@@ -70,10 +70,23 @@ export class UserComponent implements OnInit {
 
   checkout(){
     // get cart object from session storiage/local storage
-    type cart ={
-      cost:number,
-      products:[string],
-      approved :boolean
+    let cart = {
+      user:"123",
+      newFunds:70,
+      products:["apple", "apple"],
+      cost: 30
     }
+
+    this.userService.checkout(cart).
+    subscribe((res:any) =>{
+      if(res.funds && res.orders){
+        console.log('both funds and orders have been updated.');
+      }else{
+        console.log('failed to updated funds and /or orders');
+      }
+    })
+
+
   };
+
 }
