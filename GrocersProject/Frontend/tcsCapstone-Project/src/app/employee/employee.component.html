@@ -32,8 +32,13 @@
                       <div class="card-body">
                         <h3 class="card-title">Order Status Update</h3>
                         <form #myform = "ngForm"  >
-                        <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
+                        <input #userIdOrder type="text" name="" class="form-control" placeholder="User_ID" aria-label="User_ID" aria-describedby="basic-addon1">
                         <p> </p>
+                        <button class="btn btn-dark" (click)="viewOrders(userIdOrder.value)" >View Orders</button>
+
+                      <div *ngFor = "let o of orderStatus">
+                        <h2>Order ID: {{o.id}}</h2>
+                        <h2>Current Status: {{o.status}}</h2>
                         <div class="input-group">
                             <select class="custom-select" id="inputGroupSelect04">
                               <option selected>Update...</option>
@@ -42,14 +47,22 @@
                               <option value="3">Delivered</option>
                             </select>
                             <div class="input-group-append">
+                              <!---Please add a function to update order status-->
                               <button class="btn btn-outline-dark" type="button">Button</button>
                             </div>
                            
                           </div>
+                      
+
+
+
+                      </div>
+                      
                           <p> </p>
                           <p> </p>
-                        <button  class="btn btn-dark">Submit</button>
-                    </form>
+                        
+                       </form>
+
                       </div>
                     </div>
                   </div>
@@ -63,7 +76,7 @@
                         <p class="text-muted" >Email</p>
                         <p class="text-muted">First Name</p>
                         <p class="text-muted">Last Name</p>
-                        <button type="button" style="margin-left: 20%;" class="btn btn-outline-dark" (click)="triggerModal(modalData)">Update Password</button>
+                        <button type="button" style="margin-left: 20%;" class="btn btn-outline-dark" (click)="triggerModal(modalData)" >Update Password</button>
                         
                       </div>
                     </div>
@@ -92,7 +105,7 @@
           </div>
           
          
-
+          <!---Model to update employee pass word-->
           <ng-template #modalData let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">Update Password</h4>
@@ -127,6 +140,7 @@
                   <button style="width: 7 rem;" class="btn btn-outline-light" (click)="changePasswordType()">Show</button>
                 </div> 
               </div>
+              
                 
                     
                     
@@ -137,13 +151,7 @@
                   </div>
                 
               </form>
-            </div>
-          
-            
-                             
-      
-           
-   
+            </div>   
           </ng-template>
 
 
@@ -179,5 +187,7 @@
               </form>
           </div> -->
         
+
+
       </body>
       </html>

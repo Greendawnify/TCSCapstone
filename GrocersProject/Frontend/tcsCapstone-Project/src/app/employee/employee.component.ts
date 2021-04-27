@@ -18,7 +18,8 @@ export class EmployeeComponent implements OnInit {
 
   lockedUsers:User[] = [];
   usersWithOrders:User[] = [];
-
+  
+ 
 
 //displays user that have account locked
   ngOnInit(): void {
@@ -111,6 +112,19 @@ else{
 this.passType == "password"
 }
 }
+orderStatus:any;
 
+viewOrders(user_id:any){
+
+  this.orderStatus=user_id.orders;
+
+
+
+
+
+
+
+
+}
 
 }
