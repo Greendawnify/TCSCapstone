@@ -32,6 +32,11 @@ export class EmployeeComponent implements OnInit {
     this.employeeSer.updateEmployeePassword(empRef).subscribe((result:string)=> {
     });
   }
-  requests = [{ type:"hello", description:"this this" },{ type:"hello", description:"this this" }]
+  //ticket raised array for testing
+  requests = [{ type:"hello", description:"this this",user_id:"anudeep" },{ type:"hello", description:"this this",user_id:"balla" }]
+  unlockUser(user_id:any){
+    //function to unlock a user
+
+  }
   
 }
