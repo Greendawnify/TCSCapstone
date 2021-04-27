@@ -73,4 +73,18 @@ export class UserService {
     return this.http.put("http://localhost:9090/user/generateUserID",mySignUpForm,{responseType:'text'})
   }
 
+  getUsersWithOrders():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:9090/user/getOrders");
+  }
+
+  updateOrderStatus(userID:any, orderID:any, status:any){
+    let newObj = {
+      userID,
+      orderID,
+      status
+    };
+
+    return this.http.put("http://localhost:9090/user/updateOrderStatus", newObj, {responseType:"text"});
+  }
+
 }
