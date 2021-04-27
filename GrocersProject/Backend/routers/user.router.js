@@ -11,5 +11,7 @@ router.post("/checkFunds", UserController.checkProperFunds);
 router.get("/getUser", UserController.getSingleUser);
 router.put("/editProfile", UserController.editProfile);
 router.put("/updateFunds", UserController.updateFunds);
+router.get("/getRaisedTickets", UserController.getTicketRasiedUsers);
+router.get("/getOrders", UserController.getUsersWithOrders);
 
 module.exports = router;

@@ -19,4 +19,8 @@ export class RequestService {
   getAllRequests():Observable<Request[]>{
     return this.http.get<Request[]>("http://localhost:9090/request/getAllRequests");
   }
+
+  delete(sender:string, desc:string, type:string){
+    return this.http.delete(`http://localhost:9090/request/delete/${sender}/${desc}/${type}`, {responseType:"text"});
+  }
 }
