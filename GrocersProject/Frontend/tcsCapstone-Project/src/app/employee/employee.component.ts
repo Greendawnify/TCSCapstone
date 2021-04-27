@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from './../request.service';
 import { EmployeeService } from '../employee.service';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -9,9 +10,9 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-
-  constructor(public requestService:RequestService,public employeeSer: EmployeeService) { }
-
+  closeModal: string="";
+  constructor(public requestService:RequestService,public employeeSer: EmployeeService,private modalService: NgbModal) { }
+  viewReq:boolean=false
   ngOnInit(): void {
   }
 
@@ -38,5 +39,26 @@ export class EmployeeComponent implements OnInit {
     //function to unlock a user
 
   }
-  
+  viewRequest(){
+    this.viewReq = !(this.viewReq)
+  }
+  //modal functions   
+  triggerModal(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+      this.closeModal = `Closed with: ${res}`;
+    }, (res) => {
+      this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+  //end of modal functions
+
 }
