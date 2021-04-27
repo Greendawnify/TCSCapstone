@@ -63,7 +63,7 @@
                         <p class="text-muted" >Email</p>
                         <p class="text-muted">First Name</p>
                         <p class="text-muted">Last Name</p>
-                        <button type="button" style="margin-left: 20%;" class="btn btn-link" (click)="triggerModal(modalData)">Forgot Password/Username</button>
+                        <button type="button" style="margin-left: 20%;" class="btn btn-outline-dark" (click)="triggerModal(modalData)">Update Password</button>
                         
                       </div>
                     </div>
@@ -112,13 +112,25 @@
                       <input type="text" class="form-control" placeholder="Username" aria-label="Employee ID" aria-describedby="basic-addon1">
                     </div>
                   <br>
+                  
+          
                   <div class="row">
-                  <input type="password" class="form-control" placeholder="Current Password" aria-label="Employee ID" aria-describedby="basic-addon1">
-                  <input type="checkbox" onclick="myFunction()">Show Password
+                    <div class="input-group mb-1">
+                    <input [type] = "passType" class="form-control" placeholder=" Current Password" aria-label="Current Password" aria-describedby="basic-addon1">
+                    <button style="width: 7 rem;" class="btn btn-outline-light" (click)="changePasswordType()">Show</button>
+                  </div>
                 </div>
-                  <input type="password" class="form-control" placeholder="New Password" aria-label="Employee ID" aria-describedby="basic-addon1">
-
-              
+                <br>
+                <div class="row">
+                  <div class="input-group mb-1">
+                  <input [type] = "passType" class="form-control" placeholder=" New Password" aria-label="New Password" aria-describedby="basic-addon1">
+                  <button style="width: 7 rem;" class="btn btn-outline-light" (click)="changePasswordType()">Show</button>
+                </div> 
+              </div>
+                
+                    
+                    
+                  
                   <div class="modal-footer">
                     <input type="submit" value="Raise Ticket" class="btn btn-dark" (click)="modal.close('Save click')">
                     <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->

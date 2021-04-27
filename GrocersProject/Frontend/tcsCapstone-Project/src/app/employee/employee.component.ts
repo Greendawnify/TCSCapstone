@@ -85,4 +85,17 @@ export class EmployeeComponent implements OnInit {
   }
   //end of modal functions
 
+//passowrds show
+passType: string = "password";
+
+changePasswordType(){
+if(this.passType === "password"){
+this.passType= "text"
+}
+else{
+this.passType == "password"
+}
+}
+
+
 }
