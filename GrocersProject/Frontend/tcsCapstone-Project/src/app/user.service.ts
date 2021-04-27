@@ -42,4 +42,20 @@ export class UserService {
 
   checkout(){}
 
+//get atickets find();
+
+
+
+
+
+//save tickets
+
+
+
+//resolve ticket
+
+
+
+
+
 }

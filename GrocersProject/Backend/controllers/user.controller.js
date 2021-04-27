@@ -179,6 +179,68 @@ let signInUser = (req,res)=> {
     
 }
 
+
+
+let unlockUser = (req, res) => {
+
+  let uEmail = req.body.email;    //passing id through path param 
+
+  // Looking for the user through email
+  UserModel.find({ email: uEmail }, (err, data) => {
+    if (!err) {
+
+      // If no initial err, then check if the user input email is found
+      // If not found then user does not exist, no need to lock the 
+      // potential user out
+      if (data.length == 0) {
+        let tempJSON = {
+          "msg": "Email not found"
+        }
+        res.json(tempJSON);
+        //res.send(false);
+      }
+
+      // If the email id exists in the db, then proceed to check the inputed
+      // password
+      else {
+        // Check if the user is locked out
+        if (data[0].isLocked == true) {
+
+          let tempLoginTries= 0;
+          let tempLockedStatus= false;
+          data[0].isLocked=false;
+          UserModel.updateOne({email:uEmail}, {$set:{loginTries:tempLoginTries, isLocked: tempLockedStatus}}, (err, result)=>{});
+        
+          //res.send("Incorrect Password! " + data[0].loginTries + " tries left!");
+
+          let tempJSON = {
+            
+            "msg": "User has been  unlocked"
+          }
+          res.json(tempJSON);
+        }
+
+
+
+
+
+        // If the user is not locked out then log in
+        
+        //res.send("Data is: " + data);
+      }
+    }
+    else {
+      //res.send(false);
+      let tempJSON = {
+        "msg": "Finding Password Error: " + err
+      }
+      res.json(tempJSON);
+      //res.send("Finding Email Error" + err);
+    }
+  })
+
+}
+
 let editProfile = (req, res) => {
   let id = req.body.id;
   let phone = req.body.phone;
@@ -497,5 +559,5 @@ module.exports = {
   checkProperFunds,
   getSingleUser,
   editProfile,
-  updateFunds,
+  updateFunds,unlockUser
 };

@@ -81,6 +81,7 @@ let updateEmployeePassword = (req, res) => {
 let validateEmployee = (req, res) => {
   let cid=req.params.cId;
     
+  
     EmployeeModel.find({_id:cid}, (err, result) => {
       if (!err) {
         res.json(result[0]);

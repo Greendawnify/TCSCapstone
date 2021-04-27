@@ -32,6 +32,7 @@ var ProductRotuer = require("./routers/product.router");
 var User = require("./routers/user.router.js");
 
 var EmployeeRouter = require("./routers/employee.router");
+var TicketRouter = require("./routers/ticket.router");
 
 var RequestRouter = require("./routers/request.router");
 
@@ -43,6 +44,8 @@ app.use("/user", User);
 app.use("/product", ProductRotuer);
 
 app.use("/employee", EmployeeRouter);
+
+app.use("/ticket", TicketRouter);
 
 app.use("/request", RequestRouter);
 

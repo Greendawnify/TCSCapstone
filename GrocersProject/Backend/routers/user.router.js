@@ -2,6 +2,8 @@ let express = require("express");
 let router = express.Router(); //router reference.
 let UserController = require("../controllers/user.controller.js");
 
+let TicketController = require("../controllers/ticket.controller.js");
+
 //mapping sub path with http methods.
 router.get("/allUserDetails", UserController.getUserDetails);
 router.post("/storeUserDetails", UserController.signUpUserDetails);
@@ -11,5 +13,8 @@ router.post("/checkFunds", UserController.checkProperFunds);
 router.get("/getUser", UserController.getSingleUser);
 router.put("/editProfile", UserController.editProfile);
 router.put("/updateFunds", UserController.updateFunds);
+router.post("/unlockUser", UserController.unlockUser);
+
+
 
 module.exports = router;
