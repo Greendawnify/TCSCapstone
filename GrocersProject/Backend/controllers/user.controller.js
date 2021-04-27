@@ -11,10 +11,14 @@ let getUserDetails = (req, res) => {
 };
 
 let getTicketRasiedUsers = (req, res) => {
-  UserModel.find({ isLocked: true, ticketRasied: true }, (err, result) => {
+
+
+  
+  UserModel.find({ isLocked: true, ticketRaised: true }, (err, result) => {
     if (!err) {
       res.json(result);
     }
+    
   });
 };
 

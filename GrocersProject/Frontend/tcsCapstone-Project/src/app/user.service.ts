@@ -50,4 +50,8 @@ export class UserService {
     console.log("In User Service: " + myTicketForm);
     return this.http.put("http://localhost:9090/user/updateTicket",myTicketForm,{responseType:'text'})
   }
+
+  getRaisedTicket():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:9090/user/getRaisedTickets")
+  }
 }
