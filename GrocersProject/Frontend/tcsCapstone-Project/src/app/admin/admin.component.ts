@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit {
     public requestService:RequestService
     ) { }
 
+  // Testing requests = [{ type:"hello", description:"this this" },{ type:"hello", description:"this this" }]
   ngOnInit(): void {
     this.requestService.getAllRequests().subscribe(res => this.requests = res);
   }
