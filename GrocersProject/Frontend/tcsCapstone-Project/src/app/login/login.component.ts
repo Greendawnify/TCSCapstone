@@ -34,19 +34,21 @@ export class LoginComponent implements OnInit {
 
     
     this.useService.signUserDetailsInfo(tempObj).subscribe(result=> {
+      //console.log("Sign In: " + result);
+      //JSON.parse(result);
       if(result != null){
-        if(result.msg == "You are locked out! Raise ticket!")
-          alert(result.msg);
+        console.log("Sign In: " + result);
+        if(result == "You are locked out! Raise ticket!")
+          alert(result);
         else{
-          if(result.msg == "Password correct")
-          
+          if(result == "Password correct")
             this.router.navigate(["user"]);
-          else if(result.msg == "User ID not found")
+          else if(result == "User ID not found")
             alert("User ID not found");
-          else if(result.loginTries == 3 || result.loginTries == 2 || result.loginTries == 1)
-            alert("Incorrect Password! " + result.loginTries + " tries left!");
-          else if(result.msg == "Your number of tries depleted. You are locked out! Raise ticket!")
-            alert(result.msg);
+          else if(Number(result) == 3 || Number(result) == 2 || Number(result) == 1)
+            alert("Incorrect Password! " + result + " tries left!");
+          else if(result == "Your number of tries depleted. You are locked out! Raise ticket!")
+            alert(result);
         }
       }
     });

@@ -77,8 +77,8 @@ let signUpUserDetails = (req, res) => {
 
 // Function for signing in and validating user
 let signInUser = (req,res)=> {
-  let uGenID = req.params.autoGenID;       //passing id through path param 
-  let uPassword = req.params.pWord;
+  let uGenID = req.body.autoGenID;       //passing id through path param 
+  let uPassword = req.body.pWord;
 
   // Looking for the user through ID
   UserModel.find({ autoGenID: uGenID }, (err, data) => {
@@ -87,11 +87,12 @@ let signInUser = (req,res)=> {
       // If not found then user does not exist, no need to lock the
       // potential user out
       if (data.length == 0) {
-        let tempJSON = {
+        /* let tempJSON = {
           msg: "User ID not found",
         };
-        res.json(tempJSON);
+        res.json(tempJSON); */
         //res.send(false);
+        res.send("User ID not found");
       }
 
       // If the id exists in the db, then proceed to check the inputed
@@ -99,10 +100,11 @@ let signInUser = (req,res)=> {
       else {
         // Check if the user is locked out
         if (data[0].isLocked == true) {
-          let tempJSON = {
+          /* let tempJSON = {
             msg: "You are locked out! Raise ticket!",
           };
-          res.json(tempJSON);
+          res.json(tempJSON); */
+          res.send("You are locked out! Raise ticket!");
         }
         // If the user is not locked out then log in
         else {
@@ -128,10 +130,11 @@ let signInUser = (req,res)=> {
                       { $set: { loginTries: tempLoginTries } },
                       (err, result) => {}
                     );
-                    let tempJSON = {
+                    res.send(data[0].loginTries.toString())
+                    /* let tempJSON = {
                       loginTries: data[0].loginTries,
                     };
-                    res.json(tempJSON);
+                    res.json(tempJSON); */
                     //res.send("Incorrect Password! " + data[0].loginTries + " tries left!");
                   } else {
                     //res.send("Your number of tries depleted. You are locked out! Raise ticket!");
@@ -141,20 +144,20 @@ let signInUser = (req,res)=> {
                       { $set: { isLocked: true } },
                       (err, result) => {}
                     );
-                    let tempJSON = {
+                    /* let tempJSON = {
                       msg:
                         "Your number of tries depleted. You are locked out! Raise ticket!",
                     };
-                    res.json(tempJSON);
-                    //res.send("Your number of tries depleted. You are locked out! Raise ticket!");
+                    res.json(tempJSON); */
+                    res.send("Your number of tries depleted. You are locked out! Raise ticket!");
                   }
                 } else if (data[0].isLocked == true) {
                   //res.send(false);
-                  let tempJSON = {
+                  /* let tempJSON = {
                     msg: "You are locked out! Raise ticket!",
                   };
-                  res.json(tempJSON);
-                  //res.send("You are locked out! Raise ticket!");
+                  res.json(tempJSON); */
+                  res.send("You are locked out! Raise ticket!");
                 }
               }
 
@@ -170,20 +173,20 @@ let signInUser = (req,res)=> {
                   }
                 );
                 //dataP = JSON.parse(dataP);
-                //res.send("Password correct");
-                let tempJSON = {
+                res.send("Password correct");
+                /* let tempJSON = {
                   msg: "Password correct",
                 };
-                res.json(tempJSON);
+                res.json(tempJSON); */
                 //res.json(dataP);
               }
             } else {
               //res.send(false);
-              let tempJSON = {
+              /* let tempJSON = {
                 msg: "Finding Password Error: " + errP,
               };
-              res.json(tempJSON);
-              //res.send("Finding Password Error: " + errP);
+              res.json(tempJSON); */
+              res.send("Finding Password Error: " + errP);
             }
           });
         }
@@ -192,11 +195,11 @@ let signInUser = (req,res)=> {
       }
     } else {
       //res.send(false);
-      let tempJSON = {
+      /* let tempJSON = {
         msg: "Finding Password Error: " + err,
       };
-      res.json(tempJSON);
-      //res.send("Finding Email Error" + err);
+      res.json(tempJSON); */
+      res.send("Finding Email Error" + err);
     }
   });
 };
