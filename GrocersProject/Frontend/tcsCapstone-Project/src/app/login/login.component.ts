@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   signIn(userID:any, userPword:any){
     console.log(userID, userPword);
     
-    let tempObj = {"email":userID, "pWord": userPword};
+    let tempObj = {"autoGenID":userID, "pWord": userPword};
 
     
     this.useService.signUserDetailsInfo(tempObj).subscribe(result=> {
@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
           if(result.msg == "Password correct")
           
             this.router.navigate(["user"]);
-          else if(result.msg == "Email not found")
-            alert("Email not found");
+          else if(result.msg == "User ID not found")
+            alert("User ID not found");
           else if(result.loginTries == 3 || result.loginTries == 2 || result.loginTries == 1)
             alert("Incorrect Password! " + result.loginTries + " tries left!");
           else if(result.msg == "Your number of tries depleted. You are locked out! Raise ticket!")

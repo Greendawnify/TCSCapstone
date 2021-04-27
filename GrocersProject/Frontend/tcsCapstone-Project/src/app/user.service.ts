@@ -20,7 +20,7 @@ export class UserService {
   }
 
   signUserDetailsInfo(uIDandpWord: any):Observable<any>{
-    return this.http.get<any>("http://localhost:9090/user/userSignIn/"+uIDandpWord.email+"/"+uIDandpWord.pWord);
+    return this.http.get<any>("http://localhost:9090/user/userSignIn/"+uIDandpWord.autoGenID+"/"+uIDandpWord.pWord);
   }
 
   updateProfile(profileRef:any){
@@ -65,7 +65,7 @@ export class UserService {
   }
 
   retrieveUserById(userInitInfo: any):Observable<any>{
-    return this.http.get<any>("http://localhost:9090/user/getUser/"+userInitInfo.fName+"/"+userInitInfo.lName+"/"+userInitInfo.email+"/"+userInitInfo.pWord);
+    return this.http.get<any>("http://localhost:9090/user/getUser/"+userInitInfo.fName+"/"+userInitInfo.lName+"/"+userInitInfo.email+"/"+userInitInfo.pWord+"/"+userInitInfo.autoGenID);
   }
 
   generateUserID(mySignUpForm: any){
