@@ -69,8 +69,8 @@ export class UserComponent implements OnInit {
      cart = localStorage.getItem('cart');
 
      let id = Math.floor(Math.random() * 10000).toString() + addProductRef.name + addProductRef.cost.toString();
-     let number = parseInt(quantity);
-     let price = addProductRef.cost * number;
+     let quanityNumber = parseInt(quantity);
+     let price = addProductRef.cost * quanityNumber;
 
      let newObj ={
        id,
@@ -93,6 +93,20 @@ export class UserComponent implements OnInit {
 
      }else{
       let oldCart = JSON.parse(cart);
+
+      // check if I am adding the same product to the checkout list
+      for(let c of oldCart){
+        if(c.name = addProductRef.name){
+          // I am adding the same product tot he list. Instead update this cart obj
+          c.quanitity += quanityNumber;
+          c.price += price;
+
+          this.tempCart = oldCart;
+          localStorage.setItem('cart', JSON.stringify(oldCart));
+          console.log("Temp cart after updating", this.tempCart);
+          return;
+        }
+      }
 
       oldCart.push(newObj);
 

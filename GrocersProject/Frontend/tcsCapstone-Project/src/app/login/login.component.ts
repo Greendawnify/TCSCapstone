@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
       if(res != null){
         if(userPassword == res.password){
           
+          sessionStorage.setItem('adminToken', '123');
           this.router.navigate(["admin"]);
         }else{
           console.log('wrong password');
@@ -80,6 +81,7 @@ export class LoginComponent implements OnInit {
       if(result != null){
         if(userPword == result.password){
           alert("Login Sucess")
+          sessionStorage.setItem("employeeToken", "123");
           this.router.navigate(["employee"]);
         }else{
           alert("Wrong Password")
