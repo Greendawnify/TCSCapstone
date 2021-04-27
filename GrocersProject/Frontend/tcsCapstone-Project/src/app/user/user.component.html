@@ -6,6 +6,10 @@
     <title>User</title>
 </head>
 <body>
+
+
+
+
   <div *ngIf="notShopping" class="lightbox">
     <div class="row">
       <div class="col-lg-6">
@@ -47,32 +51,63 @@
 
 
 
-
+  <div class="row" >
     <div *ngIf="isShopping" class="container">
+           
+            
             <div class="row" >
                 
-                <div class="col-sm-3" *ngFor="let card of cards" >
+                <div class="col-sm-3" *ngFor="let product of products" >
                   <div class="card bg-light mb-3" style="margin-top: 6%;">
-                   <img class="card-img-top" [src]="card.img" alt="Card image cap" style="height:20ch;"> 
+                   <!---<img class="card-img-top" [src]="product.img" alt="Card image cap" style="height:20ch;">--->
                   <div class="card-body">
-                    <h2 class="card-title">{{card.title}}</h2>
+                    <h2 class="card-title">{{product.name}}</h2>
                     
                     <p style="text-align: center;" class="price">$19.99</p>
                     <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
-                    <p><button href="#" class="btn btn-dark">Add to Cart</button></p>
+                    <p><button  class="btn btn-dark" (onClick)="addProduct(product)">Add to Cart</button></p>
                   </div>
                 </div>
-              </div>
-              
-          </div>
-        </div>
+              </div> 
+            </div>
+            <!-----   Side Cart-->
+            
+
+
+
+
+          
+          
+
+       
       
    
-    
+          </div>
+          
+          <div *ngIf="isShopping" class="card" style="width: 12rem">
+            <button style="width: 12rem; height: 3rem;" class="btn btn-dark"> <img style="width:3rem ; height:2rem ;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPSJptkcLi1WnHyExuc9Wg83x6s1EgSZBnFY6ftfJbwbmDBSCEbKBUff9z9uNsyoJpTy8&usqp=CAU">
+            </button>
+           <div class="card-body">
+              <h5 class="card-title">Cart</h5>
+              <h6 class="card-subtitle">List of orders</h6>
+              
+           <!---<div class="col" *ngFor="let cart of carts" >
+                
+                  <h5>order name: {{carts.name}}</h5>
+                  <h5>order quantity {{carts.quantity}}</h5>
 
-      
+                <button  class="btn btn-dark" (onClick)="deleteProduct(cart)">delete</button>
+              </div>--->
+
+                
+             
+              
+            </div>
+          </div>
+
+  </div>
       
 </body>
 </html>

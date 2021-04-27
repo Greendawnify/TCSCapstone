@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RequestService } from './../request.service';
 import { EmployeeService } from '../employee.service';
 
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -31,5 +32,6 @@ export class EmployeeComponent implements OnInit {
     this.employeeSer.updateEmployeePassword(empRef).subscribe((result:string)=> {
     });
   }
+  requests = [{ type:"hello", description:"this this" },{ type:"hello", description:"this this" }]
   
 }

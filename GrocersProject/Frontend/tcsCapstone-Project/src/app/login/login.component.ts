@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
           alert(result.msg);
         else{
           if(result.msg == "Password correct")
+          
             this.router.navigate(["user"]);
           else if(result.msg == "Email not found")
             alert("Email not found");
