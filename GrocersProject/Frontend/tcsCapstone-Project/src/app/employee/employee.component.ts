@@ -15,7 +15,13 @@ export class EmployeeComponent implements OnInit {
   }
 
   createRequest(request:any){
-    // the values in the body have to be Type, and Description
+    // the values in the body have to be Type, and Description, and sender
+    // need to add the current employee record to local storage and then add its id or name to this request
+    let newObj = {
+      type:request.type,
+      description:request.description,
+      sender: "phil"// the current employees name or id
+    };
     this.requestService.createRequest(request);
   }
 

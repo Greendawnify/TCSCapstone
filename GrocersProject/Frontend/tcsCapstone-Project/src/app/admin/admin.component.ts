@@ -12,6 +12,8 @@ import { Request } from './../request.model';
 export class AdminComponent implements OnInit {
   Employee:boolean= false;
   Product:boolean=false;
+  request:boolean = false;
+  report:boolean = false;
   deleteMsg?:string;
   requests:Request[] = new Array;
   constructor(
@@ -25,13 +27,37 @@ export class AdminComponent implements OnInit {
   }
 
   Emp_visible(){
-    this.Product=false;
+    this.invisible();
     this.Employee=true;
   }
   Prd_visible(){
-    this.Employee=false;
+    this.invisible();
     this.Product=true;
     
+  }
+
+  requestVisible(){
+    this.invisible();
+    this.request = true;
+  }
+
+  reportsVisible(){
+    this.invisible();
+    this.report = true;
+  }
+
+  invisible(){
+    this.Employee = false;
+    this.Product = false;
+    this.request = false;
+    this.report = false;
+  }
+
+  completedRequest(type:string, description:string, sender:string){
+    console.log(type, description);
+    
+    this.requestService.delete(sender, description, type).
+    subscribe((res:string) => console.log(res), err => console.log(err));
   }
 
   addProduct(productRef:any){
