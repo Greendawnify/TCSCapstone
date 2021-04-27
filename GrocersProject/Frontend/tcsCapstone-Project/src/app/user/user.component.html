@@ -64,7 +64,7 @@
                     <h2 class="card-title">{{product.name}}</h2>
 
                     <p style="text-align: left;" class="price">{{product.quantity}} :Products left!</p>
-                    <p style="text-align: center;" class="price">{{product.cost}}</p>
+                    <p style="text-align: center;" class="price">${{product.cost}}</p>
                     <input type="number" #quantity class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
@@ -98,7 +98,7 @@
                 
                   <h5>order name: {{tempCart.name}}</h5>
                   <h5>order quantity {{tempCart.quantity}}</h5>
-                  <h5>order Price{{tempCart.price}}</h5>
+                  <h5>order Price: ${{tempCart.price}}</h5>
 
                 <button  class="btn btn-dark" (click)="deleteProduct(tempCart.id)">delete</button>
               </div>
