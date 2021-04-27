@@ -48,7 +48,7 @@
                           </div>
                           <p> </p>
                           <p> </p>
-                        <a href="#" class="btn btn-dark">Submit</a>
+                        <button  class="btn btn-dark">Submit</button>
                     </form>
                       </div>
                     </div>
@@ -63,28 +63,80 @@
                         <p class="text-muted" >Email</p>
                         <p class="text-muted">First Name</p>
                         <p class="text-muted">Last Name</p>
+                        <button type="button" style="margin-left: 20%;" class="btn btn-link" (click)="triggerModal(modalData)">Forgot Password/Username</button>
                         
                       </div>
                     </div>
                   </div>
                   
               </div>
-              <div style="margin-left: 30% ;" *ngFor = "let r of requests">
+
+              <div class="card bg-light mb-3" style="margin-top: 6%;">
+              <button class="btn btn-dark" value="Submit" (click)="viewRequest()"> View all requests </button>
+            </div>
+              
+              <div *ngIf="viewReq" >
+              <div  style="margin-left: 30% ;" *ngFor = "let r of requests">
                 <div class="row">
                 <div class="col-sm-6"  >
                   
                   <div class="card bg-light mb-3" style="margin-top: 6%;">
                   <div class="card-body">
                     <h2 class="card-title">Ticket Raised to Unlock the account of</h2>
-                    
-                    
-  
-                    <p><button  class="btn btn-dark" style="margin-left: 70% ;" (onClick)="unlockUser(r.user_id)">Completed</button></p><!---  -->
+                    <button  class="btn btn-dark" value="Submit" style="margin-left: 70% ;" (click)="unlockUser(r.user_id)">Completed</button><!---  -->
                   </div>
                 </div>
                   </div>
               </div>
             </div>
+          </div>
+          
+         
+
+          <ng-template #modalData let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Update Password</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true" >×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+
+              <form #myTicketForm = "ngForm"  >
+                  
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Username" aria-label="Employee ID" aria-describedby="basic-addon1">
+                    </div>
+                  <br>
+                  <div class="row">
+                  <input type="password" class="form-control" placeholder="Current Password" aria-label="Employee ID" aria-describedby="basic-addon1">
+                  <input type="checkbox" onclick="myFunction()">Show Password
+                </div>
+                  <input type="password" class="form-control" placeholder="New Password" aria-label="Employee ID" aria-describedby="basic-addon1">
+
+              
+                  <div class="modal-footer">
+                    <input type="submit" value="Raise Ticket" class="btn btn-dark" (click)="modal.close('Save click')">
+                    <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
+                  </div>
+                
+              </form>
+            </div>
+          
+            
+                             
+      
+           
+   
+          </ng-template>
+
+
+
+
 
 
 
