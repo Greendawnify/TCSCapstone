@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
     this.isShopping=true;
     this.notShopping=false;
   }
-
+  orders = [ {name:'banana',quantity:4},{name:'apple',quantity:5}]
   cards = [
     {
       title: 'Banana',

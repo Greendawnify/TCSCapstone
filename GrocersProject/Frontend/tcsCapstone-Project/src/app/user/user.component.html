@@ -6,6 +6,10 @@
     <title>User</title>
 </head>
 <body>
+
+
+
+
   <div *ngIf="notShopping" class="lightbox">
     <div class="row">
       <div class="col-lg-6">
@@ -47,8 +51,10 @@
 
 
 
-
+  <div class="row" >
     <div *ngIf="isShopping" class="container">
+           
+            
             <div class="row" >
                 
                 <div class="col-sm-3" *ngFor="let card of cards" >
@@ -61,18 +67,45 @@
                     <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
-                    <p><button href="#" class="btn btn-dark">Add to Cart</button></p>
+                    <p><button  class="btn btn-dark">Add to Cart</button></p>
                   </div>
                 </div>
-              </div>
-              
-          </div>
-        </div>
+              </div> 
+            </div>
+            <!-----   Side Cart-->
+            
+
+
+
+
+          
+          
+
+       
       
    
-    
+          </div>
+          
+          <div class="card" style="width: 12rem">
+            <div class="card-body">
+              <h5 class="card-title">Cart</h5>
+              <h6 class="card-subtitle">List of orders</h6>
+              
+            <div class="col" *ngFor="let order of orders" >
+                
+                  <h5>order name: {{order.name}}</h5>
+                  <h5>order quantity {{order.quantity}}</h5>
 
-      
+                <button  class="btn btn-dark">delete</button>
+              </div>
+
+                
+             
+              
+            </div>
+          </div>
+
+  </div>
       
 </body>
 </html>
