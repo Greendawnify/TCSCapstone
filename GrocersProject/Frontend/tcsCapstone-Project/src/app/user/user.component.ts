@@ -9,12 +9,18 @@ import { UserService } from './../user.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  isShopping:boolean= false;
+  notShopping:boolean = true;
 
   products:Product[] = new Array;
   constructor(public productService:ProductServiceService, public userService:UserService) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
+  }
+  is_Shopping(){
+    this.isShopping=true;
+    this.notShopping=false;
   }
 
   cards = [
@@ -70,10 +76,23 @@ export class UserComponent implements OnInit {
 
   checkout(){
     // get cart object from session storiage/local storage
-    type cart ={
-      cost:number,
-      products:[string],
-      approved :boolean
+    let cart = {
+      user:"123",
+      newFunds:70,
+      products:["apple", "apple"],
+      cost: 30
     }
+
+    this.userService.checkout(cart).
+    subscribe((res:any) =>{
+      if(res.funds && res.orders){
+        console.log('both funds and orders have been updated.');
+      }else{
+        console.log('failed to updated funds and /or orders');
+      }
+    })
+
+
   };
+
 }

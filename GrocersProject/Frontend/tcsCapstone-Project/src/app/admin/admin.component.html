@@ -7,8 +7,9 @@
       </head>
       <body>
           <div >
-        <button style="margin-left: 30%;" class="btn btn-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
-        <button style="margin-left: 20%;"class="btn btn-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
+        <button style="margin-left: 15%;" class="btn btn-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="reportsVisible()">Reports Tab</button>
          </div>
         
         <div *ngIf="Employee">
@@ -55,7 +56,16 @@
       
         
 
-        <div *ngIf="Product">
+          <div *ngIf="Product">
+            <div class="row">
+              <ul *ngFor = "let r of requests">
+                <li>Type: {{r.type}}. Message: {{r.description}}
+                  <button (click) = "completedRequest(r.type, r.description, r.sender)">
+                    Completed
+                  </button>
+                </li>
+              </ul>
+            </div>
             <div class="row" style="margin-left: 15%;margin-top: 5%;">
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
@@ -113,6 +123,7 @@
                   </div>
               </div>
             </div>
+
             
         
       </body>

@@ -40,7 +40,9 @@ export class UserService {
     return this.http.put("http://localhost:9090/user/updateFunds", fundsRef, {responseType:"text"});
   }
 
-  checkout(){}
+  checkout(cartObj:any){
+    return this.http.put("http://localhost:9090/user/checkout", cartObj, {responseType:"text"});
+  }
 
 
   // For Raise ticket
