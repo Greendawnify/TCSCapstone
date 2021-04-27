@@ -205,27 +205,7 @@ let unlockUser = (req, res) => {
   let uId = req.body.id;
 
   UserModel.updateOne(
-    { email: uId },
-    { $set: { isLocked: false, loginTries: 3, ticketRaised: false } },
-    (err, result) => {
-      if (!err) {
-        if (result.nModified > 0) {
-          res.send("User unlcoked");
-        } else {
-          res.send("Could  ot find user");
-        }
-      } else {
-        res.send("error", err);
-      }
-    }
-  );
-};
-
-let unlockUser = (req, res) => {
-  let uId = req.body.id;
-
-  UserModel.updateOne(
-    { email: uId },
+    { autoGenID: uId },
     { $set: { isLocked: false, loginTries: 3, ticketRaised: false } },
     (err, result) => {
       if (!err) {
