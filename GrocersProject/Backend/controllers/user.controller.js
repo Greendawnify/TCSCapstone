@@ -199,6 +199,25 @@ let signInUser = (req,res)=> {
   });
 };
 
+let unlockUser = (req, res) =>{
+  let uId = req.body.id;
+
+  UserModel.updateOne(
+    {email:uId}, 
+    {$set:{isLocked = false, loginTries = 3, ticketRaised = false}}, 
+    (err, result)=>{
+      if(!err){
+        if(result.nModified > 0){
+          res.send("User unlcoked");
+        }else{
+          res.send("Could  ot find user");
+        }
+      }else{
+        res.send("error", err);
+      }
+  })
+}
+
 // Function for Raising ticket (Updating the Boolean in the User Model)
 let updateTicketRaised = (req,res)=> {
     let uFName = req.body.fName;
@@ -588,5 +607,6 @@ module.exports = {
   updateFunds,
   updateTicketRaised,
   getTicketRasiedUsers,
-  getUsersWithOrders
+  getUsersWithOrders,
+  unlockUser
 };

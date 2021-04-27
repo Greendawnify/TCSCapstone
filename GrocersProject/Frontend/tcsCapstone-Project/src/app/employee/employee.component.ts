@@ -12,23 +12,23 @@ import { User } from '../model.user';
 })
 export class EmployeeComponent implements OnInit {
 
-  users?:Array<User>;
+  lockedUsers:User[] = [];
 
   constructor(public requestService:RequestService,public employeeSer: EmployeeService, public userService:UserService) { }
 
 //displays user that have account locked
   ngOnInit(): void {
-    this.userService.getRaisedTicket().subscribe(result=>this.users = result);
-    console.log("Unlocked users details:" +this.users)
+    this.userService.getRaisedTicket().
+    subscribe(result=>{
+      this.lockedUsers = result;
+      console.log(this.lockedUsers);
+    }, err => console.log(err));
    
   }
 
 //unlock user account 
-  unlockUserAccount(unlockUserForm:any){
-    
-    unlockUserForm.raiseOrLowerTicker = false; 
-    console.log(unlockUserForm);
-    this.userService.raiseTicketService(unlockUserForm).subscribe((result:string)=> {
+  unlockUserAccount(userID:any){
+    this.userService.unlockUser(userID).subscribe((result:string)=> {
       alert(result);
       console.log("Successfully unlocked")
     });

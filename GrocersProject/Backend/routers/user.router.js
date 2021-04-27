@@ -14,5 +14,6 @@ router.put("/updateFunds", UserController.updateFunds);
 router.put("/updateTicket", UserController.updateTicketRaised);
 router.get("/getRaisedTickets", UserController.getTicketRasiedUsers);
 router.get("/getOrders", UserController.getUsersWithOrders);
+router.put("/unlockUser", UserController.unlockUser);
 
 module.exports = router;

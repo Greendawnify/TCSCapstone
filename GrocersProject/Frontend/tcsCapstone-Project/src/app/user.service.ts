@@ -46,9 +46,11 @@ export class UserService {
 
 
   // For Raise ticket
-  raiseTicketService(myTicketForm: any){
-    console.log("In User Service: " + myTicketForm);
-    return this.http.put("http://localhost:9090/user/updateTicket",myTicketForm,{responseType:'text'})
+  unlockUser(id: any){
+    let newObj = {
+      id
+    }
+    return this.http.put("http://localhost:9090/user/updateTicket",newObj,{responseType:'text'})
   }
 
   getRaisedTicket():Observable<User[]>{
