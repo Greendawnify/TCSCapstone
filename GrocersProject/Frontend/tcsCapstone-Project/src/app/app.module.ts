@@ -19,6 +19,9 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartComponent } from './cart/cart.component';
+import { UserAuthGuard } from './authGuardUser';
+import { EmployeeAuthGuard } from './employeeAuthGuard';
+import { AdminAuthGuard } from './adminAuthGuard';
 
 
 
@@ -40,7 +43,8 @@ import { CartComponent } from './cart/cart.component';
 
   ],
   imports: [
-    BrowserModule,
+  
+  BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -50,7 +54,7 @@ import { CartComponent } from './cart/cart.component';
     MatTabsModule,
     FormsModule, HttpClientModule,NgbModule    
   ],
-  providers: [],
+  providers: [UserAuthGuard, EmployeeAuthGuard, AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
