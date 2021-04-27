@@ -57,17 +57,17 @@
             
             <div class="row" >
                 
-                <div class="col-sm-3" *ngFor="let card of cards" >
+                <div class="col-sm-3" *ngFor="let product of products" >
                   <div class="card bg-light mb-3" style="margin-top: 6%;">
-                   <img class="card-img-top" [src]="card.img" alt="Card image cap" style="height:20ch;"> 
+                   <!---<img class="card-img-top" [src]="product.img" alt="Card image cap" style="height:20ch;">--->
                   <div class="card-body">
-                    <h2 class="card-title">{{card.title}}</h2>
+                    <h2 class="card-title">{{product.name}}</h2>
                     
                     <p style="text-align: center;" class="price">$19.99</p>
                     <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
-                    <p><button  class="btn btn-dark">Add to Cart</button></p>
+                    <p><button  class="btn btn-dark" (onClick)="addProduct(product)">Add to Cart</button></p>
                   </div>
                 </div>
               </div> 
@@ -93,13 +93,13 @@
               <h5 class="card-title">Cart</h5>
               <h6 class="card-subtitle">List of orders</h6>
               
-            <div class="col" *ngFor="let order of orders" >
+           <!---<div class="col" *ngFor="let cart of carts" >
                 
-                  <h5>order name: {{order.name}}</h5>
-                  <h5>order quantity {{order.quantity}}</h5>
+                  <h5>order name: {{carts.name}}</h5>
+                  <h5>order quantity {{carts.quantity}}</h5>
 
-                <button  class="btn btn-dark">delete</button>
-              </div>
+                <button  class="btn btn-dark" (onClick)="deleteProduct(cart)">delete</button>
+              </div>--->
 
                 
              

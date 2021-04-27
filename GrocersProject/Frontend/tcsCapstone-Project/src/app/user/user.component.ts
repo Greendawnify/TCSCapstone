@@ -11,6 +11,7 @@ import { UserService } from './../user.service';
 export class UserComponent implements OnInit {
   isShopping:boolean= false;
   notShopping:boolean = true;
+  
 
   products:Product[] = new Array;
   constructor(public productService:ProductServiceService, public userService:UserService) { }
@@ -82,6 +83,7 @@ export class UserComponent implements OnInit {
      }
 
      localStorage.setItem('cart', jsonString);
+     
   }
 
   deleteProduct(deleteProudctRef:any){
