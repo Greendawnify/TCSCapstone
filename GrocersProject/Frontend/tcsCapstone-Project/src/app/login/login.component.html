@@ -96,31 +96,32 @@
                 <div class="modal-body">
                   
 
-                <form #myform = "ngForm"  >
-                <input type = "text" class="form-control" name = "User_Fname" placeholder = "Your First Name" ngModel>
-                <br/>
-              
-                <input type = "text" class="form-control" name = "User_Lname" placeholder = "Your Last Name" ngModel>
-                <br/>
-              
-                <input type = "email" class="form-control" name = "Email"  placeholder = "Your Email" ngModel>
-                <br/>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                  </div>
-                <br>
-                
-                
-              </form>
-              
-              
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button>
+                  <form #myTicketForm = "ngForm"  (ngSubmit)="raiseTicketFunc(myTicketForm.value)">
+                      <input type = "text" class="form-control" name = "fName" placeholder = "Your First Name" ngModel>
+                      <br/>
+                    
+                      <input type = "text" class="form-control" name = "lName" placeholder = "Your Last Name" ngModel>
+                      <br/>
+                  
+                      <input type = "email" class="form-control" name = "email"  placeholder = "Your Email" ngModel>
+                      <br/>
+                      <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                      <br>
+                  
+                      <div class="modal-footer">
+                        <input type="submit" value="Raise Ticket" class="btn btn-dark" (click)="modal.close('Save click')">
+                        <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
+                      </div>
+                    
+                  </form>
                 </div>
-                </div>
+              
+                
                                  
           
                

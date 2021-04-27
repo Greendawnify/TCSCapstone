@@ -42,4 +42,10 @@ export class UserService {
 
   checkout(){}
 
+
+  // For Raise ticket
+  raiseTicketService(myTicketForm: any){
+    console.log("In User Service: " + myTicketForm);
+    return this.http.put("http://localhost:9090/user/updateTicket",myTicketForm,{responseType:'text'})
+  }
 }

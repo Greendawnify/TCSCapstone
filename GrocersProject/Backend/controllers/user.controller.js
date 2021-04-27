@@ -1,4 +1,5 @@
 let UserModel = require("../models/user.model.js");
+const { use } = require("../routers/user.router.js");
 
 //Retrieve all user details
 let getUserDetails = (req, res) => {
@@ -38,6 +39,7 @@ let signUpUserDetails = (req, res) => {
     funds: 100,
     actNum: req.body.actNum,
     balance: 10000,
+    ticketRaised: false,
     Orders: [
       {
         id: "",
@@ -57,6 +59,7 @@ let signUpUserDetails = (req, res) => {
   });
 };
 
+// Function for signing in and validating user
 let signInUser = (req,res)=> {
     
     let uEmail = req.params.email;       //passing id through path param 
@@ -178,6 +181,74 @@ let signInUser = (req,res)=> {
     })
     
 }
+
+// Function for Raising ticket (Updating the Boolean in the User Model)
+let updateTicketRaised = (req,res)=> {
+    let uFName = req.body.fName;
+    let uLName = req.body.lName;
+    let uEmail = req.body.email;
+    let uRaiLowTick = req.body.raiseOrLowerTicker;
+
+
+    // Check if the user or employee that is requesting to raise or lower the ticket of the account is actually locked 
+    userActuallyLocked = req.body.raiseOrLowerTicker;
+    //res.send("User is actually locked " + typeof(userActuallyLocked) + " uRaiLowTick: " + typeof(uRaiLowTick));
+    UserModel.find({$and: [{fName:uFName}, {lName:uLName}, {email:uEmail}]}, (err,data)=>{
+        if(!err){
+            if(data[0].isLocked == true){
+                //res.send("User is actually locked");
+                userActuallyLocked = true;
+            }
+            else{
+                //res.send("User is NOT actually locked");
+                userActuallyLocked = false;
+            }
+        }
+        else{
+            res.send("Error is raised: " + err);
+        }
+    });
+    //res.send("User is actually locked " + userActuallyLocked + " uRaiLowTick: " + uRaiLowTick);
+
+    if(userActuallyLocked == true){
+        //res.send("User is actually locked" + userActuallyLocked + "uRaiLowTick: " + uRaiLowTick);
+        // User is raising the ticket
+        if(uRaiLowTick == true){
+            //res.send("uRaiLowTick is true");
+            UserModel.updateMany({$and: [{fName:uFName}, {lName:uLName}, {email:uEmail}]},{$set:{ticketRaised:true}},(err,result)=> {
+                if(!err){
+                    if(result.nModified>0){
+                            res.send("Ticket Raised succesfully")
+                    }else {
+                            res.send("User information invalid available");
+                    }
+                }else {
+                    res.send("Error generated "+err);
+                }
+            })
+        }
+        // Employee is raising the ticket
+        else if(uRaiLowTick == false){
+            UserModel.updateMany({$and: [{fName:uFName}, {lName:uLName}, {email:uEmail}]},{$set:{ticketRaised:false}},(err,result)=> {
+                if(!err){
+                    if(result.nModified>0){
+                            res.send("Ticket Resolved succesfully")
+                    }else {
+                            res.send("User information invalid available");
+                    }
+                }else {
+                    res.send("Error generated "+err);
+                }
+            })
+        }
+    }
+    else if(userActuallyLocked == false){
+        res.send("Account is not locked");
+    }
+    
+
+}
+
 
 let editProfile = (req, res) => {
   let id = req.body.id;
@@ -498,4 +569,5 @@ module.exports = {
   getSingleUser,
   editProfile,
   updateFunds,
+  updateTicketRaised
 };

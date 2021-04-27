@@ -25,4 +25,5 @@ export class EmployeeComponent implements OnInit {
     this.employeeSer.updateEmployeePassword(empRef).subscribe((result:string)=> {
     });
   }
+  
 }
