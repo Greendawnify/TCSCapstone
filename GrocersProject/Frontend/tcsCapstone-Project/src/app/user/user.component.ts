@@ -50,6 +50,64 @@ export class UserComponent implements OnInit {
 
   ];
 
+  addProduct(addProductRef:any){
+    let cart:string|null;
+     cart = localStorage.getItem('cart');
+
+     let id = Math.floor(Math.random() * 10000).toString() + addProductRef.name + addProductRef.price.toString();
+
+     let newObj ={
+       id,
+      name:addProductRef.name,
+      price:addProductRef.price,
+      // more paramters later
+    }
+
+    let jsonString = "";
+
+     if(!cart){
+       // create cart object and add to it
+       let cartObjs = [];
+       cartObjs.push(newObj);
+
+       jsonString = JSON.stringify(cartObjs);
+
+     }else{
+      let oldCart = JSON.parse(cart);
+
+      oldCart.push(newObj);
+
+      jsonString = JSON.stringify(oldCart);
+
+     }
+
+     localStorage.setItem('cart', jsonString);
+  }
+
+  deleteProduct(deleteProudctRef:any){
+    let cart:string|null;
+     cart = localStorage.getItem('cart');
+
+     if(!cart){
+       console.error('There is no cart to delete from');
+       return;
+     }
+
+     let oldCart = JSON.parse(cart);
+
+     let newCart = oldCart.filter((product: { id: any; }) =>{
+       if(product.id == deleteProudctRef.id){
+         return true;
+       }else{
+         return false;
+       }
+     });
+
+     console.log("New cart after deleting", newCart);
+
+     localStorage.setItem('cart', JSON.stringify(newCart));
+  }
+
   editProfile(profileRef:any){
     console.log(profileRef);
     this.userService.updateProfile(profileRef).subscribe((res:string) => console.log(res))
