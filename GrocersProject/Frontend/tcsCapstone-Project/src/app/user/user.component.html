@@ -3,19 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>User</title>
 </head>
 <body>
-   
-    <div class="container">
+  <div *ngIf="notShopping" class="lightbox">
+    <div class="row">
+      <div class="col-lg-6">
+        <img
+          src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
+          data-mdb-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
+          alt="Lightbox image 1"
+          class="w-100 mb-2 mb-md-4 shadow-1-strong rounded"
+        />
+        <img
+          src="https://mdbootstrap.com/img/Photos/Thumbnails/Square/1.jpg"
+          data-mdb-img="https://mdbootstrap.com/img/Photos/Square/1.jpg"
+          alt="Lightbox image 2"
+          class="w-100 shadow-1-strong rounded"
+        />
+      </div>
+      
+      <div class="col-lg-5">
+        <img
+          src="https://mdbootstrap.com/img/Photos/Thumbnails/Vertical/1.jpg"
+          data-mdb-img="https://mdbootstrap.com/img/Photos/Vertical/1.jpg"
+          alt="Lightbox image 3"
+          class="w-100 shadow-1-strong rounded"
+        />
+      <p></p>
+
+          <button style="width: 200px; height: 100px; " class="btn btn-dark" type="button"  (click)=" is_Shopping()" >Start Shopping</button>
+       
+      </div>
+      
+    </div>
+  </div>
+
+
+
+  
+
+
+
+
+
+
+    <div *ngIf="isShopping" class="container">
             <div class="row" >
                 
                 <div class="col-sm-3" *ngFor="let card of cards" >
                   <div class="card bg-light mb-3" style="margin-top: 6%;">
-                    <img class="card-img-top" [src]="card.img" alt="Card image cap" style="height:20ch;">
+                   <img class="card-img-top" [src]="card.img" alt="Card image cap" style="height:20ch;"> 
                   <div class="card-body">
                     <h2 class="card-title">{{card.title}}</h2>
-                    <h4>{{card.description}}</h4>
+                    
                     <p style="text-align: center;" class="price">$19.99</p>
                     <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
