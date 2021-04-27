@@ -633,6 +633,41 @@ let updateFunds = (req, res) => {
   });
 };
 
+let updateOrderStatus = (req, res) => {
+  let uID = req.body.userID;
+  let orderID = req.body.orderID;
+  let newStatus = req.body.status;
+
+  UserModel.updateOne(
+    {
+      autoGenID: uID,
+      Orders: { $exits: true, $elemMatch: { id: orderID } },
+    },
+    {
+      $set: {
+        "Orders.$.status": "newStatus",
+      },
+    },
+    (err, result) => {
+      if (!err) {
+        if (result.nModified > 0) {
+          let newObj = {
+            approved: true,
+          };
+          res.json(newObj);
+        } else {
+          let errorObj = {
+            approved: false,
+          };
+          res.json(errorObj);
+        }
+      } else {
+        res.send("error updating status", err);
+      }
+    }
+  );
+};
+
 /* let deleteProductById= (req,res)=> {
     let pid = req.params.pid;
     UserModel.deleteOne({_id:pid},(err,result)=> {
@@ -682,4 +717,5 @@ module.exports = {
   getUsersWithOrders,
   genrateUserID,
   unlockUser,
+  updateOrderStatus,
 };

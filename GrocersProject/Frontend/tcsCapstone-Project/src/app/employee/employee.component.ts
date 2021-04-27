@@ -17,6 +17,7 @@ export class EmployeeComponent implements OnInit {
   viewReq:boolean=false
 
   lockedUsers:User[] = [];
+  usersWithOrders:User[] = [];
 
 
 //displays user that have account locked
@@ -26,6 +27,12 @@ export class EmployeeComponent implements OnInit {
       this.lockedUsers = result;
       console.log(this.lockedUsers);
     }, err => console.log(err));
+
+    this.userService.getUsersWithOrders().
+    subscribe(result =>{
+      this.usersWithOrders = result;
+      console.log(this.usersWithOrders);
+    }, (err) => console.log(err));
    
   }
 
@@ -35,6 +42,14 @@ export class EmployeeComponent implements OnInit {
       alert(result);
       console.log("Successfully unlocked")
     });
+  }
+
+  updateOrderStatus(userID:string, orderID:number, status:string){
+    
+    this.userService.updateOrderStatus(userID, orderID, status).
+    subscribe(result =>{
+      console.log('result')
+    }, (err) => console.log(err));
   }
 
 

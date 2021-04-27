@@ -16,5 +16,6 @@ router.get("/getRaisedTickets", UserController.getTicketRasiedUsers);
 router.get("/getOrders", UserController.getUsersWithOrders);
 router.put("/generateUserID", UserController.genrateUserID);
 router.put("/unlockUser", UserController.unlockUser);
+router.put("/updateOrderStatus", UserController.updateOrderStatus);
 
 module.exports = router;
