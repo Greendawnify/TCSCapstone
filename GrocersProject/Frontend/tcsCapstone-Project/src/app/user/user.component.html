@@ -65,10 +65,10 @@
 
                     <p style="text-align: left;" class="price">{{product.quantity}} :Products left!</p>
                     <p style="text-align: center;" class="price">{{product.cost}}</p>
-                    <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
+                    <input type="number" #quantity class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
-                    <p><button  class="btn btn-dark" (onClick)="addProduct(product)">Add to Cart</button></p>
+                    <p><button  class="btn btn-dark" (click)="addProduct(product, quantity.value)">Add to Cart</button></p>
                   </div>
                 </div>
               </div> 
@@ -100,7 +100,7 @@
                   <h5>order quantity {{tempCart.quantity}}</h5>
                   <h5>order Price{{tempCart.price}}</h5>
 
-                <button  class="btn btn-dark" (onClick)="deleteProduct(tempCart.id)">delete</button>
+                <button  class="btn btn-dark" (click)="deleteProduct(tempCart.id)">delete</button>
               </div>
 
                 

@@ -61,16 +61,21 @@ export class UserComponent implements OnInit {
 
   ];
 
-  addProduct(addProductRef:any){
+  // add functionality if the name of this new order is the same as a previous order to add to the quanitity and cost of previous order
+  // and dont append a new object to the cart
+  addProduct(addProductRef:any, quantity:string){
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
-     let id = Math.floor(Math.random() * 10000).toString() + addProductRef.name + addProductRef.price.toString();
+     let id = Math.floor(Math.random() * 10000).toString() + addProductRef.name + addProductRef.cost.toString();
+     let number = parseInt(quantity);
+     let price = addProductRef.cost * number;
 
      let newObj ={
        id,
       name:addProductRef.name,
-      price:addProductRef.cost,
+      price,
+      quantity
       // more paramters later
     }
 
@@ -96,10 +101,11 @@ export class UserComponent implements OnInit {
      }
 
      localStorage.setItem('cart', jsonString);
+     console.log("Temp cart after adding", this.tempCart);
      
   }
 
-  deleteProduct(deleteProudctRef:any){
+  deleteProduct(deleteID:any){
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
@@ -111,10 +117,12 @@ export class UserComponent implements OnInit {
      let oldCart = JSON.parse(cart);
 
      let newCart = oldCart.filter((product: { id: any; }) =>{
-       if(product.id == deleteProudctRef.id){
-         return true;
-       }else{
+       if(product.id == deleteID){
+         console.log("Product ID is: ", product.id);
+         console.log("Delet Product DI is: ", deleteID);
          return false;
+       }else{
+         return  true;
        }
      });
 
