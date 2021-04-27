@@ -17,6 +17,7 @@ let UserSchema = mongoose.Schema({
   funds: Number,
   actNum: Number,
   balance: Number,
+  ticketRaised: Boolean,
   Orders: [{ id: Number, products: [String], cost: Number, status: String }],
 });
 

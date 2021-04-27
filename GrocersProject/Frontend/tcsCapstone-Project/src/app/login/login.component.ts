@@ -87,6 +87,20 @@ export class LoginComponent implements OnInit {
     }, error =>console.log(error));
   }
 
+  raiseTicketFunc(myTicketForm:any){
+    console.log(myTicketForm);
+    // Created a new property in the ticket form object to send to the backed, true (when user raises the ticket)
+    // False if the employee is lowering the ticket (For Code Reusability). In the backend this boolean will be checked before
+    // the backed raising and deleting ticket is done.
+    myTicketForm.raiseOrLowerTicker = true; 
+    console.log(myTicketForm);
+
+    this.useService.raiseTicketService(myTicketForm).subscribe((result:string)=> {
+      alert(result);
+    });
+  }
+
+
   triggerModal(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;

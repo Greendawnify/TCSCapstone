@@ -11,6 +11,7 @@ router.post("/checkFunds", UserController.checkProperFunds);
 router.get("/getUser", UserController.getSingleUser);
 router.put("/editProfile", UserController.editProfile);
 router.put("/updateFunds", UserController.updateFunds);
+router.put("/updateTicket", UserController.updateTicketRaised);
 router.get("/getRaisedTickets", UserController.getTicketRasiedUsers);
 router.get("/getOrders", UserController.getUsersWithOrders);
 
