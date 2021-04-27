@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductServiceService } from './../product.service.service';
 import { Product } from './../model.product';
 import { UserService } from './../user.service';
+import { Cart } from './../cart.model';
+
 
 @Component({
   selector: 'app-user',
@@ -13,10 +15,18 @@ export class UserComponent implements OnInit {
   notShopping:boolean = true;
 
   products:Product[] = new Array;
+  tempCart:any[]= [];
   constructor(public productService:ProductServiceService, public userService:UserService) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
+
+    let cart:string|null;
+     cart = localStorage.getItem('cart');
+
+     if(cart){
+       this.tempCart = JSON.parse(cart);
+     }
   }
   is_Shopping(){
     this.isShopping=true;
@@ -59,7 +69,7 @@ export class UserComponent implements OnInit {
      let newObj ={
        id,
       name:addProductRef.name,
-      price:addProductRef.price,
+      price:addProductRef.cost,
       // more paramters later
     }
 
@@ -70,6 +80,8 @@ export class UserComponent implements OnInit {
        let cartObjs = [];
        cartObjs.push(newObj);
 
+       this.tempCart = cartObjs;
+
        jsonString = JSON.stringify(cartObjs);
 
      }else{
@@ -77,6 +89,7 @@ export class UserComponent implements OnInit {
 
       oldCart.push(newObj);
 
+      this.tempCart = oldCart;
       jsonString = JSON.stringify(oldCart);
 
      }
@@ -104,6 +117,8 @@ export class UserComponent implements OnInit {
      });
 
      console.log("New cart after deleting", newCart);
+
+     this.tempCart = newCart;
 
      localStorage.setItem('cart', JSON.stringify(newCart));
   }
