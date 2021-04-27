@@ -62,8 +62,9 @@
                    <!---<img class="card-img-top" [src]="product.img" alt="Card image cap" style="height:20ch;">--->
                   <div class="card-body">
                     <h2 class="card-title">{{product.name}}</h2>
-                    
-                    <p style="text-align: center;" class="price">$19.99</p>
+
+                    <p style="text-align: left;" class="price">{{product.quantity}} :Products left!</p>
+                    <p style="text-align: center;" class="price">{{product.cost}}</p>
                     <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
@@ -93,13 +94,14 @@
               <h5 class="card-title">Cart</h5>
               <h6 class="card-subtitle">List of orders</h6>
               
-           <!---<div class="col" *ngFor="let cart of carts" >
+           <div class="col" *ngFor="let tempCart of tempCart" >
                 
-                  <h5>order name: {{carts.name}}</h5>
-                  <h5>order quantity {{carts.quantity}}</h5>
+                  <h5>order name: {{tempCart.name}}</h5>
+                  <h5>order quantity {{tempCart.quantity}}</h5>
+                  <h5>order Price{{tempCart.price}}</h5>
 
-                <button  class="btn btn-dark" (onClick)="deleteProduct(cart)">delete</button>
-              </div>--->
+                <button  class="btn btn-dark" (onClick)="deleteProduct(tempCart.id)">delete</button>
+              </div>
 
                 
              
