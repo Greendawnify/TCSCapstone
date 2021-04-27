@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RequestService } from './../request.service';
 import { EmployeeService } from '../employee.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../user.service';
+import { User } from '../model.user';
 
 
 @Component({
@@ -11,10 +13,32 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class EmployeeComponent implements OnInit {
   closeModal: string="";
-  constructor(public requestService:RequestService,public employeeSer: EmployeeService,private modalService: NgbModal) { }
+  constructor(public requestService:RequestService,public employeeSer: EmployeeService,private modalService: NgbModal, public userService:UserService) { }
   viewReq:boolean=false
+
+  lockedUsers:User[] = [];
+
+
+//displays user that have account locked
   ngOnInit(): void {
+    this.userService.getRaisedTicket().
+    subscribe(result=>{
+      this.lockedUsers = result;
+      console.log(this.lockedUsers);
+    }, err => console.log(err));
+   
   }
+
+//unlock user account 
+  unlockUserAccount(userID:any){
+    this.userService.unlockUser(userID).subscribe((result:string)=> {
+      alert(result);
+      console.log("Successfully unlocked")
+    });
+  }
+
+
+
 
   createRequest(request:any){
     // the values in the body have to be Type, and Description, and sender

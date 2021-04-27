@@ -28,4 +28,5 @@ export class EmployeeService {
   validateEmpLogin(id:string):Observable<any> {
     return this.http.get<any>('http://localhost:9090/employee/validateEmployee/' + id);
 }
+
 }

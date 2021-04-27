@@ -152,6 +152,22 @@
 
 
 
+         <div>
+          <div style="margin-left: 30% ;" *ngFor = "let u of lockedUsers">
+            <div class="row">
+            <div class="col-sm-6"  >
+              
+              <div class="card bg-light mb-3" style="margin-top: 6%;">
+              <div class="card-body">
+                <h2 class="card-title">Account Locked</h2>
+                <p><button (click) ="unlockUserAccount(u.email)"  class="btn btn-dark" style="margin-left: 70% ;">Unlock</button></p><!---  -->
+              </div>
+            </div>
+              </div>
+            </div>
+            </div>
+        </div>
+
               <!-- <div> 
               <h2>Update Employee Password</h2>
               <form #empRef="ngForm" (ngSubmit)="updateEmployeePwd(empRef.value)">
