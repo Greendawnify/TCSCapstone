@@ -8,9 +8,8 @@
       <body>
           <div >
         <button style="margin-left: 15%;" class="btn btn-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
-        <button style="margin-left: 10%;"class="btn btn-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
-        <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="requestVisible()">Requests Tab</button>
-        <button style="margin-left: 10%;"class="btn btn-dark" type="submit" (click)="reportsVisible()">Reports Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="reportsVisible()">Reports Tab</button>
          </div>
         
         <div *ngIf="Employee">
@@ -123,10 +122,6 @@
                     </div>
                   </div>
               </div>
-            </div>
-
-            <div *ngIf = "request">
-              
             </div>
 
             
