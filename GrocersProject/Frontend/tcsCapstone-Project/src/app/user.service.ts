@@ -53,6 +53,16 @@ export class UserService {
     console.log("In User Service: " + myTicketForm);
     return this.http.put("http://localhost:9090/user/updateTicket",myTicketForm,{responseType:'text'});
   }
+  unlockUser(id: any){
+    let newObj = {
+      id
+    }
+    return this.http.put("http://localhost:9090/user/updateTicket",newObj,{responseType:'text'})
+  }
+
+  getRaisedTicket():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:9090/user/getRaisedTickets")
+  }
 
   retrieveUserById(userInitInfo: any):Observable<any>{
     return this.http.get<any>("http://localhost:9090/user/getUser/"+userInitInfo.fName+"/"+userInitInfo.lName+"/"+userInitInfo.email+"/"+userInitInfo.pWord);
