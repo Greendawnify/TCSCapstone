@@ -5,7 +5,7 @@ let UserController = require("../controllers/user.controller.js");
 //mapping sub path with http methods.
 router.get("/allUserDetails", UserController.getUserDetails);
 router.post("/storeUserDetails", UserController.signUpUserDetails);
-router.get("/userSignIn/:autoGenID/:pWord", UserController.signInUser);
+router.post("/userSignIn", UserController.signInUser);
 router.post("/checkout", UserController.checkout);
 router.post("/checkFunds", UserController.checkProperFunds);
 router.get("/getUser/:fName/:lName/:email/:pWord/:autoGenID", UserController.getSingleUser);

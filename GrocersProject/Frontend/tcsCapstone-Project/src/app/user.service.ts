@@ -20,7 +20,8 @@ export class UserService {
   }
 
   signUserDetailsInfo(uIDandpWord: any):Observable<any>{
-    return this.http.get<any>("http://localhost:9090/user/userSignIn/"+uIDandpWord.autoGenID+"/"+uIDandpWord.pWord);
+    //return this.http.get<any>("http://localhost:9090/user/userSignIn/"+uIDandpWord.autoGenID+"/"+uIDandpWord.pWord);
+    return this.http.post("http://localhost:9090/user/userSignIn", uIDandpWord, {responseType: "text"});
   }
 
   updateProfile(profileRef:any){
