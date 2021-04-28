@@ -3,6 +3,7 @@ import { ProductServiceService } from './../product.service.service';
 import { Product } from './../model.product';
 import { UserService } from './../user.service';
 import { Cart } from './../cart.model';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -13,12 +14,11 @@ import { Cart } from './../cart.model';
 export class UserComponent implements OnInit {
   isShopping:boolean= false;
   notShopping:boolean = true;
-  
-
+  signedInUserDetails:any = {};
+  closeModal: string="";
   products:Product[] = new Array;
   tempCart:any[]= [];
-  signedInUserDetails:any = {};
-  constructor(public productService:ProductServiceService, public userService:UserService) { }
+  constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
@@ -207,5 +207,106 @@ export class UserComponent implements OnInit {
 
     // need to implement subtracting quantity from database
   };
+//profile functions
+triggerModal(content:any) {
+  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+    this.closeModal = `Closed with: ${res}`;
+  }, (res) => {
+    this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+  });
+}
+
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return  `with: ${reason}`;
+  }
+}
+update_User(myUpdateForm:any){
+  console.log(myUpdateForm);
+  this.userService.signUpUserDetails(myUpdateForm);
+  //this.proService.storeProductDetailsInfo(productRef);
+}
+
+//profile functions
+updateUser(myUpdateForm:any){
+  console.log("Update User is called:", myUpdateForm);
+  let tempSignedInUser:any = this.signedInUserDetails;
+  function clean(obj:any) {
+    for (var propName in obj) {
+      if (obj[propName] === null || obj[propName] === undefined || obj[propName] == "") {
+        delete obj[propName];
+      }
+    }
+    return obj;
+  }
+  let merged = {...tempSignedInUser, ...clean(myUpdateForm)};
+  console.log("Original User Data: " , tempSignedInUser);
+  console.log("Cleaned Update Form: ", myUpdateForm);
+  console.log(merged);
+  this.userService.updateProfile(merged).subscribe((result:string)=> {
+    let tempResult = JSON.stringify(merged);
+    console.log("Temp Result after updating user ", tempResult);
+    sessionStorage.setItem('LoggedInUserDetails', tempResult);
+    alert(result);
+  });
+  //console.log();
+}
+
+updateUserFunds(myUpdateFundsForm:any){
+  console.log("Update User Funds is called:", myUpdateFundsForm);
+  
+  let tempUserFundsDetails =  sessionStorage.getItem("LoggedInUserDetails");
+  let TFD:any = {};
+  console.log(tempUserFundsDetails);
+  if(tempUserFundsDetails != null){
+    tempUserFundsDetails = JSON.parse(tempUserFundsDetails);
+    console.log("Type and Result:" , typeof(tempUserFundsDetails) , " ", tempUserFundsDetails);
+    TFD = tempUserFundsDetails;
+    //console.log("Type and Result:" , typeof(this.signedInUserDetails) , " ", this.signedInUserDetails);
+  }
+  else{
+    console.log("tempUserFundsDetails is null");
+  }
+
+  if(TFD.actNum == myUpdateFundsForm.actNum || TFD.phoneNum == myUpdateFundsForm.phoneNum){
+    if(TFD.balance != 0){
+
+      if(myUpdateFundsForm.fundsToAdd < TFD.balance){
+
+        let tempFunds = parseInt(TFD.funds) + parseInt(myUpdateFundsForm.fundsToAdd);
+        let remainingBalance = TFD.balance - myUpdateFundsForm.fundsToAdd;
+        let tempFundsObj = { "funds": tempFunds, "balance": remainingBalance };
+        console.log(tempFundsObj);
+        let merged = {...TFD, ...tempFundsObj};
+        console.log(merged);
+
+        this.userService.updateProfile(merged).subscribe((result:string)=> {
+          let tempResult = JSON.stringify(merged);
+          console.log("Temp Result after updating user funds ", tempResult);
+          sessionStorage.setItem('LoggedInUserDetails', tempResult);
+          alert(result);
+        });
+      }
+      else{
+        alert("You can't add funds more than your balance!");
+      }
+    }
+    else{
+      alert("Your total balance is empty!");
+    }
+    /* let tempFundsObj = { funds: myUpdateFundsForm.fundsToAdd };
+    console.log(tempFundsObj);
+    let merged = {...this.signedInUserDetails, ...tempFundsObj};
+    console.log(merged); */
+  }
+  else{
+    alert("Your account number or phone number doesn't match");
+  }
+}
+
 
 }

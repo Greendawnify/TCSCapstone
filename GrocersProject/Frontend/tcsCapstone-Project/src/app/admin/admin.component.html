@@ -132,7 +132,72 @@
             </div>
           </div>
             
+        </div> 
+
+           <!--- Rpeorts    -->
+          <div *ngIf="report">
+            <form  #reportForm = "ngForm"  (ngSubmit)="productsReport(reportForm.value)">
+            <div style="margin-left:10% ; margin-top: 2%;" class="row">
+              <h2> From:</h2>
+              <input #fromDate type="date" placeholder="From Date" title="From Data" ngModel >
+              
+              <h2 style="margin-left:10% ;" > To:</h2>
+              <input #toDate type="date" placeholder="From Date" title="From Data"ngModel >
+
+              <div class="input-group-append" style="margin-left:15%">
+               
+                <button  class="btn btn-outline-dark" type="submit">Generate</button>
+              </div>
+            </div>
             
-        </div>
+          </form>
+          
+          
+            <div class="row" style="margin-left: 15%;margin-top: 5%;">
+                <div class="col-sm-6">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <h2 class="card-title">Sold Item</h2>
+                      <table class="table">
+                        <thead class="thead-dark">
+                        <tr >
+                          <th>Item  Name</th>
+                          <th>Quantity Sold</th>
+                          <th>Quantity Left</th>
+                        </tr>
+                        <tr *ngFor="let user of dummy_products">
+                          <th>{{user.name}}</th>
+                          <th>{{user.initQuantity-user.quantity}}</th>
+                          <th>{{user.quantity}}</th>
+                        </tr>
+                
+                        </thead>
+                      </table>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <div>
+                        <h2 class="card-title">Revenue Generated</h2>
+                       <h3>
+                        {{total_cost}}
+                       </h3>
+                     
+                      <!-- <a href="#" class="btn btn-dark">Submit</a> -->
+                      </div>
+                    </div>
+                  
+                  </div>
+                </div>
+                
+            </div>
+     
+          </div>
+
+
+        
       </body>
       </html>

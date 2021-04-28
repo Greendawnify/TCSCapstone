@@ -12,6 +12,7 @@ export class AppComponent {
   isLogin:boolean= true;
   isLogout:boolean=false;
   isCart:boolean=false;
+  profile:boolean = false;
 
   title = 'tcsCapstone-Project';
  
@@ -39,4 +40,5 @@ export class AppComponent {
     
           this.router.navigate(["cart"])
           }
+          
 }

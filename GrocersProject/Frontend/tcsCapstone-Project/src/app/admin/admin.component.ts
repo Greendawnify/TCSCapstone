@@ -3,6 +3,8 @@ import { EmployeeService } from '../employee.service';
 import { ProductServiceService } from './../product.service.service';
 import { RequestService } from './../request.service';
 import { Request } from './../request.model';
+import { User } from '../model.user';
+
 
 
 @Component({
@@ -17,6 +19,9 @@ export class AdminComponent implements OnInit {
   report:boolean = false;
   deleteMsg?:string;
   requests:Request[] = new Array;
+  //date variables
+  
+  duplicateArray=[]
   constructor(
     public productService:ProductServiceService,
     public empService:EmployeeService,
@@ -96,8 +101,41 @@ export class AdminComponent implements OnInit {
 
   
   
+  dummy_user:any =[
+    {fName: "anu",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/1/2020
+  
+    }] },{fName: "balla",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/2/2020
+  
+  }]}
+  ]
+  dummy_product=[{
+   
+    name: "banana",
+    initQuantity: 100,
+    quantity: 20,
+    cost: 12,
+    
+  },{
+   
+    name: "orange",
+    initQuantity: 100,
+    quantity: 30,
+    cost: 12,
+    
+  }]
+  dummy_products:any;
+  total_cost:any;
+  productsReport(reportForm:any){
+    this.dummy_products = this.dummy_product;
+    let selectedUsers = this.dummy_user.filter((f:any) => new Date(f.orders.orderDate) > reportForm.fromDate && new Date(f.orders.orderDate) < reportForm.toDate);
+    console.log(selectedUsers)
+    for (var val of selectedUsers ) {
+      this.total_cost += val.order.cost
+  }
 
 }
+}
+
 
 
 

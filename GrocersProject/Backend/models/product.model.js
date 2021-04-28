@@ -4,6 +4,7 @@ mongoose.Promise = global.Promise;
 let ProductSchema = mongoose.Schema({
   _id: Number,
   name: String,
+  initQuantity: Number,
   quantity: Number,
   cost: Number,
   discount: Number,
