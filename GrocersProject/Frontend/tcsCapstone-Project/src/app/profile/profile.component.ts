@@ -11,7 +11,7 @@ import { UserService } from '../user.service';
 export class ProfileComponent implements OnInit {
   closeModal: string="";
   
-  signedInUserDetails:Object = {};
+  signedInUserDetails:any = {};
 
   ngOnInit(): void {
     //this.signedInUserDetails = JSON.parse());
@@ -44,16 +44,48 @@ export class ProfileComponent implements OnInit {
       return obj;
     }
     let merged = {...tempSignedInUser, ...clean(myUpdateForm)};
-
+    console.log("Original User Data: " , tempSignedInUser);
+    console.log("Cleaned Update Form: ", myUpdateForm);
     console.log(merged);
     this.useService.updateProfile(merged).subscribe((result:string)=> {
-      console.log(result);
-    }
-
-    )
+      alert(result);
+    });
     //console.log();
   }
   
+  updateUserFunds(myUpdateFundsForm:any){
+    console.log("Update User Funds is called:", myUpdateFundsForm);
+
+    if(this.signedInUserDetails.actNum == myUpdateFundsForm.actNum || this.signedInUserDetails.phoneNum == myUpdateFundsForm.phoneNum){
+      if(this.signedInUserDetails.balance != 0){
+        if(myUpdateFundsForm.fundsToAdd < this.signedInUserDetails.balance){
+          let tempFunds = parseInt(this.signedInUserDetails.funds) + parseInt(myUpdateFundsForm.fundsToAdd);
+          let remainingBalance = this.signedInUserDetails.balance - myUpdateFundsForm.fundsToAdd;
+          let tempFundsObj = { "funds": tempFunds, "balance": remainingBalance };
+          console.log(tempFundsObj);
+          let merged = {...this.signedInUserDetails, ...tempFundsObj};
+          console.log(merged);
+
+          this.useService.updateProfile(merged).subscribe((result:string)=> {
+            alert(result);
+          });
+        }
+        else{
+          alert("You can't add funds more than your balance!");
+        }
+      }
+      else{
+        alert("Your total balance is empty!");
+      }
+      /* let tempFundsObj = { funds: myUpdateFundsForm.fundsToAdd };
+      console.log(tempFundsObj);
+      let merged = {...this.signedInUserDetails, ...tempFundsObj};
+      console.log(merged); */
+    }
+    else{
+      alert("Your account number or phone number doesn't match");
+    }
+  }
 
   triggerModal(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {

@@ -294,15 +294,21 @@ let editProfile = (req, res) => {
   let id = req.body.autoGenID;
   let phone = req.body.phoneNum;
   let password = req.body.pWord;
-  let state = req.body.state;
-  let city = req.body.city;
-  let street = req.body.street;
-  let zip = req.body.zip;
+  let uState = req.body.state;
+  let uCity = req.body.city;
+  let uStreet = req.body.street;
+  let uZip = req.body.zip;
   let uEmail = req.body.email;
-  let fname = req.body.fname;
-  let lname = req.body.lname;
+  let fname = req.body.lName;
+  let lname = req.body.lName;
   let uOrders = req.body.Orders;
-  let newString = "UPDATES: ";
+  let uBalance = req.body.balance;
+  let uDOB = req.body.dob;
+  let uFunds = req.body.funds;
+  let uIsLocked = req.body.isLocked;
+  let uLoginTries = req.body.loginTries;
+  let uTicketStatus = req.body.ticketRaised;
+  //let newString = "UPDATES: ";
   /* phone = phone.trim();
   password = password.trim();
   state = state.trim();
@@ -312,17 +318,19 @@ let editProfile = (req, res) => {
   fname = fname.trim();
   lname = lname.trim();
  */
+  
   if(id!=""){
+    //console.log("In Update Many");
     UserModel.updateMany(
       { autoGenID: id},
       { $set: { fName: fname, lName: lname, pWord: password, email: uEmail,
-                city: city, street: street, state:state, zip:zip, phoneNum:phone
-                } },
+                city: uCity, street: uStreet, state:uState, zip:uZip, phoneNum:phone,
+                Orders: uOrders, balance:uBalance, dob:uDOB, funds:uFunds, isLocked:uIsLocked,
+                loginTries:uLoginTries, ticketRaised:uTicketStatus} },
       (err, result) => {
         if (!err) {
           if (result.nModified > 0) {
-            newString += " New User ID updated! ";
-            //res.send(req.body.autoGenID);
+            res.send("Everything Updated");
           }
         }
       }
@@ -350,7 +358,7 @@ let editProfile = (req, res) => {
     );
   } */
 
-  if (phone != "") {
+  /* if (phone != "") {
     UserModel.updateOne(
       { autoGenID: id},
       { $set: { phoneNum: phone } },
@@ -474,9 +482,9 @@ let editProfile = (req, res) => {
         }
       }
     );
-  }
+  } */
 
-  res.send(newString);
+  //res.send(newString);
 };
 
 let genrateUserID = (req, res) => {

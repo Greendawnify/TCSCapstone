@@ -37,43 +37,47 @@
                     <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalData)">Add Funds</button>
 
                     <ng-template #modalData let-modal>
-                      <div class="modal-header">
-                        <h4 class="modal-title" id="modal-basic-title">Add Funds from Bank to Group20</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                          <span aria-hidden="true" >×</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <label for="cardNumber">Account NUMBER: </label>
-                            <div class="input-group">
-                            <input type="tel" class="form-control" name="cardNumber" placeholder="Valid Account Number" autocomplete="cc-number" required autofocus />
-                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                      </div>
-                      <br>
-                      <label for="cardNumber">Mobile Number </label>
-                            <div class="input-group">
-                            <input type="tel" class="form-control" name="mobileNumber" placeholder="Valid Mobile Number" autocomplete="cc-number" required autofocus />
-                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                      </div>
-                      <br>
-                    
-                      <br>
-                      <label for="cardNumber">Amount: </label>
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            
-                          <span class="input-group-text">$</span>
+                      <form #myUpdateFundsForm = "ngForm"  (ngSubmit)="updateUserFunds(myUpdateFundsForm.value)">
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-basic-title">Add Funds from Bank to Group20</h4>
+                          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true" >×</span>
+                          </button>
                         </div>
+                        <div class="modal-body">
+                          <label for="cardNumber">Account NUMBER: </label>
+                              <div class="input-group">
+                              <input type="tel" class="form-control" name="actNum" placeholder="Valid Account Number" autocomplete="cc-number" required autofocus ngModel/>
+                              <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        </div>
+                        <br>
+                        <label for="cardNumber">Mobile Number </label>
+                              <div class="input-group">
+                              <input type="tel" class="form-control" name="phoneNum" placeholder="Valid Mobile Number" autocomplete="cc-number" required autofocus ngModel/>
+                              <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                        </div>
+                        <br>
                       
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                        <div class="input-group-append">
-                          <span class="input-group-text">.00</span>
+                        <br>
+                        <label for="cardNumber">Amount: </label>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                              
+                            <span class="input-group-text">$</span>
+                          </div>
+                        
+                          <input type="text" name="fundsToAdd" class="form-control" aria-label="Amount (to the nearest dollar)" ngModel/>
+                          <div class="input-group-append">
+                            <span class="input-group-text">.00</span>
+                          </div>
                         </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Add Funds</button>
-                      </div>
-                      </div>
+                        <div class="modal-footer">
+                          <input type="submit" value="Add Funds" class="btn btn-dark" (click)="modal.close('Save click')"/>
+                          <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Add Funds</button> -->
+                        </div>
+                        </div>
+                      </form>
+                      
                                        
                       
                      
@@ -128,7 +132,7 @@
                                   <input type = "state" class="form-control" name = "state"  placeholder = "Update State" ngModel>
                                   <br/>
                            
-                                  <input type="text" class="form-control" id="validationCustom05"  placeholder = "Update Zipcode" required ngModel>
+                                  <input type="text" class="form-control" id="validationCustom05" name = "zip"  placeholder = "Update Zipcode" required ngModel>
                                   <div class="invalid-feedback">
                                     Please provide a valid zip.
                                   </div>
