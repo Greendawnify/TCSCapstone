@@ -301,8 +301,9 @@ let editProfile = (req, res) => {
   let uEmail = req.body.email;
   let fname = req.body.fname;
   let lname = req.body.lname;
+  let uOrders = req.body.Orders;
   let newString = "UPDATES: ";
-  phone = phone.trim();
+  /* phone = phone.trim();
   password = password.trim();
   state = state.trim();
   city = city.trim();
@@ -310,8 +311,24 @@ let editProfile = (req, res) => {
   uEmail = uEmail.trim();
   fname = fname.trim();
   lname = lname.trim();
-
-  if (id != "") {
+ */
+  if(id!=""){
+    UserModel.updateMany(
+      { autoGenID: id},
+      { $set: { fName: fname, lName: lname, pWord: password, email: uEmail,
+                city: city, street: street, state:state, zip:zip, phoneNum:phone
+                } },
+      (err, result) => {
+        if (!err) {
+          if (result.nModified > 0) {
+            newString += " New User ID updated! ";
+            //res.send(req.body.autoGenID);
+          }
+        }
+      }
+    );
+  }
+  /* if (id != "") {
     UserModel.updateOne(
       {
         $and: [
@@ -331,11 +348,11 @@ let editProfile = (req, res) => {
         }
       }
     );
-  }
+  } */
 
   if (phone != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      { autoGenID: id},
       { $set: { phoneNum: phone } },
       (err, result) => {
         if (!err) {
@@ -349,7 +366,7 @@ let editProfile = (req, res) => {
 
   if (password != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { pWord: password } },
       (err, result) => {
         if (!err) {
@@ -363,7 +380,7 @@ let editProfile = (req, res) => {
 
   if (state != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { state: state } },
       (err, result) => {
         if (!err) {
@@ -377,7 +394,7 @@ let editProfile = (req, res) => {
 
   if (city != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { city: city } },
       (err, result) => {
         if (!err) {
@@ -391,7 +408,7 @@ let editProfile = (req, res) => {
 
   if (street != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { street: street } },
       (err, result) => {
         if (!err) {
@@ -405,7 +422,7 @@ let editProfile = (req, res) => {
 
   if (uEmail != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { email: uEmail } },
       (err, result) => {
         if (!err) {
@@ -419,7 +436,7 @@ let editProfile = (req, res) => {
 
   if (lname != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { lname: lname } },
       (err, result) => {
         if (!err) {
@@ -433,7 +450,7 @@ let editProfile = (req, res) => {
 
   if (fname != "") {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { fname: fname } },
       (err, result) => {
         if (!err) {
@@ -447,7 +464,7 @@ let editProfile = (req, res) => {
 
   if (zip != null) {
     UserModel.updateOne(
-      { $and: { autoGenID: id } },
+      {autoGenID: id},
       { $set: { zip: zip } },
       (err, result) => {
         if (!err) {
