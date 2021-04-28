@@ -148,176 +148,191 @@
  
 </div>
 <!---Profile   -->
-<ng-template style="width: 400px;" #modalProfile let-modal>
+<ng-template style="width: 600px;" #modalProfile let-modal>
 <div class="row">
        
   <!-- View Orders Card -->
-  <div style="text-align: center; margin-left: 10%; margin-top:5% ;" class="col-sm-6">
-    <div class="card bg-light mb-6">
-      <div class="card-body">
-          
-      <div class="row">      
-        <h1 style="margin-left: 5%;" class="card-title">View Order</h1>
-        <button  class="btn btn-dark" style="margin-left:55% ;" >View All</button>
-      </div>   
-      <br>
-      <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 25%; color:rgb(78, 74, 74)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Order Status</div>
-      </div>
-      <p>previos orers will be here in an Array</p>
-      </div>
-      </div>
-      </div>
-
-      <!-- Payments and Funds card -->
-      <div style="text-align: center; margin-left: 10%; margin-top:5% ;" class="col-sm-6">
-          <div class="card bg-light mb-6">
-            <div class="card-body">
-              <h2 class="card-title">Payments and Funds</h2>
-              <p>$Current funds$</p>
-
-          
-              <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalData)">Add Funds</button>
-
-              <ng-template #modalData let-modal>
-                <div class="modal-header">
-                  <h4 class="modal-title" id="modal-basic-title">Add Funds from Bank to Group20</h4>
-                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true" >×</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <label for="cardNumber">Account NUMBER: </label>
-                      <div class="input-group">
-                      <input type="tel" class="form-control" name="cardNumber" placeholder="Valid Account Number" autocomplete="cc-number" required autofocus />
-                      <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                </div>
-                <br>
-                <label for="cardNumber">Mobile Number </label>
-                      <div class="input-group">
-                      <input type="tel" class="form-control" name="mobileNumber" placeholder="Valid Mobile Number" autocomplete="cc-number" required autofocus />
-                      <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                </div>
-                <br>
-              
-                <br>
-                <label for="cardNumber">Amount: </label>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                      
-                    <span class="input-group-text">$</span>
-                  </div>
-                
-                  <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                  <div class="input-group-append">
-                    <span class="input-group-text">.00</span>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Add Funds</button>
-                </div>
-                </div>
-                                 
-                
-               
+  <div class="row" style="margin-left: 5%;margin-top: 5%; border-right: 2px solid rgb(0, 0, 0) !important;">
        
-              </ng-template>
+    <!-- View Orders Card -->
+    <div class="col-sm-9">
+      <div class="card bg-light mb-5">
+        <div class="card-body">
+            
+        <div class="row">      
+          <h1 style="margin-left: 20%;" class="card-title">View Order</h1>
+          <button  class="btn btn-dark" style="margin-left:55% ;" >View All</button>
+        </div>   
+        <br>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 25%; color:rgb(78, 74, 74)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Order Status</div>
+        </div>
+        <p>previos orers will be here in an Array</p>
+        </div>
+        </div>
+        </div>
 
-
-<br>
-
-            </div></div>
-            <div style="margin-top:5% ; margin-bottom: 10% ;" class="card bg-light">
+        <!-- Payments and Funds card -->
+        <div class="col-sm-5">
+            <div class="card bg-light mb-4">
               <div class="card-body">
+                <h2 class="card-title">Payments and Funds</h2>
+                <p>$Current funds$</p>
+
+            
+                <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalData)">Add Funds</button>
+
+                <ng-template #modalData let-modal>
+                  <form #myUpdateFundsForm = "ngForm"  (ngSubmit)="updateUserFunds(myUpdateFundsForm.value)">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-basic-title">Add Funds from Bank to Group20</h4>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true" >×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <label for="cardNumber">Account NUMBER: </label>
+                          <div class="input-group">
+                          <input type="tel" class="form-control" name="actNum" placeholder="Valid Account Number" autocomplete="cc-number" required autofocus ngModel/>
+                          <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                    </div>
+                    <br>
+                    <label for="cardNumber">Mobile Number </label>
+                          <div class="input-group">
+                          <input type="tel" class="form-control" name="phoneNum" placeholder="Valid Mobile Number" autocomplete="cc-number" required autofocus ngModel/>
+                          <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                    </div>
+                    <br>
                   
-              <div style="text-align: center; margin-left: 10%; margin-top:5% ;" class="row">      
-                <h1 style="margin-left: 5%;" class="card-title">Profile View</h1>
-                <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalDataa)">Update</button>
-              </div>   
-              <ng-template #modalDataa let-modal>
-                <div class="modal-header">
-                  <h2 class="modal-title" id="modal-basic-title">Update Profile Data</h2>
-                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                    <span aria-hidden="true" >×</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    
-                      
-                        <div class="card-body">
-                          <h2 class="card-title">Sign-Up</h2>
-                          <form #myUpdateForm = "ngForm"  (ngSubmit)="update_User(myUpdateForm.value)">
-                            <input type = "text" class="form-control" name = "fName" placeholder = "Update First Name" ngModel>
-                            <br/>             
-                            <input type = "text" class="form-control" name = "lName" placeholder = "Update Last Name" ngModel>
-                            <br/>     
-                            <input type = "email" class="form-control" name = "email"  placeholder = "Update Email" ngModel>
-                            <br/>
-                            <input type = "tel" class="form-control" name = "phoneNum"  placeholder = "Update Phone Number" ngModel>
-                            <br/>
-                            <input type = "password" class="form-control" name = "pWord"  placeholder = "Update Password" ngModel>
-                            <br/>
-                            <input type = "date" class="form-control" name = "dob"  placeholder = "Update Date of Birth: MM/DD/YR" ngModel>
-                            <br/>
-                            <input type = "address" class="form-control" name = "street"  placeholder = "Update Street" ngModel>
-                            <br/>
-                            <input type="text" class="form-control"  name = "city" id="validationCustom03" placeholder = "Update City"  required>
-                            <div class="invalid-feedback">
-                                  Please provide a valid city.
-                             </div>
-                             
-                            <br/>
-                            <input type = "state" class="form-control" name = "state"  placeholder = "Update State" ngModel>
-                            <br/>
-                     
-                            <input type="text" class="form-control" id="validationCustom05"  placeholder = "Update Zipcode" required ngModel>
-                            <div class="invalid-feedback">
-                              Please provide a valid zip.
-                            </div>
-                            <br/>
-                            <p></p>
-                            
-                            
-                           
-                            <br/>
-                            <p></p>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                                <label class="form-check-label" for="invalidCheck">
-                                  Agree to terms and conditions to update
-                                </label>
-                                <div class="invalid-feedback">
-                                  You must agree before Updating.
-                                </div>
-                            </div>
-                              <br>
-                            
-                            
-                          </form>
+                    <br>
+                    <label for="cardNumber">Amount: </label>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
                           
-                        
+                        <span class="input-group-text">$</span>
+                      </div>
+                    
+                      <input type="text" name="fundsToAdd" class="form-control" aria-label="Amount (to the nearest dollar)" ngModel/>
+                      <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
                       </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-dark" (click)="modal.close('Update Profile')">Update Profile</button>
-                </div>
-                
-                                 
-                
-               
-       
-              </ng-template>
-                
+                    <div class="modal-footer">
+                      <input type="submit" value="Add Funds" class="btn btn-dark" (click)="modal.close('Save click')"/>
+                      <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Add Funds</button> -->
+                    </div>
+                    </div>
+                  </form>
+                  
+                                   
+                  
+                 
+         
+                </ng-template>
+
+
 
 
               </div>
-          </div>
+            </div>
+        </div>
+            <div  class="col-sm-6">
+              <div class="card bg-light mb-4">
+                <div class="card-body">
+                    
+                <div  class="col" >      
+                  <h1 style="margin-left:1%;" class="card-title">Profile View</h1>
+                  <p> </p>
+                  <p> </p>
+                  <p> </p>
+                  <button style="margin-right:20% ; text-align: left;" class="btn btn-dark" (click)="triggerModal(modalDataa)">Update Profile</button>
+                </div>   
+
+
+                <ng-template #modalDataa let-modal>
+                  <div class="modal-header">
+                    <h2 class="modal-title" id="modal-basic-title">Update Profile Data</h2>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                      <span aria-hidden="true" >×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      
+                        
+                          <div class="card-body">
+                            <h2 class="card-title">Sign-Up</h2>
+                            <form #myUpdateForm = "ngForm"  (ngSubmit)="updateUser(myUpdateForm.value)">
+                              <input type = "text" class="form-control" name = "fName" placeholder = "Update First Name" ngModel>
+                              <br/>             
+                              <input type = "text" class="form-control" name = "lName" placeholder = "Update Last Name" ngModel>
+                              <br/>     
+                              <input type = "email" class="form-control" name = "email"  placeholder = "Update Email" ngModel>
+                              <br/>
+                              <input type = "tel" class="form-control" name = "phoneNum"  placeholder = "Update Phone Number" ngModel>
+                              <br/>
+                              <input type = "password" class="form-control" name = "pWord"  placeholder = "Update Password" ngModel>
+                              <br/>
+                              <input type = "date" class="form-control" name = "dob"  placeholder = "Update Date of Birth: MM/DD/YR" ngModel>
+                              <br/>
+                              <input type = "address" class="form-control" name = "street"  placeholder = "Update Street" ngModel>
+                              <br/>
+                              <input type="text" class="form-control"  name = "city" id="validationCustom03" placeholder = "Update City"  required>
+                              <div class="invalid-feedback">
+                                    Please provide a valid city.
+                               </div>
+                               
+                              <br/>
+                              <input type = "state" class="form-control" name = "state"  placeholder = "Update State" ngModel>
+                              <br/>
+                       
+                              <input type="text" class="form-control" id="validationCustom05" name = "zip"  placeholder = "Update Zipcode" required ngModel>
+                              <div class="invalid-feedback">
+                                Please provide a valid zip.
+                              </div>
+                              <br/>
+                              <p></p>
+                              
+                              
+                             
+                              <br/>
+                              <p></p>
+                              <div class="form-check">
+                                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                  <label class="form-check-label" for="invalidCheck">
+                                    Agree to terms and conditions to update
+                                  </label>
+                                  <div class="invalid-feedback">
+                                    You must agree before Updating.
+                                  </div>
+                              </div>
+                                <br>
+                                <div class="modal-footer">
+                                  <input type="submit" value="Update Profile" class="btn btn-dark" (click)="modal.close('Update Profile')"/>
+                                  <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Update Profile')">Update Profile</button> -->
+                                </div>      
+                              
+                            </form>
+                            
+                          
+                        </div>
+                      </div>
+                  </div>
+         
+                </ng-template>
+                  
+                </div>
+
+                </div>
+            </div>
+        
+
+      </div>
+
       
 
     </div>
-</div>
+
 </ng-template>
 
 </body>

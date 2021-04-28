@@ -150,7 +150,6 @@ else{
 this.passType == "password"
 }
 }
-orderStatus:any;
 
 
 
