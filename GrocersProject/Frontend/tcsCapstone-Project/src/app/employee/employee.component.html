@@ -14,14 +14,14 @@
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <h3 class="card-title">Request Add Products</h3>
+                      <h3 class="card-title">Add Request</h3>
                       <form #myform = "ngForm" >
-                      <input type="text" class="form-control" placeholder="Product_ID" aria-label="Product_ID" aria-describedby="basic-addon1">
+                      <input type="text" #subjectText class="form-control" placeholder="Subject" aria-label="Product_ID" aria-describedby="basic-addon1">
                       <p> </p>
-                      <input type="text" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
+                      <input type="text" #descText class="form-control" placeholder="Description" aria-label="Quantity" aria-describedby="basic-addon1">
                       <p> </p>
 
-                      <a href="#" class="btn btn-dark">Submit</a>
+                      <a href="#" class="btn btn-dark" (click) ="createRequest(subjectText.value, descText.value)">Submit</a>
                     </form>
                     </div>
                   </div>
@@ -89,14 +89,14 @@
             </div>
               
               <div *ngIf="viewReq" >
-              <div  style="margin-left: 30% ;" *ngFor = "let r of requests">
+              <div  style="margin-left: 30% ;" *ngFor = "let lu of lockedUsers">
                 <div class="row">
                 <div class="col-sm-6"  >
                   
                   <div class="card bg-light mb-3" style="margin-top: 6%;">
                   <div class="card-body">
-                    <h2 class="card-title">Ticket Raised to Unlock the account of</h2>
-                    <button  class="btn btn-dark" value="Submit" style="margin-left: 70% ;" (click)="unlockUser(r.user_id)">Completed</button><!---  -->
+                    <h2 class="card-title">Ticket Raised to Unlock the account of {{lu.fName}}</h2>
+                    <button  class="btn btn-dark" value="Submit" style="margin-left: 70% ;" (click)="unlockUserAccount(lu.autoGenID)">Completed</button><!---  -->
                   </div>
                 </div>
                   </div>
@@ -136,7 +136,7 @@
                 <br>
                 <div class="row">
                   <div class="input-group mb-1">
-                  <input [type] = "passType" class="form-control" placeholder=" New Password" aria-label="New Password" aria-describedby="basic-addon1">
+                  <input [type] = "passType" #newPass class="form-control" placeholder=" New Password" aria-label="New Password" aria-describedby="basic-addon1">
                   <button style="width: 7 rem;" class="btn btn-outline-light" (click)="changePasswordType()">Show</button>
                 </div> 
               </div>
@@ -160,21 +160,7 @@
 
 
 
-         <div>
-          <div style="margin-left: 30% ;" *ngFor = "let u of lockedUsers">
-            <div class="row">
-            <div class="col-sm-6"  >
-              
-              <div class="card bg-light mb-3" style="margin-top: 6%;">
-              <div class="card-body">
-                <h2 class="card-title">Account Locked</h2>
-                <p><button (click) ="unlockUserAccount(u.email)"  class="btn btn-dark" style="margin-left: 70% ;">Unlock</button></p><!---  -->
-              </div>
-            </div>
-              </div>
-            </div>
-            </div>
-        </div>
+         
 
               <!-- <div> 
               <h2>Update Employee Password</h2>

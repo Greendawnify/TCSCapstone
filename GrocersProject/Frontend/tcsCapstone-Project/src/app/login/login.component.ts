@@ -93,6 +93,8 @@ export class LoginComponent implements OnInit {
         if(userPword == result.password){
           alert("Login Sucess")
           sessionStorage.setItem("employeeToken", "123");
+          console.log("Employee obj",result);
+          sessionStorage.setItem("currentEmployee", JSON.stringify(result));
           this.router.navigate(["employee"]);
         }else{
           alert("Wrong Password")

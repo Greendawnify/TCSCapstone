@@ -58,7 +58,7 @@ export class UserService {
     let newObj = {
       id
     }
-    return this.http.put("http://localhost:9090/user/updateTicket",newObj,{responseType:'text'})
+    return this.http.put("http://localhost:9090/user/unlockUser",newObj,{responseType:'text'})
   }
 
   getRaisedTicket():Observable<User[]>{

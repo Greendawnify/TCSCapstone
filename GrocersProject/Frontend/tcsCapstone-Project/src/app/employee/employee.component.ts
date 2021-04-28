@@ -42,6 +42,7 @@ export class EmployeeComponent implements OnInit {
     this.userService.unlockUser(userID).subscribe((result:string)=> {
       alert(result);
       console.log("Successfully unlocked")
+      window.location.reload();
     });
   }
 
@@ -56,15 +57,22 @@ export class EmployeeComponent implements OnInit {
 
 
 
-  createRequest(request:any){
+  createRequest(subject:any, desc:any){
     // the values in the body have to be Type, and Description, and sender
     // need to add the current employee record to local storage and then add its id or name to this request
+
+    let currentEmployeJson = sessionStorage.getItem("currentEmployee");
+    let emp;
+    if(currentEmployeJson){
+      emp = JSON.parse(currentEmployeJson);
+    }
+
     let newObj = {
-      type:request.type,
-      description:request.description,
-      sender: "phil"// the current employees name or id
+      type:subject,
+      description:desc,
+      sender: emp.name
     };
-    this.requestService.createRequest(request);
+    this.requestService.createRequest(newObj);
   }
 
 
@@ -75,10 +83,6 @@ export class EmployeeComponent implements OnInit {
   }
   //ticket raised array for testing
   requests = [{ type:"hello", description:"this this",user_id:"anudeep" },{ type:"hello", description:"this this",user_id:"balla" }]
-  unlockUser(user_id:any){
-    //function to unlock a user
-
-  }
   viewRequest(){
     this.viewReq = !(this.viewReq)
   }
