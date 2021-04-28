@@ -24,6 +24,8 @@ export class EmployeeComponent implements OnInit {
   lockedUsers:User[] = [];
   usersWithOrders:User[] = [];
   temp ?:Employee;
+
+  orderStatus:any[] = [];
   
  
 
@@ -143,19 +145,24 @@ else{
 this.passType == "password"
 }
 }
-orderStatus:any;
+
 
 viewOrders(user_id:any){
 
-  this.orderStatus=user_id.orders;
+  let selectedUser:User|undefined;
+  selectedUser = this.usersWithOrders.find(user => {
+    return user.autoGenID == user_id;
+  });
 
+  if(selectedUser){
+    console.log(selectedUser.Orders);
+    this.orderStatus = selectedUser.Orders;
+  }
+}
 
-
-
-
-
-
-
+statusUpdate(status:any, currentText:any){
+  console.log("New status is",status);
+  console.log("current text is ",currentText);
 }
 
 }
