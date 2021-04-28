@@ -252,7 +252,7 @@ export class UserComponent implements OnInit {
   };
 //profile functions
 triggerModal(content:any) {
-  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+  this.modalService.open(content, {ariaLabelledBy: 'modal-basic'}).result.then((res) => {
     this.closeModal = `Closed with: ${res}`;
   }, (res) => {
     this.closeModal = `Dismissed ${this.getDismissReason(res)}`;

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>User</title>
 </head>
 <body>
@@ -88,7 +89,7 @@
           </div>
           
           <div *ngIf="isShopping" class="card" style="width: 12rem">
-            <button (click) ="checkFunds()" style="width: 12rem; height: 3rem;" class="btn btn-dark"> <img style="width:3rem ; height:2rem ;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPSJptkcLi1WnHyExuc9Wg83x6s1EgSZBnFY6ftfJbwbmDBSCEbKBUff9z9uNsyoJpTy8&usqp=CAU">
+            <button (click) ="checkFunds()" style="width: 12rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">
             </button>
            <div class="card-body">
               <h5 class="card-title">Cart</h5>
@@ -127,7 +128,7 @@
  
           
   <div *ngIf="isShopping" class="card" style="width: 12rem">
-    <button style="width: 12rem; height: 5rem;" class="btn btn-dark"> <img src="https://cdn2.iconfinder.com/data/icons/everything-in-office/65/icon_Ai-10-512.png" width="45" alt="" class="d-inline-block align-middle mr-2">
+    <button style="width: 12rem; height: 5rem;" class="btn btn-light"> <img src="https://cdn2.iconfinder.com/data/icons/everything-in-office/65/icon_Ai-10-512.png" width="45" alt="" class="d-inline-block align-middle mr-2">
     </button>
    <div class="card-body">
       
@@ -148,11 +149,12 @@
  
 </div>
 <!---Profile   -->
-<ng-template style="width: 600px;" #modalProfile let-modal>
+
+<ng-template #modalProfile let-modal>
 <div class="row">
        
   <!-- View Orders Card -->
-  <div class="row" style="margin-left: 5%;margin-top: 5%; border-right: 2px solid rgb(0, 0, 0) !important;">
+  <div class="row" style="margin-left: 5%;margin-top: 5%;">
        
     <!-- View Orders Card -->
     <div class="col-sm-9">
