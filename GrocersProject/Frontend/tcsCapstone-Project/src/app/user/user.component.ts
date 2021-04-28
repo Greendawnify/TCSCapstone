@@ -19,7 +19,8 @@ export class UserComponent implements OnInit {
   products:Product[] = new Array;
   tempCart:any[]= [];
   constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
-
+  currentBalance?:number;
+  currentFunds?:string;
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
 
@@ -42,6 +43,9 @@ export class UserComponent implements OnInit {
       else{
         console.log("tempUserDetails is null");
       }
+
+      this.currentBalance = this.signedInUserDetails.balance;
+      this.currentFunds = this.signedInUserDetails.funds;
   }
   is_Shopping(){
     this.isShopping=true;
@@ -288,6 +292,8 @@ updateUserFunds(myUpdateFundsForm:any){
           let tempResult = JSON.stringify(merged);
           console.log("Temp Result after updating user funds ", tempResult);
           sessionStorage.setItem('LoggedInUserDetails', tempResult);
+          this.currentBalance = merged.balance;
+          this.currentFunds = merged.funds;
           alert(result);
         });
       }

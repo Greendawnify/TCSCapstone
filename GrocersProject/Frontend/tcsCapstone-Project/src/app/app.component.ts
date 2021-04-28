@@ -20,25 +20,21 @@ export class AppComponent {
     
       this.router.navigate(["user"])
       }
-      Profile(){
-    
-        this.router.navigate(["profile"])
-        }
-        Login_user(){
-          this.isLogout=true;
-          this.isLogin=false;
-          this.isCart=true;
-          this.router.navigate(["login"])
-        }
-        Logout_user(){
-          this.isLogout=false;
-          this.isLogin=true;
-          this.isCart=false;
-          this.router.navigate(["user"])
-        }
-       toCart(){
-    
-          this.router.navigate(["cart"])
-          }
+      Login_user(){
+        this.isLogout=true;
+        this.isLogin=false;
+        this.isCart=true;
+        this.router.navigate(["login"])
+      }
+      Logout_user(){
+        this.isLogout=false;
+        this.isLogin=true;
+        this.isCart=false;
+        this.router.navigate(["user"])
+      }
+      toCart(){
+  
+        this.router.navigate(["cart"])
+      }
           
 }
