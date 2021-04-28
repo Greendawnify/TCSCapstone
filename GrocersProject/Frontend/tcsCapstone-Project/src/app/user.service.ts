@@ -66,12 +66,27 @@ export class UserService {
   }
 
   retrieveUserById(userInitInfo: any):Observable<any>{
-    return this.http.get<any>("http://localhost:9090/user/getUser/"+userInitInfo.fName+"/"+userInitInfo.lName+"/"+userInitInfo.email+"/"+userInitInfo.pWord+"/"+userInitInfo.autoGenID);
+    console.log("In User Service Retrieve User By ID: " , userInitInfo);
+    return this.http.get<any>("http://localhost:9090/user/getUser/"+userInitInfo.autoGenID+"/"+userInitInfo.pWord);
   }
 
   generateUserID(mySignUpForm: any){
     console.log("In User Service genUserID: " , mySignUpForm);
     return this.http.put("http://localhost:9090/user/generateUserID",mySignUpForm,{responseType:'text'})
+  }
+
+  getUsersWithOrders():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:9090/user/getOrders");
+  }
+
+  updateOrderStatus(userID:any, orderID:any, status:any){
+    let newObj = {
+      userID,
+      orderID,
+      status
+    };
+
+    return this.http.put("http://localhost:9090/user/updateOrderStatus", newObj, {responseType:"text"});
   }
 
 }

@@ -235,12 +235,17 @@ let updateTicketRaised = (req,res)=> {
 
     // Check if the user or employee that is requesting to raise or lower the ticket of the account is actually locked 
     userActuallyLocked = req.body.raiseOrLowerTicker;
+    userAlreadyRaisedTicket = req.body.raiseOrLowerTicker;
     //res.send("User is actually locked " + typeof(userActuallyLocked) + " uRaiLowTick: " + typeof(uRaiLowTick));
     UserModel.find({$and: [{fName:uFName}, {lName:uLName}, {email:uEmail}, {autoGenID:uGenID}]}, (err,data)=>{
         if(!err){
             if(data[0].isLocked == true){
                 //res.send("User is actually locked");
                 userActuallyLocked = true;
+                if(data[0].ticketRaised == true)
+                  userAlreadyRaisedTicket = true;
+                else
+                  userAlreadyRaisedTicket = false;
             }
             else{
                 //res.send("User is NOT actually locked");
@@ -252,8 +257,10 @@ let updateTicketRaised = (req,res)=> {
         }
     });
     //res.send("User is actually locked " + userActuallyLocked + " uRaiLowTick: " + uRaiLowTick);
-
-    if(userActuallyLocked == true){
+    if(userAlreadyRaisedTicket == true)
+      res.send("Your account already has a ticket raised!");
+      
+    if(userActuallyLocked == true && userAlreadyRaisedTicket == false){
         //res.send("User is actually locked" + userActuallyLocked + "uRaiLowTick: " + uRaiLowTick);
         // User is raising the ticket
         if(uRaiLowTick == true){
@@ -578,13 +585,9 @@ let checkout = (req, res) => {
 };
 
 let getSingleUser = (req, res) => {
-  let uFName = req.params.fName;
-  let uLName = req.params.lName;
-  let uEmail = req.params.email;
-  let uPWord = req.params.pWord;
   let uGenId = req.params.autoGenID
-
-  UserModel.find({$and: [{fName:uFName}, {lName:uLName}, {email:uEmail}, {pWord:uPWord}, {autoGenID:uGenId}]}, (err, result) => {
+  let uPWord = req.params.pWord;
+  UserModel.find({$and: [{pWord:uPWord}, {autoGenID:uGenId}]}, (err, result) => {
     if (!err) {
       res.json(result[0]);
     } 
@@ -636,6 +639,41 @@ let updateFunds = (req, res) => {
   });
 };
 
+let updateOrderStatus = (req, res) => {
+  let uID = req.body.userID;
+  let orderID = req.body.orderID;
+  let newStatus = req.body.status;
+
+  UserModel.updateOne(
+    {
+      autoGenID: uID,
+      Orders: { $exits: true, $elemMatch: { id: orderID } },
+    },
+    {
+      $set: {
+        "Orders.$.status": "newStatus",
+      },
+    },
+    (err, result) => {
+      if (!err) {
+        if (result.nModified > 0) {
+          let newObj = {
+            approved: true,
+          };
+          res.json(newObj);
+        } else {
+          let errorObj = {
+            approved: false,
+          };
+          res.json(errorObj);
+        }
+      } else {
+        res.send("error updating status", err);
+      }
+    }
+  );
+};
+
 /* let deleteProductById= (req,res)=> {
     let pid = req.params.pid;
     UserModel.deleteOne({_id:pid},(err,result)=> {
@@ -685,4 +723,5 @@ module.exports = {
   getUsersWithOrders,
   genrateUserID,
   unlockUser,
+  updateOrderStatus,
 };
