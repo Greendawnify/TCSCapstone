@@ -3,6 +3,7 @@ import { ProductServiceService } from './../product.service.service';
 import { Product } from './../model.product';
 import { UserService } from './../user.service';
 import { Cart } from './../cart.model';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -14,10 +15,10 @@ export class UserComponent implements OnInit {
   isShopping:boolean= false;
   notShopping:boolean = true;
   
-
+  closeModal: string="";
   products:Product[] = new Array;
   tempCart:any[]= [];
-  constructor(public productService:ProductServiceService, public userService:UserService) { }
+  constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
@@ -193,5 +194,27 @@ export class UserComponent implements OnInit {
 
     // need to implement subtracting quantity from database
   };
+//profile functions
+triggerModal(content:any) {
+  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+    this.closeModal = `Closed with: ${res}`;
+  }, (res) => {
+    this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+  });
+}
 
+private getDismissReason(reason: any): string {
+  if (reason === ModalDismissReasons.ESC) {
+    return 'by pressing ESC';
+  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    return 'by clicking on a backdrop';
+  } else {
+    return  `with: ${reason}`;
+  }
+}
+update_User(myUpdateForm:any){
+  console.log(myUpdateForm);
+  this.userService.signUpUserDetails(myUpdateForm);
+  //this.proService.storeProductDetailsInfo(productRef);
+}
 }

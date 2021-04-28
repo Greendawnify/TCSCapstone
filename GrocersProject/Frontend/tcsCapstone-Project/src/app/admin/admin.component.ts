@@ -3,6 +3,7 @@ import { EmployeeService } from '../employee.service';
 import { ProductServiceService } from './../product.service.service';
 import { RequestService } from './../request.service';
 import { Request } from './../request.model';
+import { User } from '../model.user';
 
 
 @Component({
@@ -96,7 +97,33 @@ export class AdminComponent implements OnInit {
 
   
   
+  dummy_user:any =[
+    {fName: "anu",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/1/2020
+  
+    }] },{fName: "balla",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/2/2020
+  
+  }]}
+  ]
+  dummy_product=[{
+   
+    name: "banana",
+    initQuantity: 100,
+    quantity: 20,
+    cost: 12,
+    
+  },{
+   
+    name: "orange",
+    initQuantity: 100,
+    quantity: 30,
+    cost: 12,
+    
+  }]
+  dummy_products:any;
+  productsReport(){
+    this.dummy_products = this.dummy_product;
 
+  }
 }
 
 

@@ -150,12 +150,8 @@ viewOrders(user_id:any){
   this.orderStatus=user_id.orders;
 
 
-
-
-
-
-
-
 }
+
+
 
 }
