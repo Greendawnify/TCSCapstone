@@ -48,6 +48,9 @@ export class ProfileComponent implements OnInit {
     console.log("Cleaned Update Form: ", myUpdateForm);
     console.log(merged);
     this.useService.updateProfile(merged).subscribe((result:string)=> {
+      let tempResult = JSON.stringify(merged);
+      console.log("Temp Result after updating user ", tempResult);
+      sessionStorage.setItem('LoggedInUserDetails', tempResult);
       alert(result);
     });
     //console.log();
@@ -55,18 +58,36 @@ export class ProfileComponent implements OnInit {
   
   updateUserFunds(myUpdateFundsForm:any){
     console.log("Update User Funds is called:", myUpdateFundsForm);
+    
+    let tempUserFundsDetails =  sessionStorage.getItem("LoggedInUserDetails");
+    let TFD:any = {};
+    console.log(tempUserFundsDetails);
+    if(tempUserFundsDetails != null){
+      tempUserFundsDetails = JSON.parse(tempUserFundsDetails);
+      console.log("Type and Result:" , typeof(tempUserFundsDetails) , " ", tempUserFundsDetails);
+      TFD = tempUserFundsDetails;
+      //console.log("Type and Result:" , typeof(this.signedInUserDetails) , " ", this.signedInUserDetails);
+    }
+    else{
+      console.log("tempUserFundsDetails is null");
+    }
 
-    if(this.signedInUserDetails.actNum == myUpdateFundsForm.actNum || this.signedInUserDetails.phoneNum == myUpdateFundsForm.phoneNum){
-      if(this.signedInUserDetails.balance != 0){
-        if(myUpdateFundsForm.fundsToAdd < this.signedInUserDetails.balance){
-          let tempFunds = parseInt(this.signedInUserDetails.funds) + parseInt(myUpdateFundsForm.fundsToAdd);
-          let remainingBalance = this.signedInUserDetails.balance - myUpdateFundsForm.fundsToAdd;
+    if(TFD.actNum == myUpdateFundsForm.actNum || TFD.phoneNum == myUpdateFundsForm.phoneNum){
+      if(TFD.balance != 0){
+
+        if(myUpdateFundsForm.fundsToAdd < TFD.balance){
+
+          let tempFunds = parseInt(TFD.funds) + parseInt(myUpdateFundsForm.fundsToAdd);
+          let remainingBalance = TFD.balance - myUpdateFundsForm.fundsToAdd;
           let tempFundsObj = { "funds": tempFunds, "balance": remainingBalance };
           console.log(tempFundsObj);
-          let merged = {...this.signedInUserDetails, ...tempFundsObj};
+          let merged = {...TFD, ...tempFundsObj};
           console.log(merged);
 
           this.useService.updateProfile(merged).subscribe((result:string)=> {
+            let tempResult = JSON.stringify(merged);
+            console.log("Temp Result after updating user funds ", tempResult);
+            sessionStorage.setItem('LoggedInUserDetails', tempResult);
             alert(result);
           });
         }
