@@ -7,6 +7,11 @@
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <title>Employee</title>
+          <script type="text/javascript">
+            $(window).on('load', function() {
+                $('#modalData').modal('show');
+            });
+        </script>
           
       </head>
       <body>
@@ -104,11 +109,7 @@
               </div>
             </div>
           </div>
-          <script type="text/javascript">
-            $(window).on('load', function() {
-                $('#modalData').modal('show');
-            });
-        </script>
+          
          
           <!---Model to update employee pass word-->
           <ng-template #modalData id="modalData" let-modal>
