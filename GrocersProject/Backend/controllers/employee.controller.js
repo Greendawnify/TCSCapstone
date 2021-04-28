@@ -28,6 +28,7 @@ let storeEmployeeDetails = (req, res) => {
     lastname: req.body.lastname,
     emailid: req.body.emailid,
     password: "Welcome123",
+    resetpwd: true,
   });
   employee.save((err, result) => {
     if (!err) {
@@ -79,14 +80,14 @@ let updateEmployeePassword = (req, res) => {
 
 //http://localhost:9090/employee/validateEmployee
 let validateEmployee = (req, res) => {
-  let cid=req.params.cId;
-    
-    EmployeeModel.find({_id:cid}, (err, result) => {
-      if (!err) {
-        res.json(result[0]);
-      }
-    });
-  };
+  let cid = req.params.cId;
+
+  EmployeeModel.find({ _id: cid }, (err, result) => {
+    if (!err) {
+      res.json(result[0]);
+    }
+  });
+};
 
 module.exports = {
   geEmpoyeeDetails,
@@ -94,5 +95,5 @@ module.exports = {
   getEmployeeById,
   deleteEmployeeId,
   updateEmployeePassword,
-  validateEmployee
+  validateEmployee,
 };

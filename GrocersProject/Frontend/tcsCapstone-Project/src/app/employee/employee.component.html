@@ -152,8 +152,12 @@
                     
                   
                   <div class="modal-footer">
+<<<<<<< HEAD
                     
                     <input type="submit" value="Update Password" class="btn btn-dark" ng-click="modal.close('Save click'); changePassword()">
+=======
+                    <input type="submit" value="Update Password" class="btn btn-dark" (click)="modal.close('save click'); updateEmployeePwd(newPass.value)">
+>>>>>>> 316335378900e67b9316611deedf9fd0ccd58b94
                     <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
                   </div>
                 
