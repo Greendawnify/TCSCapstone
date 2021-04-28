@@ -8,7 +8,7 @@ router.post("/storeUserDetails", UserController.signUpUserDetails);
 router.post("/userSignIn", UserController.signInUser);
 router.post("/checkout", UserController.checkout);
 router.post("/checkFunds", UserController.checkProperFunds);
-router.get("/getUser/:fName/:lName/:email/:pWord/:autoGenID", UserController.getSingleUser);
+router.get("/getUser/:autoGenID/:pWord", UserController.getSingleUser);
 router.put("/editProfile", UserController.editProfile);
 router.put("/updateFunds", UserController.updateFunds);
 router.put("/updateTicket", UserController.updateTicketRaised);

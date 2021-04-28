@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     
     let tempObj = {"autoGenID":userID, "pWord": userPword};
 
+
     
     this.useService.signUserDetailsInfo(tempObj).subscribe(result=> {
       //console.log("Sign In: " + result);
@@ -41,8 +42,17 @@ export class LoginComponent implements OnInit {
         if(result == "You are locked out! Raise ticket!")
           alert(result);
         else{
-          if(result == "Password correct")
-            this.router.navigate(["user"]);
+          if(result == "Password correct"){
+            let tempUser = {};
+            this.useService.retrieveUserById(tempObj).subscribe( result =>{
+              if(result != null){
+                JSON.stringify(result);
+                console.log(result);
+                sessionStorage.setItem('LoggedInUserDetails', result);
+                this.router.navigate(["user"]);
+              }
+            });
+          }
           else if(result == "User ID not found")
             alert("User ID not found");
           else if(Number(result) == 3 || Number(result) == 2 || Number(result) == 1)
@@ -135,4 +145,3 @@ export class LoginComponent implements OnInit {
     }
   }
 }
-

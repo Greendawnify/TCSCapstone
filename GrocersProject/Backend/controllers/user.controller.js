@@ -227,116 +227,62 @@ let unlockUser = (req, res) => {
 };
 
 // Function for Raising ticket (Updating the Boolean in the User Model)
-let updateTicketRaised = (req, res) => {
+let updateTicketRaised = (req,res)=> {
   let uFName = req.body.fName;
   let uLName = req.body.lName;
   let uEmail = req.body.email;
   let uGenID = req.body.autoGenID;
-  let uRaiLowTick = req.body.raiseOrLowerTicker;
 
-  // Check if the user or employee that is requesting to raise or lower the ticket of the account is actually locked
-  userActuallyLocked = req.body.raiseOrLowerTicker;
+
+  // Check if the user or employee that is requesting to raise or lower the ticket of the account is actually locked 
+  let userActuallyLocked = req.body.raiseOrLowerTicker;
   //res.send("User is actually locked " + typeof(userActuallyLocked) + " uRaiLowTick: " + typeof(uRaiLowTick));
-  UserModel.find(
-    {
-      $and: [
-        { fName: uFName },
-        { lName: uLName },
-        { email: uEmail },
-        { autoGenID: uGenID },
-      ],
-    },
-    (err, data) => {
-      if (!err) {
-        if (data[0].isLocked == true) {
-          //res.send("User is actually locked");
-          userActuallyLocked = true;
-        } else {
-          //res.send("User is NOT actually locked");
-          userActuallyLocked = false;
+  UserModel.find({fName:uFName, lName:uLName, email:uEmail, autoGenID:uGenID}, (err,data)=>{
+      if(!err){
+        if(data === undefined || data.length == 0){
+          res.send("User Information doesn't exist");
         }
-      } else {
-        res.send("Error is raised: " + err);
+        else{
+          if(data[0].ticketRaised == true)
+            res.send("Account ticket already raised!");
+          else{
+            if(data[0].isLocked == true){
+              //console.log("User is actually locked");
+              //res.send("User is actually locked");
+              userActuallyLocked = true;
+            }
+            else{
+              //console.log("User is NOT actually locked");
+              //res.send("User is NOT actually locked");
+              userActuallyLocked = false;
+            }
+  
+            if(userActuallyLocked == true){
+              // User is raising the ticket
+              UserModel.updateMany({fName:uFName, lName:uLName, email:uEmail, autoGenID:uGenID},{$set:{ticketRaised:true}},(err,result)=> {
+                if(!err){
+                    if(result.nModified>0){
+                      return res.send("Ticket Raised succesfully")
+                    }else {
+                      return res.send("User information invalid available");
+                    }
+                }else {
+                  res.send("Error generated "+err);
+                }
+              })
+            }
+            else if(userActuallyLocked == false){
+              res.send("Account is not locked");
+            }
+          }      
+        }
       }
-    }
-  );
-  //res.send("User is actually locked " + userActuallyLocked + " uRaiLowTick: " + uRaiLowTick);
-
-  if (userActuallyLocked == true) {
-    //res.send("User is actually locked" + userActuallyLocked + "uRaiLowTick: " + uRaiLowTick);
-    // User is raising the ticket
-    if (uRaiLowTick == true) {
-      //res.send("uRaiLowTick is true");
-      UserModel.updateMany(
-        {
-          $and: [
-            { fName: uFName },
-            { lName: uLName },
-            { email: uEmail },
-            { autoGenID: uGenID },
-          ],
-        },
-        { $set: { ticketRaised: true, isLocked: true } },
-        (err, result) => {
-          if (!err) {
-            if (result.nModified > 0) {
-              res.send("Ticket Raised succesfully");
-            } else {
-              res.send("User information invalid available");
-            }
-          } else {
-            res.send("Error generated " + err);
-          }
-        }
-      );
-    }
-    // Employee is raising the ticket
-    else if (uRaiLowTick == false) {
-      UserModel.updateMany(
-        {
-          $and: [
-            { fName: uFName },
-            { lName: uLName },
-            { email: uEmail },
-            { uGenID: autoGenID },
-          ],
-        },
-        { $set: { ticketRaised: false } },
-        (err, result) => {
-          if (!err) {
-            if (result.nModified > 0) {
-              res.send("Ticket Resolved succesfully");
-            } else {
-              res.send("User information invalid available");
-            }
-          } else {
-            res.send("Error generated " + err);
-          }
-        }
-      );
-    }
-    // Employee is raising the ticket
-    else if (uRaiLowTick == false) {
-      UserModel.updateMany(
-        { $and: [{ fName: uFName }, { lName: uLName }, { email: uEmail }] },
-        { $set: { ticketRaised: false } },
-        (err, result) => {
-          if (!err) {
-            if (result.nModified > 0) {
-              res.send("Ticket Resolved succesfully");
-            } else {
-              res.send("User information invalid available");
-            }
-          } else {
-            res.send("Error generated " + err);
-          }
-        }
-      );
-    }
-  } else if (userActuallyLocked == false) {
-    res.send("Account is not locked");
-  }
-};
+      else{
+          res.send("Error is raised: " + err);
+      }
+  });
+  
+}
 
 let editProfile = (req, res) => {
   let id = req.body.autoGenID;
@@ -623,34 +569,21 @@ let checkout = (req, res) => {
 };
 
 let getSingleUser = (req, res) => {
-  let uFName = req.params.fName;
-  let uLName = req.params.lName;
-  let uEmail = req.params.email;
-  let uPWord = req.params.pWord;
   let uGenId = req.params.autoGenID;
+  let uPWord = req.params.pWord;
 
-  UserModel.find(
-    {
-      $and: [
-        { fName: uFName },
-        { lName: uLName },
-        { email: uEmail },
-        { pWord: uPWord },
-        { autoGenID: uGenId },
-      ],
-    },
-    (err, result) => {
-      if (!err) {
-        res.json(result[0]);
-      } else {
-        let tempJSON = {
-          msg: "User doesnt exits: " + err,
-        };
-        res.json(tempJSON);
-      }
+  UserModel.find({$and: [{pWord:uPWord}, {autoGenID:uGenId}]}, (err, result) =>{
+    if (!err) {
+      res.json(result[0]);
+    } 
+    else {
+      let tempJSON = {
+        msg: "User doesnt exits: " + err,
+      };
+      res.json(tempJSON);
     }
-  );
-};
+  });
+}
 
 let updateFunds = (req, res) => {
   let id = req.body.id;

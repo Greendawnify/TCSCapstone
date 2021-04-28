@@ -66,7 +66,8 @@ export class UserService {
   }
 
   retrieveUserById(userInitInfo: any):Observable<any>{
-    return this.http.get<any>("http://localhost:9090/user/getUser/"+userInitInfo.fName+"/"+userInitInfo.lName+"/"+userInitInfo.email+"/"+userInitInfo.pWord+"/"+userInitInfo.autoGenID);
+    console.log("In User Service Retrieve User By ID: " , userInitInfo);
+    return this.http.get<any>("http://localhost:9090/user/getUser/"+userInitInfo.autoGenID+"/"+userInitInfo.pWord);
   }
 
   generateUserID(mySignUpForm: any){
@@ -87,5 +88,4 @@ export class UserService {
 
     return this.http.put("http://localhost:9090/user/updateOrderStatus", newObj, {responseType:"text"});
   }
-
 }
