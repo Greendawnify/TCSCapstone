@@ -19,7 +19,15 @@ let UserSchema = mongoose.Schema({
   balance: Number,
   ticketRaised: Boolean,
   autoGenID: String,
-  Orders: [{ id: Number, products: [String], cost: Number, status: String, orderDate: Date }],
+  Orders: [
+    {
+      id: String,
+      products: [String],
+      cost: Number,
+      status: String,
+      orderDate: Date,
+    },
+  ],
 });
 
 let UserModel;

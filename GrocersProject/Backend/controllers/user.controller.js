@@ -308,25 +308,31 @@ let editProfile = (req, res) => {
   let uIsLocked = req.body.isLocked;
   let uLoginTries = req.body.loginTries;
   let uTicketStatus = req.body.ticketRaised;
-  //let newString = "UPDATES: ";
-  /* phone = phone.trim();
-  password = password.trim();
-  state = state.trim();
-  city = city.trim();
-  street = street.trim();
-  uEmail = uEmail.trim();
-  fname = fname.trim();
-  lname = lname.trim();
- */
-  
-  if(id!=""){
+
+  if (id != "") {
     //console.log("In Update Many");
     UserModel.updateMany(
-      { autoGenID: id},
-      { $set: { fName: fname, lName: lname, pWord: password, email: uEmail,
-                city: uCity, street: uStreet, state:uState, zip:uZip, phoneNum:phone,
-                Orders: uOrders, balance:uBalance, dob:uDOB, funds:uFunds, isLocked:uIsLocked,
-                loginTries:uLoginTries, ticketRaised:uTicketStatus} },
+      { autoGenID: id },
+      {
+        $set: {
+          fName: fname,
+          lName: lname,
+          pWord: password,
+          email: uEmail,
+          city: uCity,
+          street: uStreet,
+          state: uState,
+          zip: uZip,
+          phoneNum: phone,
+          Orders: uOrders,
+          balance: uBalance,
+          dob: uDOB,
+          funds: uFunds,
+          isLocked: uIsLocked,
+          loginTries: uLoginTries,
+          ticketRaised: uTicketStatus,
+        },
+      },
       (err, result) => {
         if (!err) {
           if (result.nModified > 0) {
@@ -336,155 +342,6 @@ let editProfile = (req, res) => {
       }
     );
   }
-  /* if (id != "") {
-    UserModel.updateOne(
-      {
-        $and: [
-          { fName: fname },
-          { lName: lname },
-          { email: uEmail },
-          { pWord: password },
-        ],
-      },
-      { $set: { autoGenID: id } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " New User ID updated! ";
-            //res.send(req.body.autoGenID);
-          }
-        }
-      }
-    );
-  } */
-
-  /* if (phone != "") {
-    UserModel.updateOne(
-      { autoGenID: id},
-      { $set: { phoneNum: phone } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " Phone updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (password != "") {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { pWord: password } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " Password updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (state != "") {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { state: state } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " State updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (city != "") {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { city: city } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " City updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (street != "") {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { street: street } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " Street updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (uEmail != "") {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { email: uEmail } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " Email updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (lname != "") {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { lname: lname } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " Last name updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (fname != "") {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { fname: fname } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " First Name updated! ";
-          }
-        }
-      }
-    );
-  }
-
-  if (zip != null) {
-    UserModel.updateOne(
-      {autoGenID: id},
-      { $set: { zip: zip } },
-      (err, result) => {
-        if (!err) {
-          if (result.nModified > 0) {
-            newString += " Zip updated! ";
-          }
-        }
-      }
-    );
-  } */
-
-  //res.send(newString);
 };
 
 let genrateUserID = (req, res) => {
@@ -529,7 +386,7 @@ let checkProperFunds = (req, res) => {
   let id = req.body.id;
   let cost = req.body.cost;
 
-  UserModel.find({ uGenID: id }, (err, result) => {
+  UserModel.find({ autoGenID: id }, (err, result) => {
     if (!err) {
       console.log("Result:", result);
       console.log(result.funds);
@@ -557,7 +414,7 @@ let checkout = (req, res) => {
   let newObj = { funds: false, orders: false };
 
   let orderObj = {
-    id: 134, // not neccessary?
+    id: req.body.id, // not neccessary?
     products: req.body.products, // array of product names,
     cost: req.body.cost,
     status: "bought",
@@ -569,7 +426,6 @@ let checkout = (req, res) => {
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
-          console.log("updayed funds");
           newObj.funds = true;
         } else {
           res.send("record was not found in checkout");
@@ -580,19 +436,19 @@ let checkout = (req, res) => {
     }
   );
 
-  UserModel.updateOne(
+  UserModel.updateMany(
     { autoGenID: userID },
     { $push: { Orders: orderObj } },
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
-          console.log("updated orders");
           newObj.orders = true;
           res.json(newObj);
         } else {
           res.send("record was not found in checkout");
         }
       } else {
+        console.log(err);
         res.send("error occured in checkolut");
       }
     }
@@ -691,41 +547,6 @@ let updateOrderStatus = (req, res) => {
     }
   );
 };
-
-/* let deleteProductById= (req,res)=> {
-    let pid = req.params.pid;
-    UserModel.deleteOne({_id:pid},(err,result)=> {
-        if(!err){
-                if(result.deletedCount>0){
-                    res.send("Record deleted successfully")
-                }else {
-                    res.send("Record not present");
-                }
-        }else {
-            res.send("Error generated "+err);
-        }
-    })
-
-}
-
-let updateProductPrice= (req,res)=> {
-    let pid = req.body.pid;
-    let updatedPrice = req.body.price;
-    UserModel.updateMany({_id:pid},{$set:{price:updatedPrice}},(err,result)=> {
-        if(!err){
-            if(result.nModified>0){
-                    res.send("Record updated succesfully")
-            }else {
-                    res.send("Record is not available");
-            }
-        }else {
-            res.send("Error generated "+err);
-        }
-    })
-
-} */
-
-//module.exports={getProductDetails,getProductById,storeProductDetails,deleteProductById,updateProductPrice}
 
 module.exports = {
   getUserDetails,

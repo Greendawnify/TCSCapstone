@@ -6,6 +6,7 @@ let addProduct = (req, res) => {
     _id: req.body.id,
     name: req.body.name,
     quantity: req.body.quantity,
+    initQuantity: req.body.quantity,
     cost: req.body.cost,
     discount: 0,
   });
@@ -116,6 +117,69 @@ let updateQuantity = (req, res) => {
   );
 };
 
+let reduceQuantity = (req, res) => {
+  let id = req.body.id;
+  let subtractedAmount = req.body.quantity;
+  let newAmount;
+
+  ProductModel.find({ name: id }, (err, result) => {
+    if (!err) {
+      console.log("product:", result);
+      console.log(result[0].quantity);
+      console.log(subtractedAmount);
+      if (result[0].quantity > subtractedAmount) {
+        newAmount = result[0].quantity - subtractedAmount;
+        console.log("New amount is", newAmount);
+
+        ProductModel.updateOne(
+          { name: id },
+          { $set: { quantity: newAmount } },
+          (err1, result1) => {
+            if (!err1) {
+              if (result1.nModified > 0) {
+                let newObj = {
+                  approved: true,
+                };
+                res.json(newObj);
+              } else {
+                res.send("Could not find prodct");
+              }
+            } else {
+              res.send("Error");
+            }
+          }
+        );
+      } else {
+        let newError = {
+          approved: false,
+        };
+        res.json(newError);
+      }
+    } else {
+      res.send("cant find the product to redue its quanitity");
+    }
+  });
+
+  // ProductModel.updateOne(
+  //   { _id: id },
+  //   { $set: { quantity: newAmount } },
+  //   (err, result) => {
+  //     if (!err) {
+  //       if (result.nModified > 0) {
+  //         let newObj = {
+  //           approved: true,
+  //         };
+  //         res.json(newObj);
+  //       } else {
+  //         res.send("Could not find prodct");
+  //       }
+  //     } else {
+  //       res.send("Error");
+  //     }
+  //   }
+  // );
+};
+
 module.exports = {
   addProduct,
   updateQuantity,
@@ -123,4 +187,5 @@ module.exports = {
   updateDiscount,
   updateCost,
   getAllProducts,
+  reduceQuantity,
 };
