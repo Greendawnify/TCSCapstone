@@ -6,7 +6,7 @@ let UserController = require("../controllers/user.controller.js");
 router.get("/allUserDetails", UserController.getUserDetails);
 router.post("/storeUserDetails", UserController.signUpUserDetails);
 router.post("/userSignIn", UserController.signInUser);
-router.post("/checkout", UserController.checkout);
+router.put("/checkout", UserController.checkout);
 router.post("/checkFunds", UserController.checkProperFunds);
 router.get("/getUser/:autoGenID/:pWord", UserController.getSingleUser);
 router.put("/editProfile", UserController.editProfile);

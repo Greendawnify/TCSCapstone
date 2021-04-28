@@ -27,4 +27,8 @@ export class ProductServiceService {
   getAllProducts():Observable<Product[]>{
     return this.http.get<Product[]>("http://localhost:9090/product/getAllProducts");
   }
+
+  reduceProductQuantity(reduceObj:any){
+    return this.http.put("http://localhost:9090/product/reduceQuantity", reduceObj);
+  }
 }

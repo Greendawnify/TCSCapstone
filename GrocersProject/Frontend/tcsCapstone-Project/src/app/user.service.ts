@@ -35,7 +35,7 @@ export class UserService {
       cost
     }
 
-    return this.http.post("http://localhost:9090/user/checkFunds", newobj, {responseType:'text'});
+    return this.http.post("http://localhost:9090/user/checkFunds", newobj);
 
   };
 
@@ -45,7 +45,7 @@ export class UserService {
   }
 
   checkout(cartObj:any){
-    return this.http.put("http://localhost:9090/user/checkout", cartObj, {responseType:"text"});
+    return this.http.put("http://localhost:9090/user/checkout", cartObj);
   }
 
 

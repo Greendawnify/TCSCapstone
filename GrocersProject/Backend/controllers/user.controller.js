@@ -312,12 +312,22 @@ let editProfile = (req, res) => {
   fname = fname.trim();
   lname = lname.trim();
  */
-  if(id!=""){
+  if (id != "") {
     UserModel.updateMany(
-      { autoGenID: id},
-      { $set: { fName: fname, lName: lname, pWord: password, email: uEmail,
-                city: city, street: street, state:state, zip:zip, phoneNum:phone
-                } },
+      { autoGenID: id },
+      {
+        $set: {
+          fName: fname,
+          lName: lname,
+          pWord: password,
+          email: uEmail,
+          city: city,
+          street: street,
+          state: state,
+          zip: zip,
+          phoneNum: phone,
+        },
+      },
       (err, result) => {
         if (!err) {
           if (result.nModified > 0) {
@@ -352,7 +362,7 @@ let editProfile = (req, res) => {
 
   if (phone != "") {
     UserModel.updateOne(
-      { autoGenID: id},
+      { autoGenID: id },
       { $set: { phoneNum: phone } },
       (err, result) => {
         if (!err) {
@@ -366,7 +376,7 @@ let editProfile = (req, res) => {
 
   if (password != "") {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { pWord: password } },
       (err, result) => {
         if (!err) {
@@ -380,7 +390,7 @@ let editProfile = (req, res) => {
 
   if (state != "") {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { state: state } },
       (err, result) => {
         if (!err) {
@@ -394,7 +404,7 @@ let editProfile = (req, res) => {
 
   if (city != "") {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { city: city } },
       (err, result) => {
         if (!err) {
@@ -408,7 +418,7 @@ let editProfile = (req, res) => {
 
   if (street != "") {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { street: street } },
       (err, result) => {
         if (!err) {
@@ -422,7 +432,7 @@ let editProfile = (req, res) => {
 
   if (uEmail != "") {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { email: uEmail } },
       (err, result) => {
         if (!err) {
@@ -436,7 +446,7 @@ let editProfile = (req, res) => {
 
   if (lname != "") {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { lname: lname } },
       (err, result) => {
         if (!err) {
@@ -450,7 +460,7 @@ let editProfile = (req, res) => {
 
   if (fname != "") {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { fname: fname } },
       (err, result) => {
         if (!err) {
@@ -464,7 +474,7 @@ let editProfile = (req, res) => {
 
   if (zip != null) {
     UserModel.updateOne(
-      {autoGenID: id},
+      { autoGenID: id },
       { $set: { zip: zip } },
       (err, result) => {
         if (!err) {
@@ -521,7 +531,7 @@ let checkProperFunds = (req, res) => {
   let id = req.body.id;
   let cost = req.body.cost;
 
-  UserModel.find({ uGenID: id }, (err, result) => {
+  UserModel.find({ autoGenID: id }, (err, result) => {
     if (!err) {
       console.log("Result:", result);
       console.log(result.funds);
@@ -549,7 +559,7 @@ let checkout = (req, res) => {
   let newObj = { funds: false, orders: false };
 
   let orderObj = {
-    id: 134, // not neccessary?
+    id: req.body.id, // not neccessary?
     products: req.body.products, // array of product names,
     cost: req.body.cost,
     status: "bought",
@@ -561,7 +571,6 @@ let checkout = (req, res) => {
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
-          console.log("updayed funds");
           newObj.funds = true;
         } else {
           res.send("record was not found in checkout");
@@ -572,19 +581,19 @@ let checkout = (req, res) => {
     }
   );
 
-  UserModel.updateOne(
+  UserModel.updateMany(
     { autoGenID: userID },
     { $push: { Orders: orderObj } },
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
-          console.log("updated orders");
           newObj.orders = true;
           res.json(newObj);
         } else {
           res.send("record was not found in checkout");
         }
       } else {
+        console.log(err);
         res.send("error occured in checkolut");
       }
     }

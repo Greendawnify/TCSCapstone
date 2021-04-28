@@ -163,28 +163,67 @@ export class UserComponent implements OnInit {
     })
   };
 
-  checkFunds(id:string, cost:number){
-    this.userService.checkProperFunds(id, cost).
-    subscribe((res:any) =>{
-      if(res.approved == true){
-        // fill cart with its values into the cart object inside session/local storage
-      }
-    });
-  };
+  checkFunds(){
+    console.log('check funds');
 
-  checkout(){
-    // get cart object from session storiage/local storage
-    let cart = {
-      user:"123",
-      newFunds:70,
-      products:["apple", "apple"],
-      cost: 30
+    let totalCost = 0;
+    let checkoutProds:string[] = []
+
+    for(let c of this.tempCart){
+      let prodString = c.name + "_"+c.quantity.toString();
+      checkoutProds.push(prodString);
+
+      let cartElementPrice = c.quantity * c.price;
+      totalCost+= cartElementPrice;
+
+    }
+    console.log(`Total Funds: ${totalCost} and products: ${checkoutProds}`);
+
+    let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+    if(sessionString){
+      console.log("Got session storage");
+      let userObj = JSON.parse(sessionString);
+
+      this.userService.checkProperFunds(userObj.autoGenID, totalCost).
+    subscribe((res:any) =>{
+      console.log(res.approved);
+      if(res["approved"] == true){ //approved is boolean
+        // fill cart with its values into the cart object inside session/local storage
+        console.log("works now onto checkout");
+        if(this.updateQuantities()){
+          this.checkout(res.fund, totalCost, checkoutProds, userObj);
+        }
+      }else{
+        console.log('you dont have the proper funds');
+      }
+    }, (err) => console.log(err));
     }
 
-    this.userService.checkout(cart).
+
+    
+  };
+
+  checkout(newFunds:any, totalCost:any, allProducts:string[], currentUser:any){
+    console.log('Start checkout');
+    let id = currentUser.autoGenID;
+    let autoGenID = currentUser.autoGenID;
+
+    id += "_"+ Math.floor(Math.random()*10000).toString();
+
+    let order = {
+      products :allProducts,
+      newFunds, // i get from check proper funds
+      user:autoGenID,// should be user id
+      id,//order id
+      cost:totalCost,
+    }
+
+    console.log("order is", order);
+    this.userService.checkout(order).
     subscribe((res:any) =>{
       if(res.funds && res.orders){
         console.log('both funds and orders have been updated.');
+        //empty out the cart
       }else{
         console.log('failed to updated funds and /or orders');
       }
@@ -193,5 +232,22 @@ export class UserComponent implements OnInit {
 
     // need to implement subtracting quantity from database
   };
+
+  updateQuantities():boolean{
+    let newObj;
+    for(let c of this.tempCart){
+      let newQuantity = parseInt(c.quantity);
+      newObj = {
+        id:c.name,
+        quantity:newQuantity
+      }
+      console.log("In Updated Quantities",newObj);
+      this.productService.reduceProductQuantity(newObj).subscribe((res:any) =>{
+        console.log(res);
+      }, (err) => console.log(err))
+    }
+    return true;
+    // need to figure out how to check if there is not enough product quantities
+  }
 
 }
