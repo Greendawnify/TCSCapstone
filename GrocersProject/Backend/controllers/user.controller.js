@@ -640,11 +640,11 @@ let updateOrderStatus = (req, res) => {
   UserModel.updateOne(
     {
       autoGenID: uID,
-      Orders: { $exits: true, $elemMatch: { id: orderID } },
+      "Orders.id": orderID,
     },
     {
       $set: {
-        "Orders.$.status": "newStatus",
+        "Orders.$.status": newStatus,
       },
     },
     (err, result) => {
@@ -661,7 +661,7 @@ let updateOrderStatus = (req, res) => {
           res.json(errorObj);
         }
       } else {
-        res.send("error updating status", err);
+        res.send("error updating status");
       }
     }
   );
