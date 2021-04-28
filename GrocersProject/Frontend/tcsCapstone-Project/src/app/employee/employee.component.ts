@@ -34,6 +34,17 @@ export class EmployeeComponent implements OnInit {
       this.usersWithOrders = result;
       console.log(this.usersWithOrders);
     }, (err) => console.log(err));
+
+    let sessionString = sessionStorage.getItem("currentEmployee");
+    let empObj;
+    if(sessionString){
+      empObj = JSON.parse(sessionString);
+      // is this the first time signing in
+      if(empObj.resetpwd){
+        // first time signing in
+        //triggerModal();
+      }
+    }
    
   }
 
