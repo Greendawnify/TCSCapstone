@@ -29,6 +29,19 @@ export class UserComponent implements OnInit {
      if(cart){
        this.tempCart = JSON.parse(cart);
      }
+
+     // Get storage of users
+     let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
+      console.log(tempUserDetails);
+      if(tempUserDetails != null){
+        this.signedInUserDetails = JSON.parse(tempUserDetails);
+        console.log("Type and Result:" , typeof(tempUserDetails) , " ", tempUserDetails);
+        //this.signedInUserDetails = tempUserDetails;
+        console.log("Type and Result:" , typeof(this.signedInUserDetails) , " ", this.signedInUserDetails);
+      }
+      else{
+        console.log("tempUserDetails is null");
+      }
   }
   is_Shopping(){
     this.isShopping=true;

@@ -40,17 +40,17 @@
 
                       <div *ngFor = "let o of orderStatus">
                         <h2>Order ID: {{o.id}}</h2>
-                        <h2>Current Status: {{o.status}}</h2>
+                        <h2 #currentStatus>Current Status: {{o.status}}</h2>
                         <div class="input-group">
-                            <select class="custom-select" id="inputGroupSelect04">
+                            <select #statsUpdate class="custom-select" id="inputGroupSelect04">
                               <option selected>Update...</option>
-                              <option value="1">Order Confirmed</option>
-                              <option value="2">Shipped</option>
-                              <option value="3">Delivered</option>
+                              <option value="Order Confirmed">Order Confirmed</option>
+                              <option value="Shipped">Shipped</option>
+                              <option value="Delivered">Delivered</option>
                             </select>
                             <div class="input-group-append">
                               <!---Please add a function to update order status-->
-                              <button class="btn btn-outline-dark" type="button">Button</button>
+                              <button class="btn btn-outline-dark" type="button" (click) = "statusUpdate(statsUpdate.value, currentStatus, o.id)">Button</button>
                             </div>
                            
                           </div>

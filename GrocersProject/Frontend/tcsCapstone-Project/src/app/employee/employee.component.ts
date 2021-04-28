@@ -23,7 +23,10 @@ export class EmployeeComponent implements OnInit {
 
   lockedUsers:User[] = [];
   usersWithOrders:User[] = [];
-  temp ?:Employee;
+  temp :Employee = new Employee(1,'1','2','3','3',true);
+
+  orderStatus:any[] = [];
+  currentUserID:string = '';
   
  
 
@@ -105,7 +108,11 @@ export class EmployeeComponent implements OnInit {
 
   updateEmployeePwd(newPass:any){
     console.log(newPass);
-    this.employeeSer.updateEmployeePassword(this.temp?._id,newPass).subscribe((result:string)=> {
+    this.employeeSer.updateEmployeePassword(this.temp._id,newPass).subscribe((result:string)=> {
+      this.temp.password = newPass;
+      this.temp.resetpwd = false;
+
+      sessionStorage.setItem("currentEmployee", JSON.stringify(this.temp));
     });
   }
   //ticket raised array for testing
@@ -145,13 +152,29 @@ this.passType == "password"
 }
 orderStatus:any;
 
+
+
+
 viewOrders(user_id:any){
 
-  this.orderStatus=user_id.orders;
+  let selectedUser:User|undefined;
+  selectedUser = this.usersWithOrders.find(user => {
+    return user.autoGenID == user_id;
+  });
 
-
+  if(selectedUser){
+    console.log(selectedUser.Orders);
+    this.orderStatus = selectedUser.Orders;
+    this.currentUserID = selectedUser.autoGenID;
+  }
 }
 
+statusUpdate(status:any, currentText:any, orderID:number){
+  currentText.innerHTML = "Current Status: "+status;
 
+  this.userService.updateOrderStatus(this.currentUserID,orderID,status).subscribe(result => {
+    console.log(result);
+  }, (err) => console.log(err));
+}
 
 }

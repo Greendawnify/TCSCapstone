@@ -43,12 +43,13 @@ export class LoginComponent implements OnInit {
           alert(result);
         else{
           if(result == "Password correct"){
-            let tempUser = {};
             this.useService.retrieveUserById(tempObj).subscribe( result =>{
               if(result != null){
                 JSON.stringify(result);
                 console.log(result);
-                sessionStorage.setItem('LoggedInUserDetails', result);
+                let tempResult = JSON.stringify(result);
+                console.log("After Session Storage, result type and result is: " , typeof(tempResult) , tempResult);
+                sessionStorage.setItem('LoggedInUserDetails', tempResult);
                 this.router.navigate(["user"]);
               }
             });
