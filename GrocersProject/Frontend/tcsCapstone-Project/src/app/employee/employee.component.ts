@@ -5,6 +5,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
 import { User } from '../model.user';
 import { Employee } from './../model.employee';
+import { ElementRef, ViewChild } from '@angular/core';
 
 
 
@@ -14,6 +15,8 @@ import { Employee } from './../model.employee';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
+  
+  
   closeModal: string="";
   constructor(public requestService:RequestService,public employeeSer: EmployeeService,private modalService: NgbModal, public userService:UserService) { }
   viewReq:boolean=false
@@ -26,6 +29,13 @@ export class EmployeeComponent implements OnInit {
 
 //displays user that have account locked
   ngOnInit(): void {
+//auto pop-up
+
+
+
+
+
+    
     this.userService.getRaisedTicket().
     subscribe(result=>{
       this.lockedUsers = result;
@@ -46,6 +56,8 @@ export class EmployeeComponent implements OnInit {
       // is this the first time signing in
       if(empObj.resetpwd){
         // first time signing in
+        let element:HTMLElement = document.getElementById('openModal') as HTMLElement;
+        element.click();
         
       }
     }
