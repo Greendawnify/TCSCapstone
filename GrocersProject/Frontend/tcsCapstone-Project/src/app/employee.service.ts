@@ -21,8 +21,13 @@ export class EmployeeService {
   }
 
 
-  updateEmployeePassword(updateUpdateRef:any):any{
-    return this.http.put('http://localhost:9090/employee/updateEmployeeByPassword', updateUpdateRef, {responseType:'text'});
+  updateEmployeePassword(cId:any, newPass:any):any{
+    let newObj = {
+      cId,
+      password : newPass,
+
+    }
+    return this.http.put('http://localhost:9090/employee/updateEmployeeByPassword', newObj, {responseType:'text'});
   }
 
   validateEmpLogin(id:string):Observable<any> {

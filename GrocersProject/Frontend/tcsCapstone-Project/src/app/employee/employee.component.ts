@@ -4,6 +4,8 @@ import { EmployeeService } from '../employee.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../user.service';
 import { User } from '../model.user';
+import { Employee } from './../model.employee';
+
 
 
 @Component({
@@ -18,6 +20,7 @@ export class EmployeeComponent implements OnInit {
 
   lockedUsers:User[] = [];
   usersWithOrders:User[] = [];
+  temp ?:Employee;
   
  
 
@@ -39,10 +42,11 @@ export class EmployeeComponent implements OnInit {
     let empObj;
     if(sessionString){
       empObj = JSON.parse(sessionString);
+      this.temp = empObj;
       // is this the first time signing in
       if(empObj.resetpwd){
         // first time signing in
-        //triggerModal();
+        
       }
     }
    
@@ -87,9 +91,9 @@ export class EmployeeComponent implements OnInit {
   }
 
 
-  updateEmployeePwd(empRef:any){
-    console.log(empRef);
-    this.employeeSer.updateEmployeePassword(empRef).subscribe((result:string)=> {
+  updateEmployeePwd(newPass:any){
+    console.log(newPass);
+    this.employeeSer.updateEmployeePassword(this.temp?._id,newPass).subscribe((result:string)=> {
     });
   }
   //ticket raised array for testing

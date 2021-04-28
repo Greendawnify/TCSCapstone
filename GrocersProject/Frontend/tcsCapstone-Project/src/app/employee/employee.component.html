@@ -146,8 +146,7 @@
                     
                   
                   <div class="modal-footer">
-                    <input type="submit" value="Close" class="btn btn-dark" (click)="modal.close('Save click')">
-                    <input type="submit" value="Update Password" class="btn btn-dark" (click)="modal.close('Save click')">
+                    <input type="submit" value="Update Password" class="btn btn-dark" (click)="modal.close('save click'); updateEmployeePwd(newPass.value)">
                     <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
                   </div>
                 
