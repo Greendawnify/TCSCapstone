@@ -22,6 +22,8 @@ import { CartComponent } from './cart/cart.component';
 import { UserAuthGuard } from './authGuardUser';
 import { EmployeeAuthGuard } from './employeeAuthGuard';
 import { AdminAuthGuard } from './adminAuthGuard';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 
 
@@ -40,6 +42,7 @@ import { AdminAuthGuard } from './adminAuthGuard';
     LoginComponent,
     ProfileComponent,
     CartComponent,
+    
 
   ],
   imports: [
@@ -52,7 +55,8 @@ import { AdminAuthGuard } from './adminAuthGuard';
     MatSidenavModule,
     MatToolbarModule,
     MatTabsModule,
-    FormsModule, HttpClientModule,NgbModule    
+    FormsModule, HttpClientModule,NgbModule,BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot()     
   ],
   providers: [UserAuthGuard, EmployeeAuthGuard, AdminAuthGuard],
   bootstrap: [AppComponent]

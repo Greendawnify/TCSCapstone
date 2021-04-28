@@ -134,22 +134,25 @@
             
         </div> 
 
-
+           <!--- Rpeorts    -->
           <div *ngIf="report">
+            <form  #reportForm = "ngForm"  (ngSubmit)="productsReport(reportForm.value)">
+            <div style="margin-left:10% ; margin-top: 2%;" class="row">
+              <h2> From:</h2>
+              <input #fromDate type="date" placeholder="From Date" title="From Data" ngModel >
+              
+              <h2 style="margin-left:10% ;" > To:</h2>
+              <input #toDate type="date" placeholder="From Date" title="From Data"ngModel >
 
-            <div class="input-group">
-              <select class="custom-select" id="inputGroupSelect04">
-                <option selected>Report By...</option>
-                <option value="1">Today</option>
-                <option value="2">Monthly</option>
-                <option value="3">Yearly</option>
-              </select>
-              <div class="input-group-append">
-                <!---Please add a function to update order status-->
-                <button class="btn btn-outline-dark" type="button" (click)="productsReport()">Generate</button>
+              <div class="input-group-append" style="margin-left:15%">
+               
+                <button  class="btn btn-outline-dark" type="submit">Generate</button>
               </div>
             </div>
-
+            
+          </form>
+          
+          
             <div class="row" style="margin-left: 15%;margin-top: 5%;">
                 <div class="col-sm-6">
                   <div class="card bg-light mb-3">
@@ -180,7 +183,7 @@
                       <div>
                         <h2 class="card-title">Revenue Generated</h2>
                        <h3>
-                         generated info
+                        {{total_cost}}
                        </h3>
                      
                       <!-- <a href="#" class="btn btn-dark">Submit</a> -->
@@ -191,7 +194,8 @@
                 </div>
                 
             </div>
-        </div>
+     
+          </div>
 
 
         
