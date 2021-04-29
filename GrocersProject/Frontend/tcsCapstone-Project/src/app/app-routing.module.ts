@@ -11,7 +11,7 @@ import { AdminAuthGuard } from './adminAuthGuard';
 
 const routes: Routes = [
 {path:"admin",component:AdminComponent},
-  // {path:"employee",component:EmployeeComponent},
+  {path:"employee",component:EmployeeComponent},
   {path:"user",component:UserComponent},
   {path:"login",component:LoginComponent},
   {path:"",component:LoginComponent},
@@ -19,7 +19,7 @@ const routes: Routes = [
   
  // {path: "admin", component: AdminComponent, canActivate:[AdminAuthGuard]},
  // {path: "user", component: UserComponent, canActivate:[UserAuthGuard]},
-  {path: "employee", component: EmployeeComponent, canActivate:[EmployeeAuthGuard]},
+  //{path: "employee", component: EmployeeComponent, canActivate:[EmployeeAuthGuard]},
   
 
 ];

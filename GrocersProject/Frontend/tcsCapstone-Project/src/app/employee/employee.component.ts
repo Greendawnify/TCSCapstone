@@ -9,6 +9,8 @@ import { ElementRef, ViewChild } from '@angular/core';
 import { ProductServiceService } from './../product.service.service';
 import { Product } from './../model.product';
 
+import { Product } from './../model.product';
+
 
 
 @Component({
@@ -18,7 +20,8 @@ import { Product } from './../model.product';
 })
 export class EmployeeComponent implements OnInit {
   
-  
+  products:Product[] = new Array;
+  users:User[]=new Array;
   closeModal: string="";
   constructor(
     public requestService:RequestService,

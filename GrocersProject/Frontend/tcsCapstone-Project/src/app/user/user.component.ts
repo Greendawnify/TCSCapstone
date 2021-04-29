@@ -13,6 +13,7 @@ import { stringify } from '@angular/compiler/src/util';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  addedCart="";
   isShopping:boolean= false;
   notShopping:boolean = true;
   signedInUserDetails:any = {};
@@ -27,10 +28,11 @@ export class UserComponent implements OnInit {
   interval :any;
 
   userOrders: any [] = [];
-
+   
+  
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
-
+    this.addedCart="";
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
@@ -54,7 +56,10 @@ export class UserComponent implements OnInit {
       this.currentBalance = this.signedInUserDetails.balance;
       this.currentFunds = this.signedInUserDetails.funds;
   }
+
+
   is_Shopping(){
+
     this.isShopping=true;
     this.notShopping=false;
   }
@@ -117,7 +122,7 @@ export class UserComponent implements OnInit {
 
      localStorage.setItem('cart', jsonString);
      console.log("Temp cart after adding", this.tempCart);
-
+     this.addedCart="Added to cart"
      
   }
 
@@ -307,11 +312,16 @@ export class UserComponent implements OnInit {
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
+<<<<<<< HEAD
+        this.currentFunds = order.newFunds;
+        window.location.reload();
+=======
 
       
         
         // update the user in session storage
         this.setCurrentUser();
+>>>>>>> 5cf6779142cabfd9b9c9ffb34b19d0c0dc75c070
 
       }else{
         alert('Failed to updated funds and /or orders');
@@ -327,6 +337,7 @@ triggerModal(content:any) {
   }, (res) => {
     this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
   });
+  refresh: true
 }
 
 private getDismissReason(reason: any): string {
