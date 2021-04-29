@@ -7,10 +7,10 @@
       </head>
       <body>
         <!-----Buttons to display Employee or report or products tab-->
-          <div >
-        <button style="margin-left: 15%;" class="btn btn-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
-        <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
-        <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="reportsVisible()">Reports Tab</button>
+          <div style="margin-top:1% ;">
+        <button style="margin-left: 15%;" class="btn btn-outline-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-outline-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-outline-dark" type="submit" (click)="reportsVisible()">Reports Tab</button>
          </div>
         <!----Employee tab-->
         <div *ngIf="Employee">
@@ -20,7 +20,7 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h2 class="card-title">Add Employee</h2>
-                      <form #employeeRef = "ngForm"  (ngSubmit) = "addEmployee(employeeRef.value)">
+                      <form #employeeRef = "ngForm"  (ngSubmit) = "addEmployee(employeeRef.value);Resetter()">
                         <input type = "text" class="form-control" name = "cId" placeholder = "Employee ID" ngModel>
                         <br>
                         <input type = "text" class="form-control" name = "firstname" placeholder = "Employee First Name" ngModel>
@@ -29,11 +29,12 @@
                         <br/>
                         <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Email" ngModel>
                         <br>
-                        <br/>
+                     
                         <!-- <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Address" ngModel> -->
                         <br/>
-                        <p></p>
-                        <input type="submit" value="Submit">
+                      
+                        <input style="margin-left: 86% ;" type="submit"class="btn btn-dark" value="Submit">
+                        <input id="reset_addEmployee" type="reset" value="reset" class="btn btn-outline-light">
                       </form>
                     </div>
                   </div>
@@ -42,13 +43,14 @@
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <div>
+                      <form>
                         <h2 class="card-title">Delete Employee</h2>
                         <input name = "id" type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1" #empRef ngModel>
-                        <input type="button" value="Submit"  (click)="deleteEmployee(empRef.value)"/><br/>
-                     
+                        <br>
+                        <input style="margin-left: 70% ;" type="button" class="btn btn-dark" value="Submit"  (click)="deleteEmployee(empRef.value);Resetter()"/><br/>
+                        <input id="reset_DelEmployee" type="reset" value="reset" class="btn btn-outline-light">
                       <!-- <a href="#" class="btn btn-dark">Submit</a> -->
-                      </div>
+                      </form>
                     </div>
                     {{deleteMsg}}
                   </div>
@@ -60,13 +62,13 @@
         
 <!----Products tab -->
         <div *ngIf="Product">
-            <div class="row" style="margin-left: 15%;margin-top: 5%;">
+            <div class="row" style="margin-left: 4%;margin-top: 5%;">
               <!---add products card-->
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Add Product</h5>
-                      <form #productRef = "ngForm"  (ngSubmit) = "addProduct(productRef.value)">
+                      <form #productRef = "ngForm"  (ngSubmit) = "addProduct(productRef.value);Resetter()">
                         <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel>
                         <br/>
 
@@ -78,8 +80,9 @@
 
                         <input type = "number" name = "cost" class="form-control" placeholder = "Cost of product" ngModel>
                         <br/>
-                        <p></p>
-                        <input type="submit" value="Submit">
+                
+                        <input type="submit"  class="btn btn-dark" value="Submit">
+                        <input id="reset_AddProduct" type="reset" value="reset" class="btn btn-outline-light">
                       </form>
                       
                     </div>
@@ -90,17 +93,18 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Delete Product</h5>
-                      <form #deleteRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value)">
+                      <form #deleteRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value);Resetter()">
                         <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel>
                         <br/>
 
-                        <input type="submit" value="Submit">
+                        <input type="submit"class="btn btn-dark" value="Submit">
+                        <input id="reset_DelProduct" type="reset" value="reset" class="btn btn-outline-light">
                       </form>
                     </div>
                   </div>
                 </div>
                 <!--- Update Price-->
-                <div class="col-sm-3">
+                <div class="col-sm-2.5"style="margin-left:2% ;" >
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Update Price</h5>
@@ -111,13 +115,14 @@
                         <input name = "cost" class="form-control" placeholder = "Price of products" ngModel>
                         <br/>
                         <p></p>
-                        <input type="submit" value="Submit">
+                        <input type="submit" class="btn btn-dark" value="Submit">
+                        <input id="reset_upProduct" type="reset" value="reset" class="btn btn-outline-light">
                       </form>
                     </div>
                   </div>
                 </div>
                 <!---Update products card-->
-                <div class="col-sm-3">
+                <div class="col-sm-2.5" style="margin-left:2% ;" >
                     <div class="card bg-light mb-3">
                       <div class="card-body">
                         <h5 class="card-title">Update Quantity</h5>
@@ -130,7 +135,8 @@
                             <input name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel>
                             <br/>
                             <p></p>
-                            <input type="submit" value="Submit">
+                            <input type="submit" class="btn btn-dark" value="Submit">
+                            <input id="reset_upQuantity" type="reset" value="reset" class="btn btn-outline-light">
                           </form>
                       </div>
                     </div>
@@ -178,7 +184,7 @@
                     <option value="PRODUCT">Products</option>
                   </select>
                   &nbsp;&nbsp;
-                  <button  class="btn btn-outline-dark" type="submit" (click)="generateReports(ClassText.value,fromDate.value)" >Generate</button>
+                  <button  class="btn btn-outline-secondary" type="submit" (click)="generateReports(ClassText.value,fromDate.value)" >Generate</button>
                   &nbsp;&nbsp;
                 <button  *ngIf="generated" class="btn btn-outline-dark" type="submit">Submit</button>
               </div>

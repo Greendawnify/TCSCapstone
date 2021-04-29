@@ -52,6 +52,34 @@ export class AdminComponent implements OnInit {
     this.requestService.getAllRequests().subscribe(res => this.requests = res, (err) => console.log(err));
     this.userService.getUsersWithOrders().subscribe(res => this.users = res, (err) => console.log(err));
     this.productService.getAllProducts().subscribe(res => this.products = res, (err) => console.log(err));
+    //reseting the forms
+    let element:HTMLElement = document.getElementById('reset_addEmployee') as HTMLElement;
+    element.click();
+    let element1:HTMLElement = document.getElementById('reset_DelEmployee') as HTMLElement;
+     element1.click();
+    let element2:HTMLElement = document.getElementById('reset_AddProduct') as HTMLElement;
+    element2.click();
+    let element3:HTMLElement = document.getElementById('reset_DelProduct') as HTMLElement;
+  element3.click();
+  let element4:HTMLElement = document.getElementById('reset_upProduct') as HTMLElement;
+  element4.click();
+  let element5:HTMLElement = document.getElementById('reset_upQuantity') as HTMLElement;
+  element5.click();
+  }
+  //function to reset the forms
+  Resetter(){
+    let element:HTMLElement = document.getElementById('reset_addEmployee') as HTMLElement;
+  element.click();
+  let element1:HTMLElement = document.getElementById('reset_DelEmployee') as HTMLElement;
+  element1.click();
+  let element2:HTMLElement = document.getElementById('reset_AddProduct') as HTMLElement;
+  element2.click();
+  let element3:HTMLElement = document.getElementById('reset_DelProduct') as HTMLElement;
+  element3.click();
+  let element4:HTMLElement = document.getElementById('reset_upProduct') as HTMLElement;
+  element4.click();
+  let element5:HTMLElement = document.getElementById('reset_upQuantity') as HTMLElement;
+  element5.click();
   }
 //employee tab visible
   Emp_visible(){
