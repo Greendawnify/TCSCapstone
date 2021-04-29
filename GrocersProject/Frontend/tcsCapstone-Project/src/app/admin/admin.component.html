@@ -144,11 +144,10 @@
           <div *ngIf="report">
             <form  #reportForm = "ngForm"  (ngSubmit)="productsReport(reportForm.value)">
             <div style="margin-left:10% ; margin-top: 2%;" class="row">
-              <h2> From:</h2>
+              <h2> Date:</h2>
               <input #fromDate type="date" placeholder="From Date" title="From Data" ngModel >
               
-              <h2 style="margin-left:10% ;" > To:</h2>
-              <input #toDate type="date" placeholder="From Date" title="From Data"ngModel >
+          
 
               <div class="input-group-append" style="margin-left:15%">
                
