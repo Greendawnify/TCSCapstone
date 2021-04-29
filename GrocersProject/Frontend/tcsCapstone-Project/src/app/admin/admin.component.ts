@@ -298,6 +298,7 @@ export class AdminComponent implements OnInit {
       }
   }
   productReports(){
+    this.tableHeading4 = "Date";
     this.tableHeading1 = "Product Name";
     this.tableHeading2 = "Quantity Sold";
     this.tableHeading3 = "Quantity Left";
@@ -312,8 +313,9 @@ export class AdminComponent implements OnInit {
   }
 
   customerReports(){
+    this.tableHeading4 ="Date";
     this.tableHeading1 ="Cusomter Name";
-    this.tableHeading2 ="";
+    this.tableHeading2 ="N/A";
     this.tableHeading3 ="Total Revenue From Customer";
 
     for(let i =0; i < this.users.length; i++){

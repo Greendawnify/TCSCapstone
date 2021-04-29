@@ -117,7 +117,9 @@ export class UserComponent implements OnInit {
       for(let c of oldCart){
         if(c.name == addProductRef.name){
           // I am adding the same product to the list. Instead update this cart obj
-          c.quanitity += quanityNumber;
+          let cartQ = parseInt(c.quantity);
+          cartQ += quanityNumber;
+          c.quantity = cartQ.toString();
           c.price += price;
 
           this.tempCart = oldCart;
@@ -243,7 +245,7 @@ export class UserComponent implements OnInit {
     console.log("order is", order);
     this.userService.checkout(order).
     subscribe((res:any) =>{
-      if(res.funds && res.orders){
+      if(res.funds || res.orders){
         console.log('both funds and orders have been updated.');
         //empty out the cart
         this.tempCart = [];

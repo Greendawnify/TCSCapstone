@@ -350,7 +350,7 @@ let genrateUserID = (req, res) => {
   let uFName = req.body.fName;
   let uLName = req.body.lName;
   //res.send("In Generate ID " + uEmail + " " + req.body.fName + " " + req.body.lName + " " + uPWord);
-  let newID = uFName + uLName + Math.floor(Math.random() * 100 + 1).toString()
+  let newID = uFName + uLName + Math.floor(Math.random() * 100 + 1).toString();
   UserModel.updateMany(
     {
       $and: [
@@ -362,15 +362,15 @@ let genrateUserID = (req, res) => {
     },
     {
       $set: {
-        autoGenID: newID
+        autoGenID: newID,
         //  uFName + uLName + Math.floor(Math.random() * 100 + 1).toString(),
       },
     },
     (err, result) => {
       if (!err) {
-        if(result.nModified>0){
-          res.send("Sign in with your new Username: " + newID);      
-        }else {
+        if (result.nModified > 0) {
+          res.send("Sign in with your new Username: " + newID);
+        } else {
           res.send("ID was not generated");
         }
       } else {
@@ -412,12 +412,17 @@ let checkout = (req, res) => {
   let newFunds = req.body.newFunds;
   let newString = "";
   let newObj = { funds: false, orders: false };
+  let orderDate = req.body.date;
+  if (orderDate == "") {
+    orderDate = "2021-04-14";
+  }
 
   let orderObj = {
     id: req.body.id, // not neccessary?
     products: req.body.products, // array of product names,
     cost: req.body.cost,
     status: "bought",
+    orderDate,
   };
 
   UserModel.updateOne(
