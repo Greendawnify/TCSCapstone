@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
                 JSON.stringify(result);
                 console.log(result);
                 let tempResult = JSON.stringify(result);
+                sessionStorage.setItem('userToken', '123');
                 console.log("After Session Storage, result type and result is: " , typeof(tempResult) , tempResult);
                 sessionStorage.setItem('LoggedInUserDetails', tempResult);
                 this.router.navigate(["user"]);
@@ -123,6 +124,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("employeeToken", "123");
           console.log("Employee obj",result);
           sessionStorage.setItem("currentEmployee", JSON.stringify(result));
+          sessionStorage.setItem('employeeToken', '123');
           this.router.navigate(["employee"]);
         }else{
           alert("Wrong Password")

@@ -20,8 +20,7 @@
         <li class="nav-item"><a href="#" class="nav-link" >About</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
          <!-- Dynamic Login/ logout button in nav bar -->
-        <li *ngIf="isLogin"  class="nav-item"><button  class="btn btn-dark"(click)=" isLoggedIn()" >Login</button></li>
-        <li *ngIf="isLogout" class="nav-item"><button class="btn btn-dark"  (click)=" isLoggedIn()" >Logout</button></li>
+        <li  class="nav-item"><button class="btn btn-dark"  (click)=" logOut()" >Logout</button></li>
       </ul>
     </div>
  
