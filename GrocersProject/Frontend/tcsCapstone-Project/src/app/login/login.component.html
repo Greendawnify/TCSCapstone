@@ -13,8 +13,8 @@
           <div class="card bg-light mb-3">
             <div class="card-body">
               <h2 class="card-title">Sign-Up</h2>
-              <form id="mySignUpForm"  #mySignUpForm = "ngForm"  (ngSubmit)="signUserUp(mySignUpForm.value);Resetter() ">
-                <input type = "text" class="form-control" name = "fName" placeholder = "Your First Name" ngModel>
+              <form id="mySignUpForm"  #mySignUpForm = "ngForm"  (ngSubmit)="signUserUp(mySignUpForm.value);Resetter()" class="needs-validation" novalidate >
+                <input type = "text" class="form-control" name = "fName" placeholder = "Your First Name" ngModel id="validationTooltip01" required>
                 <br/>             
                 <input type = "text" class="form-control" name = "lName" placeholder = "Your Last Name" ngModel>
                 <br/>     
