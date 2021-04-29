@@ -68,7 +68,7 @@ export class AdminComponent implements OnInit {
   reportsVisible(){
     this.invisible();
     this.report = true;
-    window.location.reload();
+    //window.location.reload();
   }
 //tab to disable all the tabs
   invisible(){
