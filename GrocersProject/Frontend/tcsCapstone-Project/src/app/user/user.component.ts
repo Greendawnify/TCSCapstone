@@ -21,6 +21,9 @@ export class UserComponent implements OnInit {
   constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
   currentBalance?:number;
   currentFunds?:string;
+
+  userOrders: any [] = [];
+
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
 
@@ -141,6 +144,28 @@ export class UserComponent implements OnInit {
 
      
   }
+
+  showOrders(){
+    let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+    if(sessionString){
+      console.log("Got session storage");
+      let userObj = JSON.parse(sessionString);
+      
+      
+
+      for(let x of userObj.Orders){
+        let newOrder = {
+          name: userObj.fName,
+          cost: x.cost,
+          status: x.status,
+          products: x.products
+        };
+        this.userOrders.push(newOrder);
+      }
+    }
+
+  }
+
 //delete product
   deleteProduct(deleteID:any){
     let cart:string|null;
@@ -250,6 +275,7 @@ export class UserComponent implements OnInit {
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
+        this.currentFunds = order.newFunds;
         //window.location.reload();
       }else{
         alert('Failed to updated funds and /or orders');
