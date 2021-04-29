@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
       if(data != null){
         if(data = "Record stored successfully!"){
           console.log(mySignUpForm);
-          this.useService.generateUserID(mySignUpForm).subscribe((resultFinal:string)=> {  
+          this.useService.generateUserID(mySignUpForm).subscribe((resultFinal:string)=> {
             alert(resultFinal);
           });
         }

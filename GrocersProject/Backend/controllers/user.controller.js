@@ -350,6 +350,7 @@ let genrateUserID = (req, res) => {
   let uFName = req.body.fName;
   let uLName = req.body.lName;
   //res.send("In Generate ID " + uEmail + " " + req.body.fName + " " + req.body.lName + " " + uPWord);
+  let newID = uFName + uLName + Math.floor(Math.random() * 100 + 1).toString()
   UserModel.updateMany(
     {
       $and: [
@@ -361,18 +362,17 @@ let genrateUserID = (req, res) => {
     },
     {
       $set: {
-        autoGenID:
-          uFName + uLName + Math.floor(Math.random() * 100 + 1).toString(),
+        autoGenID: newID
+        //  uFName + uLName + Math.floor(Math.random() * 100 + 1).toString(),
       },
     },
     (err, result) => {
       if (!err) {
-        /* if(result.nModified>0){
-          res.send("Your New UserID: " + autoGenID);
+        if(result.nModified>0){
+          res.send("Sign in with your new Username: " + newID);      
         }else {
-          res.send("ID was not generat
-          ed");
-        } */
+          res.send("ID was not generated");
+        }
       } else {
         res.send("Error generated " + err);
       }
@@ -388,8 +388,8 @@ let checkProperFunds = (req, res) => {
 
   UserModel.find({ autoGenID: id }, (err, result) => {
     if (!err) {
-      console.log("Result:", result[0]);
-      console.log(result[0].funds);
+      console.log("Result:", result);
+      console.log(result.funds);
       if (result[0].funds > cost) {
         let newFunds = {};
         newFunds.fund = result[0].funds - cost;
@@ -418,7 +418,6 @@ let checkout = (req, res) => {
     products: req.body.products, // array of product names,
     cost: req.body.cost,
     status: "bought",
-    orderDate: req.body.date,
   };
 
   UserModel.updateOne(
