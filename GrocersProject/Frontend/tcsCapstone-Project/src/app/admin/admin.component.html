@@ -175,11 +175,7 @@
                     <option value="DAILY">Daily</option>
                     <option value="WEEKLY">Weekly</option>
                     <option value="MONTHLY">Monthly</option>
-<<<<<<< HEAD
                     <option value="YEARLY">Yearly</option>
-=======
-                    <option value="WEEKLY">Weekly</option>
->>>>>>> origin/master
                     <option value="CUSTOMER">Customers</option>
                     <option value="PRODUCT">Products</option>
                   </select>
@@ -201,6 +197,7 @@
                       <table class="table">
                         <thead class="thead-dark">
                           <tr >
+                            <th>{{tableHeading4}}</th>
                             <th>{{tableHeading1}}</th>
                             <th>{{tableHeading2}}</th>
                             <th>{{tableHeading3}}</th>
@@ -208,6 +205,7 @@
                         </thead>
                         <tbody class = 'tbody'>
                           <tr *ngFor="let user of userReport">
+                            <th>{{user.date}}</th>
                             <th>{{user.name}}</th>
                             <th>{{user.products}}</th>
                             <th>{{user.cost}}</th>
