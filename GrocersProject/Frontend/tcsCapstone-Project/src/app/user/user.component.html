@@ -117,6 +117,7 @@
         <div class="card-body">
         <div class="row">      
           <h1 style="margin-left: 20%;" class="card-title">View Order</h1>
+<<<<<<< HEAD
           <button  class="btn btn-dark" style="margin-left:55% ;" (click) = "showOrders()">View All</button>
           <table class="table">
             <thead class="thead-dark">
@@ -139,6 +140,28 @@
     
             
           </table>
+=======
+          <button  class="btn btn-dark" style="margin-left:55% ;" (click) = "showOrders()" >View All</button>
+          <table class="table">
+             <thead class="thead-dark"> 
+               <tr > 
+                 <th>Name</th> 
+                 <th>Products</th> 
+                 <th>Status</th> 
+                 <th>Cost</th> 
+                </tr> 
+              </thead> 
+              <tbody class = 'tbody'> 
+                <tr *ngFor="let user of userOrders"> 
+                  <th>{{user.name}}</th> 
+                  <th>{{user.products}}</th> 
+                  <th>{{user.status}}</th> 
+                  <th>{{user.cost}}</th> 
+                  <button (click) = "deleteOrder(user.id, user.user)">Delete</button> 
+                </tr> 
+              </tbody> 
+            </table>
+>>>>>>> 66d6a05671e8d97fe1cc6f540a4eeb7132214f1d
         </div>   
         <br>
         

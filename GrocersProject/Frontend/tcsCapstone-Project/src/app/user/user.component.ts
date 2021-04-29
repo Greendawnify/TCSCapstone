@@ -4,6 +4,7 @@ import { Product } from './../model.product';
 import { UserService } from './../user.service';
 import { Cart } from './../cart.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { stringify } from '@angular/compiler/src/util';
 
 
 @Component({
@@ -21,9 +22,13 @@ export class UserComponent implements OnInit {
   constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
   currentBalance?:number;
   currentFunds?:string;
+<<<<<<< HEAD
 
   userOrders: any [] = [];
 
+=======
+  userOrders:any[] = [];
+>>>>>>> 66d6a05671e8d97fe1cc6f540a4eeb7132214f1d
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
 
@@ -209,6 +214,55 @@ export class UserComponent implements OnInit {
       }
     })
   };
+
+  showOrders(){ 
+    let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+     if(sessionString){ console.log("Got session storage");
+      let userObj = JSON.parse(sessionString); 
+      for(let x of userObj.Orders){
+         let newOrder = { 
+           name: userObj.fName,
+           user:userObj.autoGenID,
+           id:x.id, 
+           cost: x.cost, 
+           status: x.status, 
+           products: x.products 
+          }; 
+          this.userOrders.push(newOrder); 
+        } 
+      } 
+    }
+
+    deleteOrder(userID:any, orderID:any){
+      let newObj = {
+        userID,
+        orderID
+      }
+      this.userService.deleteOrder(newObj).subscribe(res => {
+        console.log(res);
+        // update product and money in backen
+        let newArray;
+        if(res == "Success"){
+
+          this.userOrders = this.userOrders.filter(o => o.id != userID);
+          console.log("New array", newArray);
+        }
+        let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+        if(sessionString){ console.log("Got session storage");
+          let userObj = JSON.parse(sessionString); 
+          userObj.Orders = this.userOrders;
+          sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(userObj));
+          console.log('Reset sesesion storage after deelting', userObj);
+        } 
+
+
+
+
+        //
+      })
+
+      
+    }
 
 
   checkFunds(checkoutDate:string){// take in the date info and pass to checkout to store date info
