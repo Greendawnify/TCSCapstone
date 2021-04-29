@@ -9,8 +9,10 @@ import { ReportUser } from './../reportUser.model';
 import { Product } from './../model.product';
 import { ReportProduct } from './../productReport.model';
 import { ReportCustomer } from './../customerReport.model';
+
 import {Employee} from './../model.employee';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -31,6 +33,7 @@ export class AdminComponent implements OnInit {
   employees:Employee[] = new Array;
   requests:Request[] = new Array;
   products:Product[] = [];
+  employees:Employee[] = [];
   users:User[] = [];
   userReport:ReportUser[] = [];
   productReport:ReportProduct[] = [];
@@ -57,6 +60,9 @@ export class AdminComponent implements OnInit {
     this.requestService.getAllRequests().subscribe(res => this.requests = res, (err) => console.log(err));
     this.userService.getUsersWithOrders().subscribe(res => this.users = res, (err) => console.log(err));
     this.productService.getAllProducts().subscribe(res => this.products = res, (err) => console.log(err));
+    this.empService.getAllEmployees().
+    subscribe(res => this.employees = res, (err) => console.log(err));
+    
     //reseting the forms
     let element:HTMLElement = document.getElementById('reset_addEmployee') as HTMLElement;
     element.click();
@@ -127,15 +133,22 @@ export class AdminComponent implements OnInit {
   }
 //add product to database
   addProduct(productRef:any){
-    this.productService.addProduct(productRef);
+    this.productService.addProduct(productRef).subscribe(res => {
+      if(res == "Record stored succesfully"){
+        // display text of succesfully insertion
+        this.refilProducts();
+      }
+    }, (err) => console.log(err));
   }
 //add an employee to db
   addEmployee(employeeRef:any){
-    console.log(employeeRef);
-    this.empService.addEmployeeDetails(employeeRef);
-    
-    
-
+    this.empService.addEmployeeDetails(employeeRef).
+    subscribe(res => {
+      if(res == "Employee Record stored successfully"){
+        // display text of successful insertion
+        this.refillEmployeeList();
+      }
+    }, (err) => console.log(err));
   }
   //delete employee from db
 
@@ -145,6 +158,9 @@ export class AdminComponent implements OnInit {
     if(confirm("Are you sure to delete")){
       this.empService.deleteEmployeeById(id).subscribe((result:string)=> {
         this.deleteMsg=result;
+        if(result == "Employee Record deleted successfully"){
+          this.refillEmployeeList();
+        }
     })
     }
  
@@ -154,15 +170,28 @@ export class AdminComponent implements OnInit {
   deleteProduct(deleteRef:any){
     this.productService.deleteProduct(deleteRef.id).subscribe((result:string) =>{
       console.log(result);
+      if(result == "record deleted succesfully"){
+        this.refilProducts();
+      }
     })
   }
 //update the product quant
   updateProductQuantity(updateRef:any){
-    this.productService.updateQuantity(updateRef).subscribe((result:string) => console.log(result));
+    this.productService.updateQuantity(updateRef).subscribe((result:string) => {
+      // if succesfule
+      if(result == "record updated succesfully"){
+        this.refilProducts();
+      }
+    });
   }
 
   updateProductCost(updaetRef:any){
-    this.productService.updateCost(updaetRef).subscribe(res => console.log(res));
+    this.productService.updateCost(updaetRef).subscribe(res => {
+      // if succesful 
+      if(res == "record updated succesfully"){
+        this.refilProducts();
+      }
+    });
   }
 
 
@@ -172,9 +201,16 @@ export class AdminComponent implements OnInit {
     this.userReport.length = 0;
     this.productReport.length = 0;
 
+    
+
     console.log(generateType);
     switch(generateType){
       case "DAILY":
+        
+        if(date1 == ""){
+          console.log("enter a date!");
+          return;
+        }
         this.dailyReports(date1);
         break;
       case "PRODUCT":
@@ -184,9 +220,19 @@ export class AdminComponent implements OnInit {
         this.customerReports();
         break;
       case "WEEKLY":
+        
+        if(date1 == ""){
+          console.log("enter a date!");
+          return;
+        }
         this.weeklyReports(date1);
         break;
       case "MONTHLY":
+        
+        if(date1 == ""){
+          console.log("enter a date!");
+          return;
+        }
         this.monthlyReports(date1);
         break;
     }
@@ -337,6 +383,16 @@ export class AdminComponent implements OnInit {
       this.custormerReport.push(newCustomReport);
     }
 
+  }
+
+  refillEmployeeList(){
+    this.empService.getAllEmployees().
+    subscribe(res => this.employees = res, (err)=>console.log(err));
+  }
+
+  refilProducts(){
+    this.productService.getAllProducts().
+    subscribe(res => this.products = res, (err)=> console.log(err));
   }
 
 

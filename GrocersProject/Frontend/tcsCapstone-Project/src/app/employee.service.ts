@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Employee } from './model.employee';
 
 
 @Injectable({
@@ -12,8 +13,7 @@ export class EmployeeService {
   constructor( public http:HttpClient) { }
 
   addEmployeeDetails(employeeRef:any){
-    this.http.post("http://localhost:9090/employee/storeEmployeeDetails",employeeRef,{responseType:"text"}).
-    subscribe(result=>console.log(result),error=>console.log(error));
+    return this.http.post("http://localhost:9090/employee/storeEmployeeDetails",employeeRef,{responseType:"text"});
   }
 
 
@@ -33,6 +33,10 @@ export class EmployeeService {
 
   validateEmpLogin(id:string):Observable<any> {
     return this.http.get<any>("http://localhost:9090/employee/validateEmployee/" + id);
-}
+  }
+
+  getAllEmployees():Observable<Employee[]>{
+    return this.http.get<Employee[]>("http://localhost:9090/employee/allEmployeeDetails");
+  }
 
 }
