@@ -89,4 +89,8 @@ export class UserService {
 
     return this.http.put("http://localhost:9090/user/updateOrderStatus", newObj, {responseType:"text"});
   }
+
+  deleteOrder(obj:any){
+    return this.http.put(`http://localhost:9090/user/deletOrder`,obj, {responseType:"text"});
+  }
 }

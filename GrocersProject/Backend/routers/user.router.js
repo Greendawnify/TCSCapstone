@@ -17,5 +17,6 @@ router.get("/getOrders", UserController.getUsersWithOrders);
 router.put("/generateUserID", UserController.genrateUserID);
 router.put("/unlockUser", UserController.unlockUser);
 router.put("/updateOrderStatus", UserController.updateOrderStatus);
+router.put("/deletOrder", UserController.deleteOrder);
 
 module.exports = router;

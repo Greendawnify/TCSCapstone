@@ -553,6 +553,29 @@ let updateOrderStatus = (req, res) => {
   );
 };
 
+let deleteOrder = (req, res) => {
+  let user = req.body.orderID;
+  let oId = req.body.userID;
+  console.log("OID:", oId);
+
+  UserModel.updateOne(
+    { autoGenID: user },
+    { $pull: { Orders: { id: oId } } },
+    (err, result) => {
+      if (!err) {
+        if (result.nModified > 0) {
+          //res.send("Succesfully removed order");
+          res.send("Success");
+        } else {
+          res.send("Could not find order to delete");
+        }
+      } else {
+        res.send("failure to delete order");
+      }
+    }
+  );
+};
+
 module.exports = {
   getUserDetails,
   signUpUserDetails,
@@ -568,4 +591,5 @@ module.exports = {
   genrateUserID,
   unlockUser,
   updateOrderStatus,
+  deleteOrder,
 };
