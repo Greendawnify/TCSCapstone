@@ -250,6 +250,7 @@ export class UserComponent implements OnInit {
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
+        this.currentFunds = order.newFunds;
         //window.location.reload();
       }else{
         alert('Failed to updated funds and /or orders');
