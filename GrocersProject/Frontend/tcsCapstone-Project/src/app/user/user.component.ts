@@ -23,6 +23,9 @@ export class UserComponent implements OnInit {
   currentBalance?:number;
   currentFunds?:string;
 
+  displayText:string = "";
+  interval :any;
+
   userOrders: any [] = [];
 
   ngOnInit(): void {
@@ -188,6 +191,7 @@ export class UserComponent implements OnInit {
     let sessionString = sessionStorage.getItem("LoggedInUserDetails");
      if(sessionString){ console.log("Got session storage");
       let userObj = JSON.parse(sessionString); 
+      
       for(let x of userObj.Orders){
          let newOrder = { 
            name: userObj.fName,
@@ -216,21 +220,13 @@ export class UserComponent implements OnInit {
           this.userOrders = this.userOrders.filter(o => o.id != userID);
           console.log("New array", newArray);
         }
-        let sessionString = sessionStorage.getItem("LoggedInUserDetails");
-        if(sessionString){ console.log("Got session storage");
-          let userObj = JSON.parse(sessionString); 
+        let userObj = this.getCurrentUser();
+        if(userObj){
+          
           userObj.Orders = this.userOrders;
-          sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(userObj));
-          console.log('Reset sesesion storage after deelting', userObj);
-        } 
-
-
-
-
-        //
+          this.setCurrentUser();
+        }
       })
-
-      
     }
 
 
@@ -275,7 +271,8 @@ export class UserComponent implements OnInit {
             }
           }else{
             console.log('you dont have the proper funds');
-            
+            // need to figure out have to make this dissapear
+            this.displayText = "Nto enough Funds to purchase";
           }
         }, (err) => console.log(err));
 
@@ -461,6 +458,7 @@ updateUserFunds(myUpdateFundsForm:any){
       this.userService.retrieveUserById(newObj).
       subscribe(res => {
         sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(res));
+        console.log('New User in Session sotorage', res);
       }, (err) => console.log(err));
     }
 

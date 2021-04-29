@@ -84,7 +84,7 @@ let updateCost = (req, res) => {
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
-          res.send("record updated succesfully " + result);
+          res.send("record updated succesfully");
         } else {
           res.send("record not found");
         }
@@ -106,7 +106,7 @@ let updateQuantity = (req, res) => {
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
-          res.send("record updated succesfully " + result);
+          res.send("record updated succesfully");
         } else {
           res.send("record not found");
         }

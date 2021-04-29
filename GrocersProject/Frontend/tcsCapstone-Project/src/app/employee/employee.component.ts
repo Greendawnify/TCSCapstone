@@ -6,6 +6,8 @@ import { UserService } from '../user.service';
 import { User } from '../model.user';
 import { Employee } from './../model.employee';
 import { ElementRef, ViewChild } from '@angular/core';
+import { ProductServiceService } from './../product.service.service';
+import { Product } from './../model.product';
 
 
 
@@ -18,11 +20,18 @@ export class EmployeeComponent implements OnInit {
   
   
   closeModal: string="";
-  constructor(public requestService:RequestService,public employeeSer: EmployeeService,private modalService: NgbModal, public userService:UserService) { }
+  constructor(
+    public requestService:RequestService,
+    public employeeSer: EmployeeService,
+    private modalService: NgbModal, 
+    public userService:UserService,
+    public productService:ProductServiceService,
+    ) { }
   viewReq:boolean=false
 
   lockedUsers:User[] = [];
   usersWithOrders:User[] = [];
+  allProducts:Product[] = [];
   temp :Employee = new Employee(1,'1','2','3','3',true);
 
   orderStatus:any[] = [];
@@ -43,6 +52,9 @@ export class EmployeeComponent implements OnInit {
       this.usersWithOrders = result;
       console.log(this.usersWithOrders);
     }, (err) => console.log(err));
+
+    this.productService.getAllProducts().
+    subscribe(res=> this.allProducts = res, (err) => console.log(err));
 
     let sessionString = sessionStorage.getItem("currentEmployee");
     let empObj;
