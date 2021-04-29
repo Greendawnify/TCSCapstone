@@ -54,21 +54,11 @@
     <div *ngIf="isShopping" class="container">
            <!----- Side Cart checkout and all features integrated -->
            
-          <div *ngIf="isShopping" class="card" style="width: 14rem;margin-left:5%">
-            <button (click) ="checkFunds(checkoutDate.value)" style="width: 14rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">Check Out</button>
+          <div *ngIf="isShopping" class="card" style="width: 14rem;margin-left:5%; height: 4cm;">
+            <button style="width: 14rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">Check Out</button>
            <div class="card-body">
-              <div class="row">
-              <h5>Order Date: <input #checkoutDate type="date"></h5>
-            </div>
-              
-           <div class="col sm-5" *ngFor="let tempCart of tempCart" >
-                  <h5> order name: {{tempCart.name}} </h5>
-                  <h5> order quantity {{tempCart.quantity}} </h5>
-                  <h5> order Price: ${{tempCart.price}}</h5>
-              <!--- Deleted unwanted product-->
-                <button  class="btn btn-dark" (click)="deleteProduct(tempCart.id)">delete</button>
-           
-             </div>
+            <button type="button" style="margin-left: 40%;" class="btn btn-dark" (click)="triggerModal(CartModal)">View Cart</button>
+
             </div>
           </div>
           </div>
@@ -76,11 +66,11 @@
     
           <!-- Profile View card -->
          
-        <div *ngIf="isShopping" class="card" style="width: 12rem; margin-right:5%">
+        <div *ngIf="isShopping" class="card" style="width: 12rem; margin-right:5%;height: 4cm;">
           <button style="width: 12rem; height: 5rem;" class="btn btn-light"> <img src="https://cdn2.iconfinder.com/data/icons/everything-in-office/65/icon_Ai-10-512.png" width="45" alt="" class="d-inline-block align-middle mr-2">
           </button>
         <div class="card-body">
-            <h3 class="card-subtitle">Your Profle</h3>
+            
             <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalProfile)">View Profile</button>    
           </div>
         </div>
@@ -123,7 +113,7 @@
        
     <!-- View Orders Card -->
     <div class="col-sm-9">
-      <div class="card bg-light mb-5">
+      <div style="width: 11.8cm;" class="card bg-light mb-5">
         <div class="card-body">
         <div class="row">      
           <h1 style="margin-left: 20%;" class="card-title">View Order</h1>
@@ -215,10 +205,8 @@
                 <div class="card-body">
                     
                 <div  class="col" >      
-                  <h1 style="margin-left:1%;" class="card-title">Profile View</h1>
-                  <p> </p>
-                  <p> </p>
-                  <p> </p>
+                  <h1 style="margin-left:1%; height: 3.3cm;" class="card-title">Profile View</h1>
+                  
                   <button style="margin-right:20% ; text-align: left;" class="btn btn-dark" (click)="triggerModal(modalDataa)">Update Profile</button>
                 </div>   
 
@@ -308,6 +296,44 @@
     </div>
 
 </ng-template>
+
+<!------ Modal for cart -->
+
+
+                <!--- Modal to raise ticket -->
+              <ng-template #CartModal let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Cart</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true" >×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    
+                    <h5>Order Date: <input #checkoutDate type="date"></h5>
+                  </div>
+                    
+                 <div class="col sm-5" *ngFor="let tempCart of tempCart" >
+                        <h5> order name: {{tempCart.name}} </h5>
+                        <h5> order quantity {{tempCart.quantity}} </h5>
+                        <h5> order Price: ${{tempCart.price}}</h5>
+                    <!--- Deleted unwanted product-->
+                      <button  class="btn btn-dark" (click)="deleteProduct(tempCart.id)">delete</button>
+                 
+                   </div>
+
+                   
+                     
+                </div>
+                  
+                      <div class="modal-footer">
+                        <button style="margin-top:10% ;" (click) ="checkFunds(checkoutDate.value)" style="width: 14rem; height: 5rem;" class="btn btn-dark">Check Out</button>
+                      </div>
+                    
+                  
+               
+              </ng-template>
 
 </body>
 </html>
