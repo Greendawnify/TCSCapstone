@@ -14,6 +14,8 @@ const routes: Routes = [
   // {path:"employee",component:EmployeeComponent},
   {path:"user",component:UserComponent},
   {path:"login",component:LoginComponent},
+  {path:"",component:LoginComponent},
+  
   
  // {path: "admin", component: AdminComponent, canActivate:[AdminAuthGuard]},
  // {path: "user", component: UserComponent, canActivate:[UserAuthGuard]},
