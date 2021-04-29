@@ -48,6 +48,7 @@
                 <p></p>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required ngModel>
+                    <p>Check to accept terms and condition</p>
                     
                     
                   </div>
@@ -82,11 +83,11 @@
                 <br>
                
                 <div class="input-group">
-                <button  class="btn btn-outline-dark" (click)="signIn(signInInputID.value, signInPasswordID.value);Resetter()" >Login</button>
+                <button  class="btn btn-outline-dark" type="submit" (click)="signIn(signInInputID.value, signInPasswordID.value);Resetter()" >Login</button>
                 &nbsp;&nbsp;
-                <button  class="btn btn-outline-dark" (click)="employeeSignin(signInInputID.value, signInPasswordID.value);Resetter()" >Employee Login</button>
+                <button  class="btn btn-outline-dark" type="submit" (click)="employeeSignin(signInInputID.value, signInPasswordID.value);Resetter()" >Employee Login</button>
                 &nbsp;&nbsp;
-                <button  class="btn btn-outline-light" (click)="adminSignIn(signInInputID.value, signInPasswordID.value);Resetter()" >Admin Login</button>
+                <button  class="btn btn-outline-light" type="submit" (click)="adminSignIn(signInInputID.value, signInPasswordID.value);Resetter()" >Admin Login</button>
 
                 </div>
                 <input id="reset_login" type="reset" value="reset" class="btn btn-outline-light">

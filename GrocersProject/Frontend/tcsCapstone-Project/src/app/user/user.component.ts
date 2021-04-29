@@ -326,7 +326,8 @@ export class UserComponent implements OnInit {
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
         this.currentFunds = order.newFunds;
-        //window.location.reload();
+        window.location.reload();
+        
       }else{
         alert('Failed to updated funds and /or orders');
       }
@@ -341,6 +342,7 @@ triggerModal(content:any) {
   }, (res) => {
     this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
   });
+  refresh: true
 }
 
 private getDismissReason(reason: any): string {
