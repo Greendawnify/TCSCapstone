@@ -68,11 +68,15 @@ export class AdminComponent implements OnInit {
   element5.click();
   }
   //function to reset the forms
-  Resetter(){
+  emp_Resetter(){
     let element:HTMLElement = document.getElementById('reset_addEmployee') as HTMLElement;
   element.click();
   let element1:HTMLElement = document.getElementById('reset_DelEmployee') as HTMLElement;
   element1.click();
+  }
+  
+  Prod_Resetter(){
+    
   let element2:HTMLElement = document.getElementById('reset_AddProduct') as HTMLElement;
   element2.click();
   let element3:HTMLElement = document.getElementById('reset_DelProduct') as HTMLElement;

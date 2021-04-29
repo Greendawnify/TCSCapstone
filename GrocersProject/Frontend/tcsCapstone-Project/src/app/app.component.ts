@@ -11,30 +11,44 @@ export class AppComponent {
   constructor(public router:Router) { }  
   isLogin:boolean= true;
   isLogout:boolean=false;
-  isCart:boolean=false;
+ 
   profile:boolean = false;
 
   title = 'tcsCapstone-Project';
- 
-    home_Page(){
-    
-      this.router.navigate(["user"])
-      }
-      Login_user(){
+  ngOnInIt(){
+    let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
+      if(tempUserDetails != null){
         this.isLogout=true;
         this.isLogin=false;
-        this.isCart=true;
+       
         this.router.navigate(["login"])
       }
-      Logout_user(){
-        this.isLogout=false;
+      else{
+      this.isLogout=false;
         this.isLogin=true;
-        this.isCart=false;
-        this.router.navigate(["user"])
-      }
-      toCart(){
+        
+        this.router.navigate(["login"])
+
+    }}
   
-        this.router.navigate(["cart"])
+ 
+    isLoggedIn(){
+      let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
+      if(tempUserDetails != null){
+        this.isLogout=true;
+        this.isLogin=false;
+       
+        this.router.navigate(["login"])
       }
+      else{
+      this.isLogout=false;
+        this.isLogin=true;
+        
+        this.router.navigate(["login"])
+
+    }
+  }
+     
+      
           
 }
