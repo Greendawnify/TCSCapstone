@@ -145,10 +145,10 @@ export class AdminComponent implements OnInit {
         this.DailyReports(date1);
         break;
       case "WEEKLY":
-        this.weeklyReports(date1, date2);
+        this.weeklyReports(date1);
         break;
       case "MONTHLY":
-        this.monthlyReports(date1, date2);
+        this.monthlyReports(date1);
         break;
     }
   }
@@ -169,12 +169,73 @@ export class AdminComponent implements OnInit {
     console.log(this.userReport);
   }
 
-  weeklyReports(date1:string, date2:string){
+  weeklyReports(date1:string){
+    console.log("date1: ", date1);
+    let dateSplit = date1.split("-");
+      let tempMon = parseInt(dateSplit[1]);
+      let tempDay = parseInt(dateSplit[2]);
+      let tempYear = parseInt(dateSplit[0]);
+      let strDate;
+    for(let i = 7; i > 0; i--){
+      
+      console.log("At Start Weekly Date: ", tempMon.toString(), "-", tempDay.toString(), "-", tempYear.toString());
+      if((tempMon == 1 || tempMon == 2 || tempMon == 3 || tempMon == 4 || tempMon == 5 || tempMon == 6 ||
+          tempMon == 7 || tempMon == 8 || tempMon == 9) && 
+      (tempDay == 1 || tempDay == 2 || tempDay == 3 || tempDay == 4 || tempDay == 5 || 
+       tempDay == 6 || tempDay == 7 || tempDay == 8 || tempDay == 9)){
+        strDate = tempYear.toString()+"-"+"0"+tempMon.toString()+"-"+"0"+tempDay.toString();
+      }
+      else{
+        strDate = tempYear.toString()+"-"+tempMon.toString()+"-"+tempDay.toString();
+      }
+      console.log(strDate);
+      for(let i =0; i < this.users.length; i++){
+        for(let j = 0; j < this.users[i].Orders.length; j++){
+          // looking inside each order of each user
+          if(this.users[i].Orders[j].orderDate === strDate){
+            // ordered on same date searching for add to report list
+            // or we can create a new type of array of objects filled with the info we need?
+            let newReport = new ReportUser(this.users[i].fName, this.users[i].Orders[j].products, this.users[i].Orders[j].cost);
+            console.log("New Report", newReport);
+            //this.userReport.push(newReport);
+          }
+        }
+      }
 
+      if(tempDay == 1 && (tempMon == 4 || tempMon == 6 ||
+        tempMon == 11))
+      {
+        tempDay = 32;
+        tempMon--;
+      }
+      else if(tempDay == 1 && (tempMon == 1 || tempMon == 3 ||
+        tempMon == 5 || tempMon == 7 || tempMon == 8 || tempMon == 10 ||
+        tempMon == 12)){
+        
+        if(tempDay == 1 && tempMon == 1){
+          tempYear--;
+          tempDay = 32;
+          tempMon = 12;
+        }
+        else if(tempDay == 1 && tempMon == 3){
+          tempMon--;
+          tempDay = 30;
+        }
+        else{
+          tempMon--;
+          tempDay = 32;
+        }
+      }
+      else if(tempDay == 1 && tempMon == 2){
+        tempDay = 32;
+        tempMon--;
+      }
+      tempDay--;
+    }
   }
   
-  monthlyReports(date1:string, date2:string){
-    console.log("date1: ", date1.split("-")[1], " , date2: ", date2.split("-")[1]);
+  monthlyReports(date1:string){
+    console.log("date1: ", date1.split("-")[1]);
   }
 
 
