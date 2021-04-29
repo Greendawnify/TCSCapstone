@@ -16,8 +16,12 @@ export class AppComponent {
 
   title = 'tcsCapstone-Project';
   ngOnInIt(){
-    let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
-      if(tempUserDetails != null){
+    let emplyeeToken =  sessionStorage.getItem("emplyeeToken");
+      let adminToken =  sessionStorage.getItem("adminToken");
+      let userToken =  sessionStorage.getItem("userToken");
+      
+
+      if( (userToken != null) || (adminToken != null) || (emplyeeToken != null) ){
         this.isLogout=true;
         this.isLogin=false;
        
@@ -28,13 +32,16 @@ export class AppComponent {
         this.isLogin=true;
         
         this.router.navigate(["login"])
-
     }}
   
  
     isLoggedIn(){
-      let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
-      if(tempUserDetails != null){
+      let emplyeeToken =  sessionStorage.getItem("emplyeeToken");
+      let adminToken =  sessionStorage.getItem("adminToken");
+      let userToken =  sessionStorage.getItem("userToken");
+      
+
+      if( (userToken != null) || (adminToken != null) || (emplyeeToken != null) ){
         this.isLogout=true;
         this.isLogin=false;
        
@@ -43,6 +50,10 @@ export class AppComponent {
       else{
       this.isLogout=false;
         this.isLogin=true;
+        sessionStorage.removeItem("emplyeeToken");
+        sessionStorage.removeItem("adminToken");
+        sessionStorage.removeItem("userToken");
+
         
         this.router.navigate(["login"])
 
