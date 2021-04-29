@@ -8,6 +8,7 @@
 <body>
     
     <div class="row" style="margin-left: 15%;margin-top: 5%; border-right: 2px solid rgb(0, 0, 0) !important;">
+      <!---- SIgnUp form -->
         <div class="col-sm-6">
           <div class="card bg-light mb-3">
             <div class="card-body">
@@ -61,6 +62,7 @@
             </div>
           </div>
         </div>
+        <!---  Sign In part  -->
         <div class="col-sm-4" >
           <div class="card bg-light mb-3">
             <div class="card-body">
@@ -69,26 +71,33 @@
                 
 
              
-                <div class="input-group mb-3">
+                <div class="input-group mb-4">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">@</span>
                     </div>
                     <input #signInInputID type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                   </div>
-                <br>
+            
                 <input #signInPasswordID type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-                <p> </p>
-                <button type="button" class="btn btn-dark" (click)="signIn(signInInputID.value, signInPasswordID.value)" >Login</button>
-                <button type="button" class="btn btn-dark" (click)="adminSignIn(signInInputID.value, signInPasswordID.value)" >Admin Login</button>
-                <button type="button" class="btn btn-dark" (click)="employeeSignin(signInInputID.value, signInPasswordID.value)" >Employee Login</button>
+                <br>
+               
+                <div class="input-group">
+                <button  class="btn btn-outline-dark" (click)="signIn(signInInputID.value, signInPasswordID.value)" >Login</button>
+                &nbsp;&nbsp;
+                <button  class="btn btn-outline-dark" (click)="employeeSignin(signInInputID.value, signInPasswordID.value)" >Employee Login</button>
+                &nbsp;&nbsp;
+                <button  class="btn btn-outline-light" (click)="adminSignIn(signInInputID.value, signInPasswordID.value)" >Admin Login</button>
 
-                <p></p>
-                    <p> </p>
+                </div>
+                <br>
+                   
 
                 
-                <button type="button" style="margin-left: 20%;" class="btn btn-link" (click)="triggerModal(modalData)">Forgot Password/Username</button>
+                <button type="button" style="margin-left: 40%;" class="btn btn-link" (click)="triggerModal(RaiseTicket)">Forgot Password/Username</button>
 
-              <ng-template #modalData let-modal>
+
+                <!--- Modal to raise ticket -->
+              <ng-template #RaiseTicket let-modal>
                 <div class="modal-header">
                   <h4 class="modal-title" id="modal-basic-title">Raise Ticket to Reset</h4>
                   <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -122,19 +131,8 @@
                     
                   </form>
                 </div>
-              
-                
-                                 
-          
-               
-       
               </ng-template>
-
-
-
-
-
-            </form>
+              </form>
             </div>
           </div>
         </div>
