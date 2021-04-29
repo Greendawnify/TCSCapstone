@@ -24,6 +24,10 @@ export class ProductServiceService {
     return this.http.put('http://localhost:9090/product/updateQuantity', updateRef, {responseType:'text'});
   }
 
+  updateCost(updateRef:any){
+    return this.http.put("http://localhost:9090/product/updateCost", updateRef, {responseType:"text"});
+  }
+
   getAllProducts():Observable<Product[]>{
     return this.http.get<Product[]>("http://localhost:9090/product/getAllProducts");
   }
