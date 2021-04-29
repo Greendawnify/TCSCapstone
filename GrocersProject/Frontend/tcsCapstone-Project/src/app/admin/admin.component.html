@@ -99,6 +99,24 @@
                     </div>
                   </div>
                 </div>
+                <!--- Update Price-->
+                <div class="col-sm-3">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <h5 class="card-title">Update Price</h5>
+                      <form #updatePriceRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value)">
+                        <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel>
+                        <br/>
+                      
+                        <input name = "Price" class="form-control" placeholder = "Price of products" ngModel>
+                        <br/>
+                        <p></p>
+                        <input type="submit" value="Submit">
+                        <input type="submit" value="Submit">
+                      </form>
+                    </div>
+                  </div>
+                </div>
                 <!---Update products card-->
                 <div class="col-sm-3">
                     <div class="card bg-light mb-3">
