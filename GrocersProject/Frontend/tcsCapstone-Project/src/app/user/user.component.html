@@ -127,13 +127,30 @@
         <div class="card-body">
         <div class="row">      
           <h1 style="margin-left: 20%;" class="card-title">View Order</h1>
-          <button  class="btn btn-dark" style="margin-left:55% ;" >View All</button>
+          <button  class="btn btn-dark" style="margin-left:55% ;" (click) = "showOrders()">View All</button>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr >
+                <th>Name</th>
+                <th>Products</th>
+                <th>Status</th>
+                <th>Cost</th>
+              </tr>
+            </thead>
+            <tbody class = 'tbody'>
+              <tr *ngFor="let user of userOrders">
+                <th>{{user.name}}</th>
+                <th>{{user.products}}</th>
+                <th>{{user.status}}</th>
+                <th>{{user.cost}}</th>
+              </tr>
+            </tbody>
+    
+            
+          </table>
         </div>   
         <br>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 25%; color:rgb(78, 74, 74)" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Order Status</div>
-        </div>
-        <p>previos orers will be here in an Array</p>
+        
         </div>
         </div>
         </div>
