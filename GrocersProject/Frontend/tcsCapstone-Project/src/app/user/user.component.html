@@ -46,17 +46,49 @@
 
 
 
-  
-
-
 
 
 
   <div class="row" >
+    
     <div *ngIf="isShopping" class="container">
+           <!----- Side Cart checkout and all features integrated -->
            
+          <div *ngIf="isShopping" class="card" style="width: 14rem;margin-left:5%">
+            <button (click) ="checkFunds(checkoutDate.value)" style="width: 14rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">Check Out</button>
+           <div class="card-body">
+              <div class="row">
+              <h5>Order Date: <input #checkoutDate type="date"></h5>
+            </div>
+              
+           <div class="col" *ngFor="let tempCart of tempCart" >
+                  <h5>order name: {{tempCart.name}}</h5>
+                  <h5>order quantity {{tempCart.quantity}}</h5>
+                  <h5>order Price: ${{tempCart.price}}</h5>
+              <!--- Deleted unwanted product-->
+                <button  class="btn btn-dark" (click)="deleteProduct(tempCart.id)">delete</button>
+           </div>
+             </div>
+            </div>
+          </div>
+    
+          <!-- Profile View card -->
+         
+        <div *ngIf="isShopping" class="card" style="width: 12rem; margin-right:5%">
+          <button style="width: 12rem; height: 5rem;" class="btn btn-light"> <img src="https://cdn2.iconfinder.com/data/icons/everything-in-office/65/icon_Ai-10-512.png" width="45" alt="" class="d-inline-block align-middle mr-2">
+          </button>
+        <div class="card-body">
+            <h3 class="card-subtitle">Your Profle</h3>
+            <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalProfile)">View Profile</button>    
+          </div>
+        </div>
+        </div>
+    
+ 
+     
+  
             
-            <div class="row" >
+            <div *ngIf="isShopping" class="row" >
                 <!---- All products cards are displayed-->
                 <div class="col-sm-3" *ngFor="let product of products" >
                   <div class="card bg-light mb-3" style="margin-top: 6%;">
@@ -76,41 +108,9 @@
             </div>
            
             
-          </div>
-           <!----- Side Cart checkout and all features integrated -->
-          <div *ngIf="isShopping" class="card" style="width: 14rem">
-            <button (click) ="checkFunds(checkoutDate.value)" style="width: 14rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">Check Out</button>
-           <div class="card-body">
-              <h5 class="card-title">Cart</h5>
-              <div class="row">
-              <h6 class="card-subtitle">Your orders</h6> 
-              <h5>Order Date: <input #checkoutDate type="date"></h5>
-            </div>
-              
-           <div class="col" *ngFor="let tempCart of tempCart" >
-                
-                  <h5>order name: {{tempCart.name}}</h5>
-                  <h5>order quantity {{tempCart.quantity}}</h5>
-                  <h5>order Price: ${{tempCart.price}}</h5>
-              <!--- Deleted unwanted product-->
-                <button  class="btn btn-dark" (click)="deleteProduct(tempCart.id)">delete</button>
-              </div>
-            </div>
-          </div>
+         
+           
 
- 
-     
-  <!-- Profile View card -->
-     
-  <div *ngIf="isShopping" class="card" style="width: 12rem">
-    <button style="width: 12rem; height: 5rem;" class="btn btn-light"> <img src="https://cdn2.iconfinder.com/data/icons/everything-in-office/65/icon_Ai-10-512.png" width="45" alt="" class="d-inline-block align-middle mr-2">
-    </button>
-   <div class="card-body">
-      <h3 class="card-subtitle">Your Profle</h3>
-      <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalProfile)">View Profile</button>    
-    </div>
-  </div>
-</div>
 
 
 <!---Profile  Modal  -->
