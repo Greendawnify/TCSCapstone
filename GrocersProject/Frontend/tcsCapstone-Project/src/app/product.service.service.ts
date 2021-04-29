@@ -13,27 +13,27 @@ export class ProductServiceService {
   constructor(public http:HttpClient, public deploy:DeployService) { }
 
   addProduct(productRef:any){
-    this.http.post('http://localhost:9090/product/addProduct', productRef, {responseType:'text'}).
+    this.http.post(this.deploy.deploymentURL+"/product/addProduct", productRef, {responseType:'text'}).
     subscribe(res =>console.log(res), err => console.log(err));
   }
 
   deleteProduct(ID:any):any{
-    return this.http.delete('http://localhost:9090/product/deleteProduct/'+ID, {responseType:'text'});
+    return this.http.delete(this.deploy.deploymentURL+"/product/deleteProduct/"+ID, {responseType:'text'});
   }
 
   updateQuantity(updateRef:any):any{
-    return this.http.put('http://localhost:9090/product/updateQuantity', updateRef, {responseType:'text'});
+    return this.http.put(this.deploy.deploymentURL+"/product/updateQuantity", updateRef, {responseType:'text'});
   }
 
   updateCost(updateRef:any){
-    return this.http.put("http://localhost:9090/product/updateCost", updateRef, {responseType:"text"});
+    return this.http.put(this.deploy.deploymentURL+"/product/updateCost", updateRef, {responseType:"text"});
   }
 
   getAllProducts():Observable<Product[]>{
-    return this.http.get<Product[]>("http://localhost:9090/product/getAllProducts");
+    return this.http.get<Product[]>(this.deploy.deploymentURL+"/product/getAllProducts");
   }
 
   reduceProductQuantity(reduceObj:any){
-    return this.http.put("http://localhost:9090/product/reduceQuantity", reduceObj);
+    return this.http.put(this.deploy.deploymentURL+"/product/reduceQuantity", reduceObj);
   }
 }
