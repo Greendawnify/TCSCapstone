@@ -1,6 +1,5 @@
-// let app = require("express")();
-let express = require("express");
-let app = express();
+let app = require("express")();
+
 let bodyParser = require("body-parser");
 let mongoose = require("mongoose");
 let cors = require("cors");
@@ -9,16 +8,16 @@ let cors = require("cors");
 let url = "mongodb://localhost:27017/TCSCapstone";
 
 //Unable to load the static files 
-app.use(express.static(process.cwd()));
+//app.use(express.static(process.cwd()));
 
 // middleware enable data from post method
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/', (req,res) => {
-  res.sendFile(__dirname+"/index.html")
- });
+// app.get('/', (req,res) => {
+//   res.sendFile(__dirname+"/index.html")
+//  });
 
 //database connection without warning
 const mongooseDbOptions = {
@@ -55,4 +54,4 @@ app.use("/employee", EmployeeRouter);
 
 app.use("/request", RequestRouter);
 
-app.listen(9091, () => console.log("Running on server 9091"));
+app.listen(9090, () => console.log("Running on server 9090"));

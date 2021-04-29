@@ -13,6 +13,7 @@ import { stringify } from '@angular/compiler/src/util';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  addedCart="";
   isShopping:boolean= false;
   notShopping:boolean = true;
   signedInUserDetails:any = {};
@@ -22,10 +23,13 @@ export class UserComponent implements OnInit {
   constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
   currentBalance?:number;
   currentFunds?:string;
-  userOrders:any[] = [];
+
+  userOrders: any [] = [];
+   
+  
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
-
+    this.addedCart="";
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
@@ -49,39 +53,14 @@ export class UserComponent implements OnInit {
       this.currentBalance = this.signedInUserDetails.balance;
       this.currentFunds = this.signedInUserDetails.funds;
   }
+
+
   is_Shopping(){
+
     this.isShopping=true;
     this.notShopping=false;
   }
-  //dummy values for testinf
-  // orders = [ {name:'banana',quantity:4},{name:'apple',quantity:5}]
-  card = [
-    {
-      name: 'Banana',
-      quantity: 6,
-      cost:"$12",
-      img: 'https://cdn.mos.cms.futurecdn.net/42E9as7NaTaAi4A6JcuFwG-1200-80.jpg'
-    },
-    {
-      name: ' Strawberries',
-      quantity: 5,
-      cost:"$12",
-      img: 'https://farmfreshcarolinas.com/wp-content/uploads/2020/04/Strawberries.jpg'
-    },
-    {
-      name: 'Mangoes',
-      quantity: 7,
-      cost:"$12",
-      img: 'https://plantogram.com/wa-data/public/shop/products/55/06/655/images/1256/1256.750@2x.jpg'
-    },
-    {
-      name: 'Card Title 4',
-      quantity: 15,
-      cost:"$12",
-      img: 'https://static.libertyprim.com/files/familles/peche-large.jpg'
-    },
 
-  ];
 
   // add functionality if the name of this new order is the same as a previous order to add to the quanitity and cost of previous order
   // and dont append a new object to the cart
@@ -115,14 +94,14 @@ export class UserComponent implements OnInit {
      }else{
       let oldCart = JSON.parse(cart);
 
-      // check if I am adding the same product to the checkout list
+      // check if I am updating the same product to the checkout list
       for(let c of oldCart){
         if(c.name == addProductRef.name){
-          // I am adding the same product to the list. Instead update this cart obj
-          let cartQ = parseInt(c.quantity);
-          cartQ += quanityNumber;
-          c.quantity = cartQ.toString();
-          c.price += price;
+          // update the value in the checkout cart
+          // let cartQ = parseInt(c.quantity);
+          // cartQ += quanityNumber;
+          c.quantity = quanityNumber;
+          c.price = price;
 
           this.tempCart = oldCart;
           localStorage.setItem('cart', JSON.stringify(oldCart));
@@ -140,9 +119,31 @@ export class UserComponent implements OnInit {
 
      localStorage.setItem('cart', jsonString);
      console.log("Temp cart after adding", this.tempCart);
-
+     this.addedCart="Added to cart"
      
   }
+
+  // showOrders(){
+  //   let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+  //   if(sessionString){
+  //     console.log("Got session storage");
+  //     let userObj = JSON.parse(sessionString);
+      
+      
+
+  //     for(let x of userObj.Orders){
+  //       let newOrder = {
+  //         name: userObj.fName,
+  //         cost: x.cost,
+  //         status: x.status,
+  //         products: x.products
+  //       };
+  //       this.userOrders.push(newOrder);
+  //     }
+  //   }
+
+  // }
+
 //delete product
   deleteProduct(deleteID:any){
     let cart:string|null;
@@ -188,6 +189,7 @@ export class UserComponent implements OnInit {
   };
 
   showOrders(){ 
+    this.userOrders.length = 0;
     let sessionString = sessionStorage.getItem("LoggedInUserDetails");
      if(sessionString){ console.log("Got session storage");
       let userObj = JSON.parse(sessionString); 
@@ -243,35 +245,47 @@ export class UserComponent implements OnInit {
     let totalCost = 0;
     let checkoutProds:string[] = []
 
+    let index = 0;
     for(let c of this.tempCart){
       let prodString = c.name + "_"+c.quantity.toString();
       checkoutProds.push(prodString);
 
       let cartElementPrice = c.quantity * c.price;
-      totalCost+= cartElementPrice;
+      
+      if(index ==0){
+        totalCost= cartElementPrice;
+      }else{
+        totalCost+= cartElementPrice;
+      }
 
+      index++;
     }
     console.log(`Total Funds: ${totalCost} and products: ${checkoutProds}`);
 
-    let sessionString = sessionStorage.getItem("LoggedInUserDetails");
-    if(sessionString){
-      console.log("Got session storage");
-      let userObj = JSON.parse(sessionString);
+    // let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+    // if(sessionString){
+    //   console.log("Got session storage");
+    //   let userObj = JSON.parse(sessionString);
+      let oldUser = this.getCurrentUser();
+      if(oldUser){
 
-      this.userService.checkProperFunds(userObj.autoGenID, totalCost).
-    subscribe((res:any) =>{
-      console.log(res.approved);
-      if(res["approved"] == true){ //approved is boolean
-        // fill cart with its values into the cart object inside session/local storage
-        console.log("works now onto checkout");
-        if(this.updateQuantities()){
-          this.checkout(res.fund, totalCost, checkoutProds, userObj, checkoutDate);
-        }
-      }else{
-        alert('You dont have the proper funds');
+          this.userService.checkProperFunds(oldUser.autoGenID, totalCost).
+        subscribe((res:any) =>{
+          console.log(res.approved);
+          if(res["approved"] == true){ //approved is boolean
+            // fill cart with its values into the cart object inside session/local storage
+            console.log("works now onto checkout");
+            if(this.updateQuantities()){
+              this.checkout(res.fund, totalCost, checkoutProds, oldUser, checkoutDate);
+            }
+          }else{
+            console.log('you dont have the proper funds');
+            
+          }
+        }, (err) => console.log(err));
+
       }
-    }, (err) => console.log(err));
-    }
+    //}
 
 
     
@@ -301,7 +315,17 @@ export class UserComponent implements OnInit {
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
-        //window.location.reload();
+<<<<<<< HEAD
+        this.currentFunds = order.newFunds;
+        window.location.reload();
+=======
+
+      
+        
+        // update the user in session storage
+        this.setCurrentUser();
+>>>>>>> 5cf6779142cabfd9b9c9ffb34b19d0c0dc75c070
+
       }else{
         alert('Failed to updated funds and /or orders');
       }
@@ -316,6 +340,7 @@ triggerModal(content:any) {
   }, (res) => {
     this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
   });
+  refresh: true
 }
 
 private getDismissReason(reason: any): string {
@@ -428,6 +453,28 @@ updateUserFunds(myUpdateFundsForm:any){
     }
     return true;
     // need to figure out how to check if there is not enough product quantities
+  }
+
+  getCurrentUser(){
+    let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+    if(sessionString){
+      return JSON.parse(sessionString);
+    }
+  }
+
+  setCurrentUser(){
+    let userObj = this.getCurrentUser();
+    if(userObj){
+      let newObj = {
+        autoGenID: userObj.autoGenID,
+        pWord:userObj.pWord
+      }
+      this.userService.retrieveUserById(newObj).
+      subscribe(res => {
+        sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(res));
+      }, (err) => console.log(err));
+    }
+
   }
 
 }
