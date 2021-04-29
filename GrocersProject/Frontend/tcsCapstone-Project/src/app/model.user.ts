@@ -23,7 +23,7 @@ export class User{
                 products: [String],
                 cost: Number,
                 status: string,
-                orderDate:Date
+                orderDate:string
             }
         ] 
         ){}
