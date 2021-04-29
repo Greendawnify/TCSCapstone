@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DeployService } from './deploy.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
 
-  constructor( public http:HttpClient) { }
+  constructor( public http:HttpClient, public deploy:DeployService) { }
 
   addEmployeeDetails(employeeRef:any){
     this.http.post("http://localhost:9090/employee/storeEmployeeDetails",employeeRef,{responseType:"text"}).

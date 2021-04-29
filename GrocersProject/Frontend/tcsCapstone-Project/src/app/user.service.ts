@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from './model.user';
+import { DeployService } from './deploy.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { User } from './model.user';
 export class UserService {
 
   
-  constructor(public http:HttpClient) { }
+  constructor(public http:HttpClient, public deploy:DeployService) { }
 
   signUpUserDetails(mySignUpForm: any){
     //let tempRes;

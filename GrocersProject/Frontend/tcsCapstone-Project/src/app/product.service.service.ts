@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from './model.product';
+import { DeployService } from './deploy.service';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Product } from './model.product';
 })
 export class ProductServiceService {
 
-  constructor(public http:HttpClient) { }
+  constructor(public http:HttpClient, public deploy:DeployService) { }
 
   addProduct(productRef:any){
     this.http.post('http://localhost:9090/product/addProduct', productRef, {responseType:'text'}).
