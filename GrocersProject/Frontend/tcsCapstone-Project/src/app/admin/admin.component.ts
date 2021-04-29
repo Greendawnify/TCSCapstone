@@ -30,7 +30,6 @@ export class AdminComponent implements OnInit {
   report:boolean = false;
   deleteMsg?:string;
   closeModal: string="";
-  employees:Employee[] = new Array;
   requests:Request[] = new Array;
   products:Product[] = [];
   employees:Employee[] = [];

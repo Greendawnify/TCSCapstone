@@ -9,7 +9,6 @@ import { ElementRef, ViewChild } from '@angular/core';
 import { ProductServiceService } from './../product.service.service';
 import { Product } from './../model.product';
 
-import { Product } from './../model.product';
 
 
 

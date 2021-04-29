@@ -312,16 +312,11 @@ export class UserComponent implements OnInit {
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
-<<<<<<< HEAD
-        this.currentFunds = order.newFunds;
-        window.location.reload();
-=======
 
       
         
         // update the user in session storage
         this.setCurrentUser();
->>>>>>> 5cf6779142cabfd9b9c9ffb34b19d0c0dc75c070
 
       }else{
         alert('Failed to updated funds and /or orders');
