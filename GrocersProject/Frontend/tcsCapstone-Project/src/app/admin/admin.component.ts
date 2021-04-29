@@ -4,6 +4,9 @@ import { ProductServiceService } from './../product.service.service';
 import { RequestService } from './../request.service';
 import { Request } from './../request.model';
 import { User } from '../model.user';
+import { UserService } from './../user.service';
+import { ReportUser } from './../reportUser.model';
+
 
 
 
@@ -15,22 +18,27 @@ import { User } from '../model.user';
 export class AdminComponent implements OnInit {
   Employee:boolean= false;
   Product:boolean=false;
+  generated:boolean =false;
   request:boolean = false;
   report:boolean = false;
   deleteMsg?:string;
   requests:Request[] = new Array;
+  users:User[] = [];
+  userReport:ReportUser[] = [];
   //date variables
   
   duplicateArray=[]
   constructor(
     public productService:ProductServiceService,
     public empService:EmployeeService,
-    public requestService:RequestService
+    public requestService:RequestService,
+    public userService:UserService,
     ) { }
 
   // Testing requests = [{ type:"hello", description:"this this" },{ type:"hello", description:"this this" }]
   ngOnInit(): void {
-    this.requestService.getAllRequests().subscribe(res => this.requests = res);
+    this.requestService.getAllRequests().subscribe(res => this.requests = res, (err) => console.log(err));
+    this.userService.getUsersWithOrders().subscribe(res => this.users = res, (err) => console.log(err));
   }
 
   Emp_visible(){
@@ -64,7 +72,10 @@ export class AdminComponent implements OnInit {
     console.log(type, description);
     
     this.requestService.delete(sender, description, type).
-    subscribe((res:string) => console.log(res), err => console.log(err));
+    subscribe((res:string) => {
+      console.log(res);
+      window.location.reload();
+    }, err => console.log(err));
   }
 
   addProduct(productRef:any){
@@ -123,23 +134,49 @@ export class AdminComponent implements OnInit {
     cost: 12,
     
   }]
-  dummy_products:any;
-  total_cost:any;
+
+  generateReports(generateType:string, date1:any, date2:any){ //figure how to get date info frominputs
+    // probably need to clear userReport
+    switch(generateType){
+      case "DAILY":
+        this.DailyReports(date1);
+        break;
+    }
+  }
+
+  DailyReports(date:Date){
+    for(let i =0; i < this.users.length; i++){
+      for(let j = 0; j < this.users[i].Orders.length; j++){
+        // looking inside each order of each user
+        if(this.users[i].Orders[j].orderDate === date){
+          // ordered on same date searching for add to report list
+          // or we can create a new type of array of objects filled with the info we need?
+          let newReport = new ReportUser(this.users[i].fName, this.users[i].Orders[j].products, this.users[i].Orders[j].cost);
+          this.userReport.push(newReport);
+        }
+      }
+    }
+  }
+
+
+
+   dummy_products:any;
+   total_cost:any;
   productsReport(reportForm:any){
-    this.dummy_products = this.dummy_product;
-    let selectedUsers = this.dummy_user.filter((f:any) => new Date(f.orders.orderDate) > reportForm.fromDate && new Date(f.orders.orderDate) < reportForm.toDate);
-    console.log(selectedUsers)
-    for (var val of selectedUsers ) {
-      this.total_cost += val.order.cost
+    // this.dummy_products = this.dummy_product;
+    // let selectedUsers = this.dummy_user.filter((f:any) => new Date(f.orders.orderDate) > reportForm.fromDate && new Date(f.orders.orderDate) < reportForm.toDate);
+    // console.log(selectedUsers)
+    // for (var val of selectedUsers ) {
+    //   this.total_cost += val.order.cost
   }
 
 }
-generated:boolean=false;
-ReportGenerated(){
-  this.generated=true
+ 
+// ReportGenerated(){
+//   this.generated=true
 
-}
-}
+// }
+// }
  
 
 

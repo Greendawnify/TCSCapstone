@@ -181,7 +181,8 @@ export class UserComponent implements OnInit {
     })
   };
 
-  checkFunds(){
+
+  checkFunds(){// take in the date info and pass to checkout to store date info
     console.log('check funds');
 
     let totalCost = 0;
@@ -242,13 +243,15 @@ export class UserComponent implements OnInit {
       if(res.funds && res.orders){
         console.log('both funds and orders have been updated.');
         //empty out the cart
+        this.tempCart = [];
+        localStorage.setItem("cart", JSON.stringify(this.tempCart));
+        window.location.reload();
       }else{
         console.log('failed to updated funds and /or orders');
       }
     })
 
 
-    // need to implement subtracting quantity from database
   };
 //profile functions
 triggerModal(content:any) {
