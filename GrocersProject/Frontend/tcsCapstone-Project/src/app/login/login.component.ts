@@ -5,6 +5,7 @@ import { UserService } from '../user.service';
 import { AdminService } from './../admin.service';
 import { Admin } from './../admin.model';
 import { EmployeeService } from '../employee.service';
+import { FormGroup } from '@angular/forms';
 
 
 
@@ -25,6 +26,20 @@ export class LoginComponent implements OnInit {
     public empService:EmployeeService 
     ) {}
   ngOnInit(): void {
+    let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
+  element.click();
+  let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
+  element1.click();
+  let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
+  element2.click();
+  }
+  Resetter(){
+    let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
+  element.click();
+  let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
+  element1.click();
+  let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
+  element2.click();
   }
 //signIn function for user
   signIn(userID:any, userPword:any){
@@ -148,4 +163,5 @@ export class LoginComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
+  
 }

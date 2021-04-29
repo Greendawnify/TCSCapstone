@@ -57,9 +57,16 @@ export class EmployeeComponent implements OnInit {
         
       }
     }
+    let element1:HTMLElement = document.getElementById('reset_pass') as HTMLElement;
+  element1.click()
    
   }
 
+  //function to reset forms
+  Resetter(){ 
+let element1:HTMLElement = document.getElementById('reset_pass') as HTMLElement;
+  element1.click()
+  }
 //unlock user account 
   unlockUserAccount(userID:any){
     this.userService.unlockUser(userID).subscribe((result:string)=> {
@@ -138,17 +145,7 @@ export class EmployeeComponent implements OnInit {
   }
   //end of modal functions
 
-//passowrds show
-passType: string = "password";
 
-changePasswordType(){
-if(this.passType === "password"){
-this.passType= "text"
-}
-else{
-this.passType == "password"
-}
-}
 
 
 

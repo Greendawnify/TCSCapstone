@@ -13,7 +13,7 @@
           <div class="card bg-light mb-3">
             <div class="card-body">
               <h2 class="card-title">Sign-Up</h2>
-              <form #mySignUpForm = "ngForm"  (ngSubmit)="signUserUp(mySignUpForm.value)">
+              <form id="mySignUpForm"  #mySignUpForm = "ngForm"  (ngSubmit)="signUserUp(mySignUpForm.value);Resetter() ">
                 <input type = "text" class="form-control" name = "fName" placeholder = "Your First Name" ngModel>
                 <br/>             
                 <input type = "text" class="form-control" name = "lName" placeholder = "Your Last Name" ngModel>
@@ -55,7 +55,8 @@
                     </div>
                   </div>
                   <br>
-                <input type="submit" value="Sign-Up" style="margin-left:80%;" class="btn btn-dark">  
+                <input type="submit" value="Sign-Up" style="margin-left:80%;" class="btn btn-dark"> 
+                <input id="reset_signin" type="reset" value="reset" class="btn btn-outline-light">  
                 
               </form>
               
@@ -82,13 +83,14 @@
                 <br>
                
                 <div class="input-group">
-                <button  class="btn btn-outline-dark" (click)="signIn(signInInputID.value, signInPasswordID.value)" >Login</button>
+                <button  class="btn btn-outline-dark" (click)="signIn(signInInputID.value, signInPasswordID.value);Resetter()" >Login</button>
                 &nbsp;&nbsp;
-                <button  class="btn btn-outline-dark" (click)="employeeSignin(signInInputID.value, signInPasswordID.value)" >Employee Login</button>
+                <button  class="btn btn-outline-dark" (click)="employeeSignin(signInInputID.value, signInPasswordID.value);Resetter()" >Employee Login</button>
                 &nbsp;&nbsp;
-                <button  class="btn btn-outline-light" (click)="adminSignIn(signInInputID.value, signInPasswordID.value)" >Admin Login</button>
+                <button  class="btn btn-outline-light" (click)="adminSignIn(signInInputID.value, signInPasswordID.value);Resetter()" >Admin Login</button>
 
                 </div>
+                <input id="reset_login" type="reset" value="reset" class="btn btn-outline-light">
                 <br>
                    
 
@@ -107,7 +109,7 @@
                 <div class="modal-body">
                   
 
-                  <form #myTicketForm = "ngForm"  (ngSubmit)="raiseTicketFunc(myTicketForm.value)">
+                  <form #myTicketForm = "ngForm"  (ngSubmit)="raiseTicketFunc(myTicketForm.value);Resetter()">
                       <input type = "text" class="form-control" name = "fName" placeholder = "Your First Name" ngModel>
                       <br/>
                     
@@ -126,6 +128,7 @@
                   
                       <div class="modal-footer">
                         <input type="submit" value="Raise Ticket" class="btn btn-dark" (click)="modal.close('Save click')">
+                        <input id="reset_forgotLogin" type="reset" value="reset" class="btn btn-outline-light">
                         <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
                       </div>
                     
