@@ -32,13 +32,6 @@ export class EmployeeComponent implements OnInit {
 
 //displays user that have account locked
   ngOnInit(): void {
-//auto pop-up
-
-
-
-
-
-    
     this.userService.getRaisedTicket().
     subscribe(result=>{
       this.lockedUsers = result;
@@ -100,20 +93,26 @@ export class EmployeeComponent implements OnInit {
     let newObj = {
       type:subject,
       description:desc,
-      sender: emp.name
+      sender: emp.firstname
     };
     this.requestService.createRequest(newObj);
   }
 
 
-  updateEmployeePwd(newPass:any){
+  updateEmployeePwd(newPass:string){
     console.log(newPass);
-    this.employeeSer.updateEmployeePassword(this.temp._id,newPass).subscribe((result:string)=> {
-      this.temp.password = newPass;
-      this.temp.resetpwd = false;
+    newPass.trim();
+    if(newPass != ""){
 
-      sessionStorage.setItem("currentEmployee", JSON.stringify(this.temp));
-    });
+      this.employeeSer.updateEmployeePassword(this.temp._id,newPass).subscribe((result:string)=> {
+        this.temp.password = newPass;
+        this.temp.resetpwd = false;
+
+        sessionStorage.setItem("currentEmployee", JSON.stringify(this.temp));
+      });
+    }else{
+      console.log("error. Need to input valid string")
+    }
   }
   //ticket raised array for testing
   requests = [{ type:"hello", description:"this this",user_id:"anudeep" },{ type:"hello", description:"this this",user_id:"balla" }]

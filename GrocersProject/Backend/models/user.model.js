@@ -25,7 +25,7 @@ let UserSchema = mongoose.Schema({
       products: [String],
       cost: Number,
       status: String,
-      orderDate: Date,
+      orderDate: String,
     },
   ],
 });

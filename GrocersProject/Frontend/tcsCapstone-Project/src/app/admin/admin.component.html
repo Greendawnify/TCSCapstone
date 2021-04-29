@@ -154,14 +154,14 @@
                         
                   <select #ClassText class="custom-select" id="inputGroupSelect04">
                     <option selected>Classification...</option>
-                    <option value="Add">Daily</option>
-                    <option value="Update">Monthly</option>
-                    <option value="Delete">Yearly</option>
-                    <option value="Update">Customers</option>
-                    <option value="Delete">Products</option>
+                    <option value="DAILY">Daily</option>
+                    <option value="MONTHLY">Monthly</option>
+                    <option value="WEEKLY">Yearly</option>
+                    <option value="CUSTOMER">Customers</option>
+                    <option value="PRODUCT">Products</option>
                   </select>
                   &nbsp;&nbsp;
-                  <button  class="btn btn-outline-dark" type="submit" (click)="ReportGenerated()" >Generate</button>
+                  <button  class="btn btn-outline-dark" type="submit" (click)="generateReports(ClassText.value,fromDate.value, toDate.value)" >Generate</button>
                   &nbsp;&nbsp;
                 <button  *ngIf="generated" class="btn btn-outline-dark" type="submit">Submit</button>
               </div>
@@ -200,7 +200,6 @@
                       <div>
                         <h2 class="card-title">Revenue Generated</h2>
                        <h3>
-                        {{total_cost}}
                        </h3>
                      
                       <!-- <a href="#" class="btn btn-dark">Submit</a> -->

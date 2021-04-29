@@ -388,8 +388,8 @@ let checkProperFunds = (req, res) => {
 
   UserModel.find({ autoGenID: id }, (err, result) => {
     if (!err) {
-      console.log("Result:", result);
-      console.log(result.funds);
+      console.log("Result:", result[0]);
+      console.log(result[0].funds);
       if (result[0].funds > cost) {
         let newFunds = {};
         newFunds.fund = result[0].funds - cost;
@@ -418,6 +418,7 @@ let checkout = (req, res) => {
     products: req.body.products, // array of product names,
     cost: req.body.cost,
     status: "bought",
+    orderDate: req.body.date,
   };
 
   UserModel.updateOne(
