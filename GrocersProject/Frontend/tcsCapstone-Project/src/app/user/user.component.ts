@@ -217,7 +217,7 @@ export class UserComponent implements OnInit {
           this.checkout(res.fund, totalCost, checkoutProds, userObj, checkoutDate);
         }
       }else{
-        console.log('you dont have the proper funds');
+        alert('You dont have the proper funds');
       }
     }, (err) => console.log(err));
     }
@@ -246,13 +246,13 @@ export class UserComponent implements OnInit {
     this.userService.checkout(order).
     subscribe((res:any) =>{
       if(res.funds || res.orders){
-        console.log('both funds and orders have been updated.');
+        alert('Both funds and orders have been updated.');
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
         //window.location.reload();
       }else{
-        console.log('failed to updated funds and /or orders');
+        alert('Failed to updated funds and /or orders');
       }
     })
 
