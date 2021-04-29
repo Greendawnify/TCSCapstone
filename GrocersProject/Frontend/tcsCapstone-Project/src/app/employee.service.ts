@@ -12,13 +12,13 @@ export class EmployeeService {
   constructor( public http:HttpClient, public deploy:DeployService) { }
 
   addEmployeeDetails(employeeRef:any){
-    this.http.post("http://localhost:9090/employee/storeEmployeeDetails",employeeRef,{responseType:"text"}).
+    this.http.post(this.deploy.deploymentURL+"/employee/storeEmployeeDetails",employeeRef,{responseType:"text"}).
     subscribe(result=>console.log(result),error=>console.log(error));
   }
 
 
   deleteEmployeeById(id:any):any {
-    return this.http.delete("http://localhost:9090/employee/deleteEmployeeById/"+id, {responseType:"text"});
+    return this.http.delete(this.deploy.deploymentURL+"/employee/deleteEmployeeById/"+id, {responseType:"text"});
   }
 
 
@@ -28,11 +28,11 @@ export class EmployeeService {
       password : newPass,
 
     }
-    return this.http.put('http://localhost:9090/employee/updateEmployeeByPassword', newObj, {responseType:'text'});
+    return this.http.put(this.deploy.deploymentURL+"/employee/updateEmployeeByPassword", newObj, {responseType:'text'});
   }
 
   validateEmpLogin(id:string):Observable<any> {
-    return this.http.get<any>('http://localhost:9090/employee/validateEmployee/' + id);
+    return this.http.get<any>(this.deploy.deploymentURL+"/employee/validateEmployee/" + id);
 }
 
 }
