@@ -53,33 +53,33 @@ export class UserComponent implements OnInit {
   }
   //dummy values for testinf
   // orders = [ {name:'banana',quantity:4},{name:'apple',quantity:5}]
-  // cards = [
-  //   {
-  //     name: 'Banana',
-  //     quantity: 6,
-  //     cost:"$12",
-  //     img: 'https://cdn.mos.cms.futurecdn.net/42E9as7NaTaAi4A6JcuFwG-1200-80.jpg'
-  //   },
-  //   {
-  //     name: ' Strawberries',
-  //     quantity: 5,
-  //     cost:"$12",
-  //     img: 'https://farmfreshcarolinas.com/wp-content/uploads/2020/04/Strawberries.jpg'
-  //   },
-  //   {
-  //     name: 'Mangoes',
-  //     quantity: 7,
-  //     cost:"$12",
-  //     img: 'https://plantogram.com/wa-data/public/shop/products/55/06/655/images/1256/1256.750@2x.jpg'
-  //   },
-  //   {
-  //     name: 'Card Title 4',
-  //     quantity: 15,
-  //     cost:"$12",
-  //     img: 'https://static.libertyprim.com/files/familles/peche-large.jpg'
-  //   },
+  card = [
+    {
+      name: 'Banana',
+      quantity: 6,
+      cost:"$12",
+      img: 'https://cdn.mos.cms.futurecdn.net/42E9as7NaTaAi4A6JcuFwG-1200-80.jpg'
+    },
+    {
+      name: ' Strawberries',
+      quantity: 5,
+      cost:"$12",
+      img: 'https://farmfreshcarolinas.com/wp-content/uploads/2020/04/Strawberries.jpg'
+    },
+    {
+      name: 'Mangoes',
+      quantity: 7,
+      cost:"$12",
+      img: 'https://plantogram.com/wa-data/public/shop/products/55/06/655/images/1256/1256.750@2x.jpg'
+    },
+    {
+      name: 'Card Title 4',
+      quantity: 15,
+      cost:"$12",
+      img: 'https://static.libertyprim.com/files/familles/peche-large.jpg'
+    },
 
-  // ];
+  ];
 
   // add functionality if the name of this new order is the same as a previous order to add to the quanitity and cost of previous order
   // and dont append a new object to the cart
@@ -115,8 +115,8 @@ export class UserComponent implements OnInit {
 
       // check if I am adding the same product to the checkout list
       for(let c of oldCart){
-        if(c.name = addProductRef.name){
-          // I am adding the same product tot he list. Instead update this cart obj
+        if(c.name == addProductRef.name){
+          // I am adding the same product to the list. Instead update this cart obj
           c.quanitity += quanityNumber;
           c.price += price;
 
@@ -128,7 +128,7 @@ export class UserComponent implements OnInit {
       }
 
       oldCart.push(newObj);
-
+    
       this.tempCart = oldCart;
       jsonString = JSON.stringify(oldCart);
 
@@ -136,6 +136,7 @@ export class UserComponent implements OnInit {
 
      localStorage.setItem('cart', jsonString);
      console.log("Temp cart after adding", this.tempCart);
+
      
   }
 //delete product
