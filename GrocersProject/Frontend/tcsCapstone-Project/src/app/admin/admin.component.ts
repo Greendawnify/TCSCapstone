@@ -137,16 +137,22 @@ export class AdminComponent implements OnInit {
     
   }]
 
-  generateReports(generateType:string, date1:any, date2:any){ //figure how to get date info frominputs
+  generateReports(generateType:string, date1:string, date2:string){ //figure how to get date info frominputs
     // probably need to clear userReport
     switch(generateType){
       case "DAILY":
         this.DailyReports(date1);
         break;
+      case "WEEKLY":
+        this.weeklyReports(date1, date2);
+        break;
+      case "MONTHLY":
+        this.monthlyReports(date1, date2);
+        break;
     }
   }
 
-  DailyReports(date:Date){
+  DailyReports(date: string){
     for(let i =0; i < this.users.length; i++){
       for(let j = 0; j < this.users[i].Orders.length; j++){
         // looking inside each order of each user
@@ -160,6 +166,13 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  weeklyReports(date1:string, date2:string){
+
+  }
+  
+  monthlyReports(date1:string, date2:string){
+    console.log("date1: ", date1.split("-")[1], " , date2: ", date2.split("-")[1]);
+  }
 
 
    dummy_products:any;
