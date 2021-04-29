@@ -30,7 +30,7 @@ export class AppComponent {
         this.isLogout=false;
         this.isLogin=true;
         this.isCart=false;
-        this.router.navigate(["user"])
+        this.router.navigate(["login"])
       }
       toCart(){
   
