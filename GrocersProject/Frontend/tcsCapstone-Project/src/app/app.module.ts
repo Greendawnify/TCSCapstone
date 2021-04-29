@@ -17,7 +17,6 @@ import { FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CartComponent } from './cart/cart.component';
 import { UserAuthGuard } from './authGuardUser';
 import { EmployeeAuthGuard } from './employeeAuthGuard';
 import { AdminAuthGuard } from './adminAuthGuard';
@@ -39,7 +38,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AdminComponent,
     UserComponent,
     LoginComponent,
-    CartComponent,
+   
     
 
   ],

@@ -10,7 +10,7 @@
 
 
 
-
+<!--- Landing page diaplaying static images -->
   <div *ngIf="notShopping" class="lightbox">
     <div class="row">
       <div class="col-lg-6">
@@ -36,7 +36,7 @@
           class="w-100 shadow-1-strong rounded"
         />
       <p></p>
-
+<!---- Button to take to user component -->
           <button style="width: 200px; height: 100px; " class="btn btn-dark" type="button"  (click)=" is_Shopping()" >Start Shopping</button>
        
       </div>
@@ -57,7 +57,7 @@
            
             
             <div class="row" >
-                
+                <!---- All products cards are displayed-->
                 <div class="col-sm-3" *ngFor="let product of products" >
                   <div class="card bg-light mb-3" style="margin-top: 6%;">
                    <!---<img class="card-img-top" [src]="product.img" alt="Card image cap" style="height:20ch;">--->
@@ -74,20 +74,10 @@
                 </div>
               </div> 
             </div>
-            <!-----   Side Cart-->
+           
             
-
-
-
-
-          
-          
-
-       
-      
-   
           </div>
-          
+           <!----- Side Cart checkout and all features integrated -->
           <div *ngIf="isShopping" class="card" style="width: 14rem">
             <button (click) ="checkFunds()" style="width: 14rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">Check Out</button>
            <div class="card-body">
@@ -102,68 +92,37 @@
                   <h5>order name: {{tempCart.name}}</h5>
                   <h5>order quantity {{tempCart.quantity}}</h5>
                   <h5>order Price: ${{tempCart.price}}</h5>
-
+              <!--- Deleted unwanted product-->
                 <button  class="btn btn-dark" (click)="deleteProduct(tempCart.id)">delete</button>
               </div>
-
-
-                
-             
-              
             </div>
           </div>
 
  
      
-  <!-- Profile View  -->
-  
-            
-
-
-
-
-          
-          
-
-       
-      
-   
- 
-          
+  <!-- Profile View card -->
+     
   <div *ngIf="isShopping" class="card" style="width: 12rem">
     <button style="width: 12rem; height: 5rem;" class="btn btn-light"> <img src="https://cdn2.iconfinder.com/data/icons/everything-in-office/65/icon_Ai-10-512.png" width="45" alt="" class="d-inline-block align-middle mr-2">
     </button>
    <div class="card-body">
-      
       <h3 class="card-subtitle">Your Profle</h3>
-      <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalProfile)">View Profile</button>
-
-      
-      
-      
-   
-        
-     
-      
+      <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalProfile)">View Profile</button>    
     </div>
   </div>
-
-
- 
 </div>
-<!---Profile   -->
+
+
+<!---Profile  Modal  -->
 
 <ng-template #modalProfile let-modal>
 <div class="row">
-       
-  <!-- View Orders Card -->
   <div class="row" style="margin-left: 5%;margin-top: 5%;">
        
     <!-- View Orders Card -->
     <div class="col-sm-9">
       <div class="card bg-light mb-5">
         <div class="card-body">
-            
         <div class="row">      
           <h1 style="margin-left: 20%;" class="card-title">View Order</h1>
           <button  class="btn btn-dark" style="margin-left:55% ;" >View All</button>
@@ -185,9 +144,9 @@
                 <p>Bank Balance: {{currentBalance}}</p>
                 <p>Current Funding: {{currentFunds}}</p>
             
-                <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(modalData)">Add Funds</button>
-
-                <ng-template #modalData let-modal>
+                <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(AddFundsModal)">Add Funds</button>
+                <!--Modal to add funds--->
+                <ng-template #AddFundsModal let-modal>
                   <form #myUpdateFundsForm = "ngForm"  (ngSubmit)="updateUserFunds(myUpdateFundsForm.value)">
                     <div class="modal-header">
                       <h4 class="modal-title" id="modal-basic-title">Add Funds from Bank to Group20</h4>
@@ -228,19 +187,11 @@
                     </div>
                     </div>
                   </form>
-                  
-                                   
-                  
-                 
-         
                 </ng-template>
-
-
-
-
-              </div>
+               </div>
             </div>
         </div>
+        <!---- Edit profile card inside profile modal-->
             <div  class="col-sm-6">
               <div class="card bg-light mb-4">
                 <div class="card-body">

@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     ) {}
   ngOnInit(): void {
   }
-
+//signIn function for user
   signIn(userID:any, userPword:any){
     console.log(userID, userPword);
     
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
     });
   }
   
-  
+  //user Sign Up function
   signUserUp(mySignUpForm:any){
     console.log(mySignUpForm);
     this.useService.signUpUserDetails(mySignUpForm).subscribe(data => {
@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
     //this.proService.storeProductDetailsInfo(productRef);
   }
 
+  //Admin sign in function
   adminSignIn(userID:any, userPassword:any){
     this.adminService.adminCredentials(userID).
     subscribe(res => {
@@ -97,6 +98,7 @@ export class LoginComponent implements OnInit {
     }, err => console.log(err));
   };
 
+  //employee sign IN
   employeeSignin(userID:any,userPword:any) {
     this.empService.validateEmpLogin(userID).subscribe(result => {
       // console.log(result);
@@ -114,6 +116,7 @@ export class LoginComponent implements OnInit {
     }, error =>console.log(error));
   }
 
+  //Function to raise a ticket
   raiseTicketFunc(myTicketForm:any){
     console.log(myTicketForm);
     // Created a new property in the ticket form object to send to the backed, true (when user raises the ticket)
@@ -127,7 +130,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
+//modal trigger function
   triggerModal(content:any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
