@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DeployService {
 
-  public deploymentURL:string = "";
-
+  public deploymentURL:string = "http://54.152.53.89:9091";
+  
   constructor() { }
 
 }
