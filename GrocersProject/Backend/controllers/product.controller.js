@@ -102,7 +102,7 @@ let updateQuantity = (req, res) => {
 
   ProductModel.updateOne(
     { _id: id },
-    { $set: { quantity: updatedQuantity } },
+    { $set: { quantity: updatedQuantity, initQuantity: updatedQuantity } },
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {

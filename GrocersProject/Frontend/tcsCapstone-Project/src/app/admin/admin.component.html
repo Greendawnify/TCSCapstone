@@ -178,9 +178,9 @@
                       <table class="table">
                         <thead class="thead-dark">
                           <tr >
-                            <th>Customer Name</th>
-                            <th>Products Sold_Qantity</th>
-                            <th>Revenue</th>
+                            <th>{{tableHeading1}}</th>
+                            <th>{{tableHeading2}}</th>
+                            <th>{{tableHeading3}}</th>
                           </tr>
                         </thead>
                         <tbody class = 'tbody'>
@@ -189,6 +189,12 @@
                             <th>{{user.products}}</th>
                             <th>{{user.cost}}</th>
                           </tr>
+                          <tr *ngFor="let prodcut of productReport">
+                            <th>{{prodcut.name}}</th>
+                            <th>{{prodcut.sold}}</th>
+                            <th>{{prodcut.left}}</th>
+                          </tr>
+                          
                         </tbody>
                 
                         
