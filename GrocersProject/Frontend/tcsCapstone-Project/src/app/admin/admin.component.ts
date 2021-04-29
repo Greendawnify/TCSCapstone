@@ -103,28 +103,28 @@ export class AdminComponent implements OnInit {
   
 //Dummy data for testing 
 
-  // dummy_user:any =[
-  //   {fName: "anu",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/1/2020
+  dummy_user:any =[
+    {fName: "anu",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/1/2020
   
-  //   }] },{fName: "balla",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/2/2020
+    }] },{fName: "balla",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/2/2020
   
-  // }]}
-  // ]
-  // dummy_product=[{
+  }]}
+  ]
+  dummy_product=[{
    
-  //   name: "banana",
-  //   initQuantity: 100,
-  //   quantity: 20,
-  //   cost: 12,
+    name: "banana",
+    initQuantity: 100,
+    quantity: 20,
+    cost: 12,
     
-  // },{
+  },{
    
-  //   name: "orange",
-  //   initQuantity: 100,
-  //   quantity: 30,
-  //   cost: 12,
+    name: "orange",
+    initQuantity: 100,
+    quantity: 30,
+    cost: 12,
     
-  // }]
+  }]
 
   dummy_products:any;
   total_cost:any;
