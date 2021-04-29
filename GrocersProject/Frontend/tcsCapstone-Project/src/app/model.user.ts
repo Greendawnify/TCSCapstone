@@ -21,7 +21,7 @@ export class User{
             { 
                 id: Number,
                 products: [String],
-                cost: Number,
+                cost: number,
                 status: string,
                 orderDate:string
             }

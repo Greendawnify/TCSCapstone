@@ -6,6 +6,9 @@ import { Request } from './../request.model';
 import { User } from '../model.user';
 import { UserService } from './../user.service';
 import { ReportUser } from './../reportUser.model';
+import { Product } from './../model.product';
+import { ReportProduct } from './../productReport.model';
+import { ReportCustomer } from './../customerReport.model';
 
 
 
@@ -22,9 +25,18 @@ export class AdminComponent implements OnInit {
   request:boolean = false;
   report:boolean = false;
   deleteMsg?:string;
+
   requests:Request[] = new Array;
+  products:Product[] = [];
   users:User[] = [];
   userReport:ReportUser[] = [];
+  productReport:ReportProduct[] = [];
+  custormerReport:ReportCustomer[] = [];
+
+  tableHeading1:string ='';
+  tableHeading2:string ='';
+  tableHeading3:string ='';
+
   //date variables
   
   duplicateArray=[]
@@ -39,6 +51,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.requestService.getAllRequests().subscribe(res => this.requests = res, (err) => console.log(err));
     this.userService.getUsersWithOrders().subscribe(res => this.users = res, (err) => console.log(err));
+    this.productService.getAllProducts().subscribe(res => this.products = res, (err) => console.log(err));
   }
 //employee tab visible
   Emp_visible(){
@@ -57,6 +70,7 @@ export class AdminComponent implements OnInit {
   reportsVisible(){
     this.invisible();
     this.report = true;
+    //window.location.reload();
   }
 //tab to disable all the tabs
   invisible(){
@@ -110,45 +124,36 @@ export class AdminComponent implements OnInit {
     this.productService.updateQuantity(updateRef).subscribe((result:string) => console.log(result));
   }
 
-  
-  
-//Dummy data for testing 
+  updateProductCost(updaetRef:any){
+    this.productService.updateCost(updaetRef).subscribe(res => console.log(res));
+  }
 
-  dummy_user:any =[
-    {fName: "anu",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/1/2020
-  
-    }] },{fName: "balla",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/2/2020
-  
-  }]}
-  ]
-  dummy_product=[{
-   
-    name: "banana",
-    initQuantity: 100,
-    quantity: 20,
-    cost: 12,
-    
-  },{
-   
-    name: "orange",
-    initQuantity: 100,
-    quantity: 30,
-    cost: 12,
-    
-  }]
+
 
   generateReports(generateType:string, date1:string ){ //figure how to get date info frominputs
     // probably need to clear userReport
+    this.userReport.length = 0;
+    this.productReport.length = 0;
+
     console.log(generateType);
     switch(generateType){
       case "DAILY":
-        this.DailyReports(date1);
+        this.dailyReports(date1);
+        break;
+      case "PRODUCT":
+        this.productReports();
+        break;
+      case "CUSTOMER":
+        this.customerReports();
         break;
     }
   }
 
-  DailyReports(date:string){
+  dailyReports(date:string){
     console.log('daily!', date);
+    this.tableHeading1 = "Customer Name";
+    this.tableHeading2 = "Products Sold_Quantity";
+    this.tableHeading3 = "Revenue";
     for(let i =0; i < this.users.length; i++){
       for(let j = 0; j < this.users[i].Orders.length; j++){
         // looking inside each order of each user
@@ -161,6 +166,38 @@ export class AdminComponent implements OnInit {
       }
     }
     console.log(this.userReport);
+  }
+
+  productReports(){
+    this.tableHeading1 = "Product Name";
+    this.tableHeading2 = "Quantity Sold";
+    this.tableHeading3 = "Quantity Left";
+
+    for(let p of this.products){
+      let sold = p.initQuantity - p.quantity;
+      let newProductReport = new ReportProduct(p.name, sold, p.quantity);
+      this.productReport.push(newProductReport);
+    }
+    console.log(this.productReport);
+
+  }
+
+  customerReports(){
+    this.tableHeading1 ="Cusomter Name";
+    this.tableHeading2 ="";
+    this.tableHeading3 ="Total Revenue From Customer";
+
+    for(let i =0; i < this.users.length; i++){
+      let total = 0;
+      for(let j = 0; j < this.users[i].Orders.length; j++){
+        total+= this.users[i].Orders[j].cost;
+        
+
+      }
+      let newCustomReport = new ReportCustomer(this.users[i].fName, true, total);
+      this.custormerReport.push(newCustomReport);
+    }
+
   }
 
 

@@ -104,14 +104,13 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Update Price</h5>
-                      <form #updatePriceRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value)">
+                      <form #updatePriceRef = "ngForm"  (ngSubmit) = "updateProductCost(updatePriceRef.value)">
                         <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel>
                         <br/>
                       
-                        <input name = "Price" class="form-control" placeholder = "Price of products" ngModel>
+                        <input name = "cost" class="form-control" placeholder = "Price of products" ngModel>
                         <br/>
                         <p></p>
-                        <input type="submit" value="Submit">
                         <input type="submit" value="Submit">
                       </form>
                     </div>
@@ -121,7 +120,7 @@
                 <div class="col-sm-3">
                     <div class="card bg-light mb-3">
                       <div class="card-body">
-                        <h5 class="card-title">Update Product</h5>
+                        <h5 class="card-title">Update Quantity</h5>
                         <form #updateRef = "ngForm" (ngSubmit) = 'updateProductQuantity(updateRef.value)' >
                             
                           
@@ -174,7 +173,7 @@
                     <option selected>Classification...</option>
                     <option value="DAILY">Daily</option>
                     <option value="MONTHLY">Monthly</option>
-                    <option value="WEEKLY">Yearly</option>
+                    <option value="WEEKLY">Weekly</option>
                     <option value="CUSTOMER">Customers</option>
                     <option value="PRODUCT">Products</option>
                   </select>
@@ -195,18 +194,32 @@
                       <h2 class="card-title">Sold Item</h2>
                       <table class="table">
                         <thead class="thead-dark">
-                        <tr >
-                          <th>Item  Name</th>
-                          <th>Quantity Sold</th>
-                          <th>Quantity Left</th>
-                        </tr>
-                        <tr *ngFor="let user of dummy_products">
-                          <th>{{user.name}}</th>
-                          <th>{{user.initQuantity-user.quantity}}</th>
-                          <th>{{user.quantity}}</th>
-                        </tr>
-                
+                          <tr >
+                            <th>{{tableHeading1}}</th>
+                            <th>{{tableHeading2}}</th>
+                            <th>{{tableHeading3}}</th>
+                          </tr>
                         </thead>
+                        <tbody class = 'tbody'>
+                          <tr *ngFor="let user of userReport">
+                            <th>{{user.name}}</th>
+                            <th>{{user.products}}</th>
+                            <th>{{user.cost}}</th>
+                          </tr>
+                          <tr *ngFor="let prodcut of productReport">
+                            <th>{{prodcut.name}}</th>
+                            <th>{{prodcut.sold}}</th>
+                            <th>{{prodcut.left}}</th>
+                          </tr>
+                          <tr *ngFor="let custom of custormerReport">
+                            <th>{{custom.name}}</th>
+                            <th> </th>
+                            <th>{{custom.totalRevenue}}</th>
+                          </tr>
+                          
+                        </tbody>
+                
+                        
                       </table>
                       
                     </div>
