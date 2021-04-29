@@ -6,14 +6,16 @@
           <title>Document</title>
       </head>
       <body>
+        <!-----Buttons to display Employee or report or products tab-->
           <div >
         <button style="margin-left: 15%;" class="btn btn-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
         <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
         <button style="margin-left: 15%;"class="btn btn-dark" type="submit" (click)="reportsVisible()">Reports Tab</button>
          </div>
-        
+        <!----Employee tab-->
         <div *ngIf="Employee">
             <div class="row" style="margin-left: 15%;margin-top: 5%;">
+              <!--- Add employees card -->
                 <div class="col-sm-6">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
@@ -36,6 +38,7 @@
                     </div>
                   </div>
                 </div>
+            <!----Delete employee card-->
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
@@ -55,9 +58,10 @@
         </div>
       
         
-
+<!----Products tab -->
         <div *ngIf="Product">
             <div class="row" style="margin-left: 15%;margin-top: 5%;">
+              <!---add products card-->
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
@@ -81,6 +85,7 @@
                     </div>
                   </div>
                 </div>
+                <!---Delete products cards-->
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
@@ -94,6 +99,7 @@
                     </div>
                   </div>
                 </div>
+                <!---Update products card-->
                 <div class="col-sm-3">
                     <div class="card bg-light mb-3">
                       <div class="card-body">
@@ -114,7 +120,7 @@
                   </div>
               </div>
             
-            
+            <!----Request from -->
             <div style="margin-left: 30% ;" *ngFor = "let r of requests">
               <div class="row">
               <div class="col-sm-6"  >
@@ -134,7 +140,7 @@
             
         </div> 
 
-           <!--- Rpeorts    -->
+           <!--- Rpeorts  Tab-->
           <div *ngIf="report">
             <form  #reportForm = "ngForm"  (ngSubmit)="productsReport(reportForm.value)">
             <div style="margin-left:10% ; margin-top: 2%;" class="row">
@@ -146,7 +152,19 @@
 
               <div class="input-group-append" style="margin-left:15%">
                
-                <button  class="btn btn-outline-dark" type="submit">Generate</button>
+                        
+                  <select #ClassText class="custom-select" id="inputGroupSelect04">
+                    <option selected>Classification...</option>
+                    <option value="Add">Daily</option>
+                    <option value="Update">Monthly</option>
+                    <option value="Delete">Yearly</option>
+                    <option value="Update">Customers</option>
+                    <option value="Delete">Products</option>
+                  </select>
+                  &nbsp;&nbsp;
+                  <button  class="btn btn-outline-dark" type="submit" (click)="ReportGenerated()" >Generate</button>
+                  &nbsp;&nbsp;
+                <button  *ngIf="generated" class="btn btn-outline-dark" type="submit">Submit</button>
               </div>
             </div>
             

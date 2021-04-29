@@ -134,6 +134,11 @@ export class AdminComponent implements OnInit {
   }
 
 }
+generated:boolean=false;
+ReportGenerated(){
+  this.generated=true
+
+}
 }
  
 
