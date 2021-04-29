@@ -87,6 +87,7 @@
                   <div class="col-sm-3" style="margin-left: 13%;">
                     <div class="card bg-light mb-3">
                       <div class="card-body">
+                        <form>
                         <h3 class="card-title">Employee Profile</h3>
                         <p class="text-muted" >Test info about the emploee as in </p>
                         <p class="text-muted" >Employee_ID </p>
@@ -96,6 +97,7 @@
                         <!---Button to update the password-->
                         <button type="button" id="openModal" #openModal style="margin-left: 20%;" class="btn btn-outline-dark" (click)="triggerModal(UpdateEmployee)" data-toggle="modal" data-target="#modalData" >Update Password</button>
                         
+                      </form>
                       </div>
                     </div>
                   </div>
@@ -126,7 +128,7 @@
           <!---Model to update employee pass word-->
           <ng-template #UpdateEmployee id="modalData" let-modal>
             <div class="modal-header">
-              <h4 class="modal-title" id="modal-basic-title">Update Password</h4>
+              <h2 class="modal-title" id="modal-basic-title">Update Password</h2>
               <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true" >×</span>
               </button>
@@ -146,27 +148,35 @@
                   
           
                   <div class="row">
-                    <div class="input-group mb-1">
-                    <input [type] = "passType" class="form-control" placeholder=" Current Password" aria-label="Current Password" aria-describedby="basic-addon1">
-                    <button style="width: 7 rem;" class="btn btn-outline-light" (click)="changePasswordType()">Show</button>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">old Pass</span>
+                      </div>
+                    <input type = "password" class="form-control" placeholder=" Current Password" aria-label="Current Password" aria-describedby="basic-addon1">
+                   
                   </div>
                 </div>
                 <br>
                 <div class="row">
-                  <div class="input-group mb-1">
-                  <input [type] = "passType" #newPass class="form-control" placeholder=" New Password" aria-label="New Password" aria-describedby="basic-addon1">
-                  <button style="width: 7 rem;" class="btn btn-outline-light" (click)="changePasswordType()">Show</button>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">New Pass</span>
+                    </div>
+                  <input type = "password" #newPass class="form-control" placeholder=" New Password" aria-label="New Password" aria-describedby="basic-addon1">
+                
+                  
                 </div> 
+                <input style="margin-left: 80%;" id="reset_pass" type="reset"  class="btn btn-outline-light">
               </div>
-              
+           
                 
                     
                     
                   
-                  <div class="modal-footer">
+                  
                     <input type="submit" value="Update Password" class="btn btn-dark" (click)="modal.close('save click'); updateEmployeePwd(newPass.value)">
                     <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
-                  </div>
+                 
                 
               </form>
             </div>   
