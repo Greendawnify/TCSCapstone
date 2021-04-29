@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Admin } from './admin.model';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,6 @@ export class AdminService {
 
   adminCredentials(id:string):Observable<any>{
 
-      return this.http.get<any>('http://localhost:9090/admin/getAdmin/' + id);
+      return this.http.get<any>("http://localhost:9090/admin/getAdmin/" + id);
     }
 }

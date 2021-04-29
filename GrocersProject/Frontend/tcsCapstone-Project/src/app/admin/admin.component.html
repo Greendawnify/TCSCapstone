@@ -20,14 +20,14 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h2 class="card-title">Add Employee</h2>
-                      <form #employeeRef = "ngForm"  (ngSubmit) = "addEmployee(employeeRef.value);emp_Resetter()">
-                        <input type = "text" class="form-control" name = "cId" placeholder = "Employee ID" ngModel>
+                      <form #employeeRef = "ngForm"  (ngSubmit) = "addEmployee(employeeRef.value);emp_Resetter()" ngNativeValidate >
+                        <input type = "text" class="form-control" name = "cId" placeholder = "Employee ID" ngModel required>
                         <br>
-                        <input type = "text" class="form-control" name = "firstname" placeholder = "Employee First Name" ngModel>
+                        <input type = "text" class="form-control" name = "firstname" placeholder = "Employee First Name" ngModel required>
                         <br/>
-                        <input type = "text" class="form-control" name = "lastname" placeholder = "Employee Last Name" ngModel>
+                        <input type = "text" class="form-control" name = "lastname" placeholder = "Employee Last Name" ngModel required>
                         <br/>
-                        <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Email" ngModel>
+                        <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Email" ngModel required>
                         <br>
                      
                         <!-- <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Address" ngModel> -->
@@ -43,9 +43,9 @@
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <form>
+                      <form ngNativeValidate>
                         <h2 class="card-title">Delete Employee</h2>
-                        <input name = "id" type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1" #empRef ngModel>
+                        <input name = "id" type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1" #empRef ngModel required>
                         <br>
                         <input style="margin-left: 70% ;" type="button" class="btn btn-dark" value="Submit"  (click)="deleteEmployee(empRef.value);emp_Resetter()"/><br/>
                         <input id="reset_DelEmployee" type="reset" value="reset" class="btn btn-outline-light">
@@ -68,17 +68,17 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Add Product</h5>
-                      <form #productRef = "ngForm"  (ngSubmit) = "addProduct(productRef.value);Prod_Resetter()">
-                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel>
+                      <form #productRef = "ngForm"  (ngSubmit) = "addProduct(productRef.value);Prod_Resetter()" ngNativeValidate>
+                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
                         <br/>
 
-                        <input type = "text" class="form-control" name = "name" placeholder = "Product Name" ngModel>
+                        <input type = "text" class="form-control" name = "name" placeholder = "Product Name" ngModel required>
                         <br/>
                       
-                        <input type = "number" name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                        <input type = "number" name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel required>
                         <br>
 
-                        <input type = "number" name = "cost" class="form-control" placeholder = "Cost of product" ngModel>
+                        <input type = "number" name = "cost" class="form-control" placeholder = "Cost of product" ngModel required>
                         <br/>
                 
                         <input type="submit"  class="btn btn-dark" value="Submit">
@@ -93,8 +93,8 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Delete Product</h5>
-                      <form #deleteRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value);Prod_Resetter()">
-                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel>
+                      <form #deleteRef = "ngForm"  (ngSubmit) = "deleteProduct(deleteRef.value);Prod_Resetter()"ngNativeValidate>
+                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
                         <br/>
 
                         <input type="submit"class="btn btn-dark" value="Submit">
@@ -108,11 +108,11 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h5 class="card-title">Update Price</h5>
-                      <form #updatePriceRef = "ngForm"  (ngSubmit) = "updateProductCost(updatePriceRef.value);Prod_Resetter()">
-                        <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel>
+                      <form #updatePriceRef = "ngForm"  (ngSubmit) = "updateProductCost(updatePriceRef.value);Prod_Resetter()"ngNativeValidate>
+                        <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
                         <br/>
                       
-                        <input name = "cost" class="form-control" placeholder = "Price of products" ngModel>
+                        <input name = "cost" class="form-control" placeholder = "Price of products" ngModel required>
                         <br/>
                         <p></p>
                         <input type="submit" class="btn btn-dark" value="Submit">
@@ -126,13 +126,13 @@
                     <div class="card bg-light mb-3">
                       <div class="card-body">
                         <h5 class="card-title">Update Quantity</h5>
-                        <form #updateRef = "ngForm" (ngSubmit) = 'updateProductQuantity(updateRef.value);Prod_Resetter()' >
+                        <form #updateRef = "ngForm" (ngSubmit) = 'updateProductQuantity(updateRef.value);Prod_Resetter()' ngNativeValidate >
                             
                           
-                            <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel>
+                            <input type = "email" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
                             <br/>
                           
-                            <input name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel>
+                            <input name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel required>
                             <br/>
                             <p></p>
                             <input type="submit" class="btn btn-dark" value="Submit">

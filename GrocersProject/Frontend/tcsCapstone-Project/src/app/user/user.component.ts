@@ -22,7 +22,9 @@ export class UserComponent implements OnInit {
   constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
   currentBalance?:number;
   currentFunds?:string;
-  userOrders:any[] = [];
+
+  userOrders: any [] = [];
+
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
 
@@ -115,6 +117,28 @@ export class UserComponent implements OnInit {
 
      
   }
+
+  // showOrders(){
+  //   let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+  //   if(sessionString){
+  //     console.log("Got session storage");
+  //     let userObj = JSON.parse(sessionString);
+      
+      
+
+  //     for(let x of userObj.Orders){
+  //       let newOrder = {
+  //         name: userObj.fName,
+  //         cost: x.cost,
+  //         status: x.status,
+  //         products: x.products
+  //       };
+  //       this.userOrders.push(newOrder);
+  //     }
+  //   }
+
+  // }
+
 //delete product
   deleteProduct(deleteID:any){
     let cart:string|null;
@@ -254,6 +278,7 @@ export class UserComponent implements OnInit {
             
           }
         }, (err) => console.log(err));
+
       }
     //}
 
@@ -281,15 +306,18 @@ export class UserComponent implements OnInit {
     this.userService.checkout(order).
     subscribe((res:any) =>{
       if(res.funds || res.orders){
-        console.log('both funds and orders have been updated.');
+        alert('Both funds and orders have been updated.');
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
+
+      
         
         // update the user in session storage
         this.setCurrentUser();
+
       }else{
-        console.log('failed to updated funds and /or orders');
+        alert('Failed to updated funds and /or orders');
       }
     })
 

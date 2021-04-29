@@ -3,6 +3,7 @@ import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,11 +28,11 @@ export class EmployeeService {
       password : newPass,
 
     }
-    return this.http.put('http://localhost:9090/employee/updateEmployeeByPassword', newObj, {responseType:'text'});
+    return this.http.put("http://localhost:9090/employee/updateEmployeeByPassword", newObj, {responseType:'text'});
   }
 
   validateEmpLogin(id:string):Observable<any> {
-    return this.http.get<any>('http://localhost:9090/employee/validateEmployee/' + id);
+    return this.http.get<any>("http://localhost:9090/employee/validateEmployee/" + id);
 }
 
 }

@@ -11,7 +11,7 @@ export class AppComponent {
   constructor(public router:Router) { }  
   isLogin:boolean= true;
   isLogout:boolean=false;
- 
+ IsFirst = true;
   profile:boolean = false;
 
   title = 'tcsCapstone-Project';
@@ -61,6 +61,7 @@ export class AppComponent {
 
     
   // }
+  
 
   logOut(){
     console.log('log out');
