@@ -18,7 +18,7 @@ import { ReportUser } from './../reportUser.model';
 export class AdminComponent implements OnInit {
   Employee:boolean= false;
   Product:boolean=false;
-  generated:boolean =false;
+  generated:boolean=false;
   request:boolean = false;
   report:boolean = false;
   deleteMsg?:string;
@@ -40,34 +40,31 @@ export class AdminComponent implements OnInit {
     this.requestService.getAllRequests().subscribe(res => this.requests = res, (err) => console.log(err));
     this.userService.getUsersWithOrders().subscribe(res => this.users = res, (err) => console.log(err));
   }
-
+//employee tab visible
   Emp_visible(){
     this.invisible();
     this.Employee=true;
   }
+  //products tab visible
   Prd_visible(){
     this.invisible();
     this.Product=true;
     
   }
 
-  requestVisible(){
-    this.invisible();
-    this.request = true;
-  }
-
+  
+//reports tab visible
   reportsVisible(){
     this.invisible();
     this.report = true;
   }
-
+//tab to disable all the tabs
   invisible(){
     this.Employee = false;
     this.Product = false;
-    this.request = false;
     this.report = false;
   }
-
+//Requests from employee marked complete function
   completedRequest(type:string, description:string, sender:string){
     console.log(type, description);
     
@@ -77,11 +74,11 @@ export class AdminComponent implements OnInit {
       window.location.reload();
     }, err => console.log(err));
   }
-
+//add product to database
   addProduct(productRef:any){
     this.productService.addProduct(productRef);
   }
-
+//add an employee to db
   addEmployee(employeeRef:any){
     console.log(employeeRef);
     this.empService.addEmployeeDetails(employeeRef);
@@ -89,6 +86,8 @@ export class AdminComponent implements OnInit {
     
 
   }
+  //delete employee from db
+
   // deleteEmployee(idRef.value) if(confirm("Are you sure to delete "+name))
   deleteEmployee(id:any){
     console.log("id is "+id);
@@ -100,18 +99,21 @@ export class AdminComponent implements OnInit {
  
   }
 
+  //delete product from db
   deleteProduct(deleteRef:any){
     this.productService.deleteProduct(deleteRef.id).subscribe((result:string) =>{
       console.log(result);
     })
   }
-
+//update the product quant
   updateProductQuantity(updateRef:any){
     this.productService.updateQuantity(updateRef).subscribe((result:string) => console.log(result));
   }
 
   
   
+//Dummy data for testing 
+
   dummy_user:any =[
     {fName: "anu",lName: "deep",order:[{id: 1234, products: "banana", cost: 12, status: "shipping", orderDate: 1/1/2020
   
@@ -171,7 +173,8 @@ export class AdminComponent implements OnInit {
   }
 
 }
- 
+
+//function to show "SHOW"  button
 // ReportGenerated(){
 //   this.generated=true
 
