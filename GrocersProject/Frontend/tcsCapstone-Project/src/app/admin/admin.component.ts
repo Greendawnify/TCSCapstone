@@ -137,7 +137,7 @@ export class AdminComponent implements OnInit {
     
   }]
 
-  generateReports(generateType:string, date1:string, date2:string){ //figure how to get date info frominputs
+  generateReports(generateType:string, date1:string ){ //figure how to get date info frominputs
     // probably need to clear userReport
     console.log(generateType);
     switch(generateType){
