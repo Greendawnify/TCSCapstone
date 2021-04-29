@@ -211,6 +211,11 @@
                             <th>{{prodcut.sold}}</th>
                             <th>{{prodcut.left}}</th>
                           </tr>
+                          <tr *ngFor="let custom of custormerReport">
+                            <th>{{custom.name}}</th>
+                            <th> </th>
+                            <th>{{custom.totalRevenue}}</th>
+                          </tr>
                           
                         </tbody>
                 

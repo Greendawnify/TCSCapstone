@@ -8,6 +8,7 @@ import { UserService } from './../user.service';
 import { ReportUser } from './../reportUser.model';
 import { Product } from './../model.product';
 import { ReportProduct } from './../productReport.model';
+import { ReportCustomer } from './../customerReport.model';
 
 
 
@@ -30,6 +31,7 @@ export class AdminComponent implements OnInit {
   users:User[] = [];
   userReport:ReportUser[] = [];
   productReport:ReportProduct[] = [];
+  custormerReport:ReportCustomer[] = [];
 
   tableHeading1:string ='';
   tableHeading2:string ='';
@@ -141,6 +143,9 @@ export class AdminComponent implements OnInit {
       case "PRODUCT":
         this.productReports();
         break;
+      case "CUSTOMER":
+        this.customerReports();
+        break;
     }
   }
 
@@ -174,6 +179,24 @@ export class AdminComponent implements OnInit {
       this.productReport.push(newProductReport);
     }
     console.log(this.productReport);
+
+  }
+
+  customerReports(){
+    this.tableHeading1 ="Cusomter Name";
+    this.tableHeading2 ="";
+    this.tableHeading3 ="Total Revenue From Customer";
+
+    for(let i =0; i < this.users.length; i++){
+      let total = 0;
+      for(let j = 0; j < this.users[i].Orders.length; j++){
+        total+= this.users[i].Orders[j].cost;
+        
+
+      }
+      let newCustomReport = new ReportCustomer(this.users[i].fName, true, total);
+      this.custormerReport.push(newCustomReport);
+    }
 
   }
 
