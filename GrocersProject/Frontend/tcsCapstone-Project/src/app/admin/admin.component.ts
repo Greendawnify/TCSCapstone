@@ -144,16 +144,14 @@ export class AdminComponent implements OnInit {
       case "PRODUCT":
         this.productReports();
         break;
-<<<<<<< HEAD
       case "CUSTOMER":
         this.customerReports();
-=======
+        break;
       case "WEEKLY":
         this.weeklyReports(date1);
         break;
       case "MONTHLY":
         this.monthlyReports(date1);
->>>>>>> ManiBranch
         break;
     }
   }
@@ -254,7 +252,22 @@ export class AdminComponent implements OnInit {
   }
   
   monthlyReports(date1:string){
-    console.log("date1: ", date1.split("-")[1]);
+    console.log("date1: ", date1);
+    this.tableHeading4 = "Date";
+    this.tableHeading1 = "Customer Name";
+    this.tableHeading2 = "Products Sold_Quantity";
+    this.tableHeading3 = "Revenue";
+      for(let i =0; i < this.users.length; i++){
+        for(let j = 0; j < this.users[i].Orders.length; j++){
+          // looking inside each order of each user
+          if(this.users[i].Orders[j].orderDate.split("-")[1] === date1.split("-")[1]){
+            // ordered on same date searching for add to report list
+            // or we can create a new type of array of objects filled with the info we need?
+            let newReport = new ReportUser(this.users[i].fName, this.users[i].Orders[j].products, this.users[i].Orders[j].cost, date1);
+            this.userReport.push(newReport);
+          }
+        }
+      }
   }
   productReports(){
     this.tableHeading1 = "Product Name";
