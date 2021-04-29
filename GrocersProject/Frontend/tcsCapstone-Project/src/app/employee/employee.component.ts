@@ -7,6 +7,8 @@ import { User } from '../model.user';
 import { Employee } from './../model.employee';
 import { ElementRef, ViewChild } from '@angular/core';
 
+import { Product } from './../model.product';
+
 
 
 @Component({
@@ -16,7 +18,8 @@ import { ElementRef, ViewChild } from '@angular/core';
 })
 export class EmployeeComponent implements OnInit {
   
-  
+  products:Product[] = new Array;
+  users:User[]=new Array;
   closeModal: string="";
   constructor(public requestService:RequestService,public employeeSer: EmployeeService,private modalService: NgbModal, public userService:UserService) { }
   viewReq:boolean=false

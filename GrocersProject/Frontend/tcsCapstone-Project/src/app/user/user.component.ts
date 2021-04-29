@@ -13,6 +13,7 @@ import { stringify } from '@angular/compiler/src/util';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+  addedCart="";
   isShopping:boolean= false;
   notShopping:boolean = true;
   signedInUserDetails:any = {};
@@ -24,10 +25,11 @@ export class UserComponent implements OnInit {
   currentFunds?:string;
 
   userOrders: any [] = [];
-
+   
+  
   ngOnInit(): void {
     this.productService.getAllProducts().subscribe(res => this.products = res);
-
+    this.addedCart="";
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
@@ -51,7 +53,10 @@ export class UserComponent implements OnInit {
       this.currentBalance = this.signedInUserDetails.balance;
       this.currentFunds = this.signedInUserDetails.funds;
   }
+
+
   is_Shopping(){
+
     this.isShopping=true;
     this.notShopping=false;
   }
@@ -142,7 +147,7 @@ export class UserComponent implements OnInit {
 
      localStorage.setItem('cart', jsonString);
      console.log("Temp cart after adding", this.tempCart);
-
+     this.addedCart="Added to cart"
      
   }
 
@@ -327,7 +332,7 @@ export class UserComponent implements OnInit {
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
         this.currentFunds = order.newFunds;
         window.location.reload();
-        
+
       }else{
         alert('Failed to updated funds and /or orders');
       }

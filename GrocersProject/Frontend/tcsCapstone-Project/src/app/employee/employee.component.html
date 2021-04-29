@@ -84,20 +84,35 @@
                   </div>
                    
                     <!-----Employee Profile Card -->
-                  <div class="col-sm-3" style="margin-left: 13%;">
+                  <div class="col-sm-3" style="margin-left: 16%;">
                     <div class="card bg-light mb-3">
                       <div class="card-body">
                         <form>
                         
                         <!---Button to update the password-->
-                        <button type="button" id="openModal" #openModal style="margin-left: 20%;" class="btn btn-outline-dark" (click)="triggerModal(UpdateEmployee)" data-toggle="modal" data-target="#modalData" >Update Password</button>
+                        <button type="button" id="openModal" #openModal style="margin-left: 20%;" class="btn btn-outline-dark" (click)="triggerModal(UpdateEmployee)" data-toggle="modal" data-target="#modalData" ><img style="width:1cm;height: 0.3cm;" src="http://simpleicon.com/wp-content/uploads/key-4.png">Update Password</button>
                         
                       </form>
                       </div>
                     </div>
                   </div>
+                
+ <!---Button to Display all Products and user -->
+                <div class="col-sm-3" style="margin-left: 73%;">
+                  <div class="card bg-light mb-3">
+                    <div class="card-body">
+                      <form>
+                      
+                      <!---Button to Display all Products and user -->
+                      <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(ProductModal)" data-toggle="modal" data-target="#modalData" >Product Catlog</button>
+                      <br>
+                      <br>
+                      <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(userModal)" data-toggle="modal" data-target="#modalData" >User Catlog</button>
+                    </form>
+                    </div>
+                  </div>
                 </div>
-              
+              </div>
               <!--- button to display All the requests by the Users-->
               <div class="card bg-light mb-3" style="margin-top: 6%;">
               <button class="btn btn-dark" value="Submit" (click)="viewRequest()"> View all requests </button>
@@ -197,6 +212,92 @@
               </form>
           </div> -->
         
+<!-----Modal to display user info-->
+          <ng-template #userModal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Users Catlog</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true" >×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr >
+                    <th>User Name</th>
+                    <th>User ID</th>
+                    <th>Email</th>
+                    <th>Funds</th>
+                  </tr>
+                </thead>
+                <tbody class = 'tbody'>
+                  <tr *ngFor="let user of users">
+                    <th>{{user.fName}} {{user.lName}}</th>
+                    <th>{{user.autoGenID}}</th>
+                    <th>{{user.email}}</th>
+                    <th>{{user.funds}}</th>
+                  </tr>
+                </tbody>
+        
+                
+              </table>
+            </div>
+              
+                  <div class="modal-footer">
+                    <button style="margin-top:10% ;" (click) ="modal.dismiss('Cross click')" style= "width: 6rem; height: 2rem;" class="btn btn-dark">Close</button>
+                  </div>
+                
+              
+           
+          </ng-template>
+
+
+<!-----Modal to display all the products-->
+
+          <ng-template #ProductModal let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">List of Products</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true" >×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead class="thead-dark">
+                  <tr >
+                    <th>Products Name</th>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody class = 'tbody'>
+                  <tr *ngFor="let product of products">
+                    <th>{{product.name}}</th>
+                    <th>{{product._id}}</th>
+                    <th>{{product.quantity}}</th>
+                    <th>{{product.cost}}</th>
+                  </tr>
+                </tbody>
+        
+                
+              </table>
+              
+
+               
+                 
+            </div>
+              
+                  <div class="modal-footer">
+                    <button style="margin-top:10% ;" (click) ="modal.dismiss('Cross click')" style="width: 6rem; height: 2rem;" class="btn btn-dark">Close</button>
+                  </div>
+                
+              
+           
+          </ng-template>
+
+
 
 
       </body>

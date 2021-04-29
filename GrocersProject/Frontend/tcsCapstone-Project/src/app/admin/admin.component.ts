@@ -9,6 +9,8 @@ import { ReportUser } from './../reportUser.model';
 import { Product } from './../model.product';
 import { ReportProduct } from './../productReport.model';
 import { ReportCustomer } from './../customerReport.model';
+import {Employee} from './../model.employee';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -25,7 +27,8 @@ export class AdminComponent implements OnInit {
   request:boolean = false;
   report:boolean = false;
   deleteMsg?:string;
-
+  closeModal: string="";
+  employees:Employee[] = new Array;
   requests:Request[] = new Array;
   products:Product[] = [];
   users:User[] = [];
@@ -46,6 +49,7 @@ export class AdminComponent implements OnInit {
     public empService:EmployeeService,
     public requestService:RequestService,
     public userService:UserService,
+    private modalService: NgbModal
     ) { }
 
   // Testing requests = [{ type:"hello", description:"this this" },{ type:"hello", description:"this this" }]
@@ -346,6 +350,27 @@ export class AdminComponent implements OnInit {
     // for (var val of selectedUsers ) {
     //   this.total_cost += val.order.cost
   }
+
+
+  //modal functions   
+  triggerModal(content:any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+      this.closeModal = `Closed with: ${res}`;
+    }, (res) => {
+      this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+  //end of modal functions
+
 
 }
 
