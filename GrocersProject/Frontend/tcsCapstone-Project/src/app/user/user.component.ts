@@ -183,7 +183,7 @@ export class UserComponent implements OnInit {
   };
 
 
-  checkFunds(){// take in the date info and pass to checkout to store date info
+  checkFunds(checkoutDate:string){// take in the date info and pass to checkout to store date info
     console.log('check funds');
 
     let totalCost = 0;
@@ -211,7 +211,7 @@ export class UserComponent implements OnInit {
         // fill cart with its values into the cart object inside session/local storage
         console.log("works now onto checkout");
         if(this.updateQuantities()){
-          this.checkout(res.fund, totalCost, checkoutProds, userObj);
+          this.checkout(res.fund, totalCost, checkoutProds, userObj, checkoutDate);
         }
       }else{
         console.log('you dont have the proper funds');
@@ -223,7 +223,7 @@ export class UserComponent implements OnInit {
     
   };
 
-  checkout(newFunds:any, totalCost:any, allProducts:string[], currentUser:any){
+  checkout(newFunds:any, totalCost:any, allProducts:string[], currentUser:any, checkoutDate:string){
     console.log('Start checkout');
     let id = currentUser.autoGenID;
     let autoGenID = currentUser.autoGenID;
@@ -236,6 +236,7 @@ export class UserComponent implements OnInit {
       user:autoGenID,// should be user id
       id,//order id
       cost:totalCost,
+      date:checkoutDate
     }
 
     console.log("order is", order);
@@ -246,7 +247,7 @@ export class UserComponent implements OnInit {
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
-        window.location.reload();
+        //window.location.reload();
       }else{
         console.log('failed to updated funds and /or orders');
       }

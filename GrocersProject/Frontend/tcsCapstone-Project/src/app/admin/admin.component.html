@@ -159,8 +159,8 @@
                     <option value="WEEKLY">Weekly</option>
                     <option value="MONTHLY">Monthly</option>
                     <option value="YEARLY">Yearly</option>
-                    <option value="CUSTOMERS">Customers</option>
-                    <option value="PRODUCTS">Products</option>
+                    <option value="CUSTOMER">Customers</option>
+                    <option value="PRODUCT">Products</option>
                   </select>
                   &nbsp;&nbsp;
                   <button  class="btn btn-outline-dark" type="submit" (click)="generateReports(ClassText.value,fromDate.value, toDate.value)" >Generate</button>
@@ -202,7 +202,6 @@
                       <div>
                         <h2 class="card-title">Revenue Generated</h2>
                        <h3>
-                        {{total_cost}}
                        </h3>
                      
                       <!-- <a href="#" class="btn btn-dark">Submit</a> -->

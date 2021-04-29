@@ -139,6 +139,7 @@ export class AdminComponent implements OnInit {
 
   generateReports(generateType:string, date1:string, date2:string){ //figure how to get date info frominputs
     // probably need to clear userReport
+    console.log(generateType);
     switch(generateType){
       case "DAILY":
         this.DailyReports(date1);
@@ -152,7 +153,8 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  DailyReports(date: string){
+  DailyReports(date:string){
+    console.log('daily!', date);
     for(let i =0; i < this.users.length; i++){
       for(let j = 0; j < this.users[i].Orders.length; j++){
         // looking inside each order of each user
@@ -164,6 +166,7 @@ export class AdminComponent implements OnInit {
         }
       }
     }
+    console.log(this.userReport);
   }
 
   weeklyReports(date1:string, date2:string){
