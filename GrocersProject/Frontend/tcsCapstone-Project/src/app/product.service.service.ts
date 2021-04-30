@@ -35,4 +35,8 @@ export class ProductServiceService {
   reduceProductQuantity(reduceObj:any){
     return this.http.put("http://localhost:9090/product/reduceQuantity", reduceObj);
   }
+
+  replaceProductQuantity(replaceObj:any){
+    return this.http.put("http://localhost:9090/product/replaceProducts", replaceObj, {responseType:"text"});
+  }
 }

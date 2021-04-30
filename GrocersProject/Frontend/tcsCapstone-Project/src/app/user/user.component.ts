@@ -224,6 +224,8 @@ export class UserComponent implements OnInit {
         // update product and money in backen
         if(res == "Success"){
           this.setCurrentUser();
+          let repalceProds = this.userOrders.filter(o => o.id == orderID);
+          this.replaceProducts(repalceProds);
           this.userOrders = this.userOrders.filter(o => o.id != orderID);
           let userObj = this.getCurrentUser();
           if(userObj){
@@ -243,6 +245,26 @@ export class UserComponent implements OnInit {
         
       })
     }
+
+  replaceProducts(userObj:any){
+    console.log(userObj);
+    let prods = userObj[0].products;
+
+    for(let p of userObj[0].products){
+      // call service to add back the product hopefully works
+      let split = p.split('_');
+      let newObj ={
+        name:split[0],
+        quantity:split[1]
+      }
+
+      this.productService.replaceProductQuantity(newObj).
+      subscribe(res => {
+        this.refillProducts();
+      }, (err) => console.log(err));
+
+    }
+  }
 
 
   checkFunds(checkoutDate:string){// take in the date info and pass to checkout to store date info
@@ -462,10 +484,16 @@ updateUserFunds(myUpdateFundsForm:any){
       console.log("In Updated Quantities",newObj);
       this.productService.reduceProductQuantity(newObj).subscribe((res:any) =>{
         console.log(res);
+        this.refillProducts()
       }, (err) => console.log(err))
     }
     return true;
     // need to figure out how to check if there is not enough product quantities
+  }
+
+  refillProducts(){
+    this.productService.getAllProducts().
+    subscribe(res => this.products = res, (err) => console.log(err));
   }
 
   getCurrentUser(){

@@ -8,5 +8,6 @@ router.put("/updateQuantity", ProductController.updateQuantity);
 router.put("/updateCost", ProductController.updateCost);
 router.get("/getAllProducts", ProductController.getAllProducts);
 router.put("/reduceQuantity", ProductController.reduceQuantity);
+router.put("/replaceProducts", ProductController.replaceProducts);
 
 module.exports = router;
