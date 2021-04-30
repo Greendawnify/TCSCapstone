@@ -204,7 +204,7 @@ statusUpdate(status:any, currentText:any, orderID:number, userAutoGenID:String){
             userID: currentUser.autoGenID,
             orderID: x.id, 
             cost: newFund, 
-            //status: x.status, 
+            status: status, 
             //products: x.products 
           }
           this.replaceProducts(x);

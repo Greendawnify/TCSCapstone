@@ -557,11 +557,12 @@ let deleteOrder = (req, res) => {
   let user = req.body.userID;
   let oId = req.body.orderID;
   let rCost = req.body.cost;
+  let newStatus = req.body.status;
   console.log("OID:", oId);
 
   UserModel.updateMany(
     { autoGenID: user },
-    { $pull: { Orders: { id: oId } }, funds:rCost },
+    { $set: { "Orders.$.status": newStatus, funds:rCost } },
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {
