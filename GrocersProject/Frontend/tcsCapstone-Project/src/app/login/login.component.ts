@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   closeModal: string="";
   adminRecord:Object ={};
   signing:string = "";
+  sign_up:string = "";
   constructor(
     private modalService: NgbModal,
     public router:Router, 
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
     ) {}
   ngOnInit(): void {
     this.signing = "";
+    this.sign_up=" ";
     let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
     element.click();
     let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
@@ -35,6 +37,8 @@ export class LoginComponent implements OnInit {
     element2.click();
   }
   Resetter(){
+    this.sign_up=" ";
+    this.signing = "";
     let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
     element.click();
     let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
@@ -97,7 +101,7 @@ export class LoginComponent implements OnInit {
         if(data = "Record stored successfully!"){
           console.log(mySignUpForm);
           this.useService.generateUserID(mySignUpForm).subscribe((resultFinal:string)=> {
-            alert(resultFinal);
+            this.sign_up = resultFinal;
           });
         }
       }
