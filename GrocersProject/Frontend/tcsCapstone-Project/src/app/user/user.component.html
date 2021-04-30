@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>User</title>
 </head>
 <body>
@@ -46,7 +48,8 @@
            
           <div *ngIf="isShopping" class="card" style="width: 14rem;margin-left:5%; height: 4cm;">
             <h2 style="margin-left: 20%;"> Check Out</h2>
-            <a><img style="width:6rem ; height:2rem ; margin-left:15%;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png"></a>
+           
+            <a><img style="width:3rem ; height:2rem ; margin-left:15%;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png"></a>
            <div class="card-body">
              
             
@@ -84,13 +87,18 @@
                     <p style="text-align: left;" class="price">{{product.quantity}} :Products left!</p>
                     <p style="text-align: center;" class="price">${{product.cost}}</p>
                     <input type="number" #quantity class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
-                      <p> </p>
+                      <p>  </p>
+                      
+                    <p><button id="myBtn" class="btn btn-dark" (click)="addProduct(product, quantity.value)">Update Cart</button></p>
+                    
 
-                    <p><button  class="btn btn-dark" (click)="addProduct(product, quantity.value)">Update Cart</button></p>
+  
+                   </div>
+                   
                   </div>
                 </div>
               </div> 
-            </div>
+           
            
             
          

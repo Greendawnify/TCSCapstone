@@ -8,9 +8,9 @@
       <body>
         <!-----Buttons to display Employee or report or products tab-->
           <div style="margin-top:1% ;">
-        <button style="margin-left: 15%;" class="btn btn-outline-dark" type="submit" (click)="Emp_visible()">Employee Tab</button>
-        <button style="margin-left: 15%;"class="btn btn-outline-dark" type="submit" (click)="Prd_visible()">Product Tab</button>
-        <button style="margin-left: 15%;"class="btn btn-outline-dark" type="submit" (click)="reportsVisible()">Reports Tab</button>
+        <button style="margin-left: 15%;" class="btn btn-outline-dark" type="submit" (click)="Emp_visible();emp_Resetter();Prod_Resetter()">Employee Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-outline-dark" type="submit" (click)="Prd_visible();emp_Resetter();Prod_Resetter()">Product Tab</button>
+        <button style="margin-left: 15%;"class="btn btn-outline-dark" type="submit" (click)="reportsVisible();emp_Resetter();Prod_Resetter()">Reports Tab</button>
          </div>
         <!----Employee tab-->
         <div *ngIf="Employee">
@@ -32,10 +32,12 @@
                      
                         <!-- <input type = "text" class="form-control" name = "emailid"  placeholder = "Employee Address" ngModel> -->
                         <br/>
-                      
+                        
                         <input style="margin-left: 86% ;" type="submit"class="btn btn-dark" value="Submit">
                         <input id="reset_addEmployee" type="reset" value="reset" class="btn btn-outline-light">
+                        
                       </form>
+                      <p>{{Addemp}}</p>
                     </div>
                   </div>
                 </div>
@@ -43,16 +45,18 @@
                 <div class="col-sm-3">
                   <div class="card bg-light mb-3">
                     <div class="card-body">
-                      <form ngNativeValidate>
+                      <form  #empRef="ngForm"  (ngSubmit) = "deleteEmployee(empRef.value);emp_Resetter()" ngNativeValidate >
                         <h2 class="card-title">Delete Employee</h2>
-                        <input name = "id" type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1" #empRef ngModel required>
+                        <input  name = "id" type="text" class="form-control" placeholder="Employee_ID" aria-label="Employee_ID" aria-describedby="basic-addon1"  ngModel required>
                         <br>
-                        <input style="margin-left: 70% ;" type="button" class="btn btn-dark" value="Submit"  (click)="deleteEmployee(empRef.value);emp_Resetter()"/><br/>
+                        <input style="margin-left: 70% ;" type="submit" class="btn btn-dark" value="Submit">
+                        <br/>
                         <input id="reset_DelEmployee" type="reset" value="reset" class="btn btn-outline-light">
                       <!-- <a href="#" class="btn btn-dark">Submit</a> -->
+                      <p>{{deleteMsg}}</p>
                       </form>
                     </div>
-                    {{deleteMsg}}
+                    
                   </div>
                 </div>
                 
@@ -99,7 +103,7 @@
                         <input type="submit"  class="btn btn-dark" value="Submit">
                         <input id="reset_AddProduct" type="reset" value="reset" class="btn btn-outline-light">
                       </form>
-                      
+                      <p>{{addprod}}</p>
                     </div>
                   </div>
                 </div>
@@ -115,6 +119,7 @@
                         <input type="submit"class="btn btn-dark" value="Submit">
                         <input id="reset_DelProduct" type="reset" value="reset" class="btn btn-outline-light">
                       </form>
+                      <p>{{delprod}}</p>
                     </div>
                   </div>
                 </div>
@@ -133,6 +138,7 @@
                         <input type="submit" class="btn btn-dark" value="Submit">
                         <input id="reset_upProduct" type="reset" value="reset" class="btn btn-outline-light">
                       </form>
+                      <h2>{{upPrice}}</h2>
                     </div>
                   </div>
                 </div>
@@ -144,11 +150,7 @@
                         <form #updateRef = "ngForm" (ngSubmit) = 'updateProductQuantity(updateRef.value);Prod_Resetter()' ngNativeValidate >
                             
                           
-<<<<<<< HEAD
-                            <input type = "number" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
-=======
                             <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
->>>>>>> 578952c5c6c4a6b2037c255a2e7d3f7873bafa7a
                             <br/>
                           
                             <input name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel required>
@@ -157,6 +159,7 @@
                             <input type="submit" class="btn btn-dark" value="Submit">
                             <input id="reset_upQuantity" type="reset" value="reset" class="btn btn-outline-light">
                           </form>
+                          <p>{{upQuant}}</p>
                       </div>
                     </div>
                     <div class="col-sm-12" style="margin-left: 60%;">
@@ -167,6 +170,7 @@
                           <!---Button to Display all Products and user -->
                           <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 8rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(ProductModal)" data-toggle="modal" data-target="#modalData" >Product Catlog</button>
                           </form>
+                          
                         </div>
                       </div>
                     </div>
