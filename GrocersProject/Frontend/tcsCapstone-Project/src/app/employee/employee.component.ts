@@ -24,6 +24,7 @@ export class EmployeeComponent implements OnInit {
 
   users:User[]=new Array;
   closeModal: string="";
+  Requp: string="";
   constructor(
     public requestService:RequestService,
     public employeeSer: EmployeeService,
@@ -45,6 +46,7 @@ export class EmployeeComponent implements OnInit {
 
 //displays user that have account locked
   ngOnInit(): void {
+    this.Requp = " "
     this.userService.getRaisedTicket().
     subscribe(result=>{
       this.lockedUsers = result;
@@ -87,7 +89,7 @@ let element1:HTMLElement = document.getElementById('reset_pass') as HTMLElement;
 //unlock user account 
   unlockUserAccount(userID:any){
     this.userService.unlockUser(userID).subscribe((result:string)=> {
-      alert(result);
+      this.Requp=result
       console.log("Successfully unlocked")
       window.location.reload();
     });

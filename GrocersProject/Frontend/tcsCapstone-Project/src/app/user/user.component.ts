@@ -16,12 +16,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserComponent implements OnInit {
   addedCart="";
+  CartVart="";
+  proff=" "
   isShopping:boolean= false;
   notShopping:boolean = true;
   signedInUserDetails:any = {};
   closeModal: string="";
   products:Product[] = new Array;
   tempCart:any[]= [];
+
+  
 
   constructor(public productService:ProductServiceService, 
     public userService:UserService,
@@ -34,13 +38,16 @@ export class UserComponent implements OnInit {
 
   displayText:string = "";
   interval :any;
-
+  upUFunds:string = " ";
   userOrders: any [] = [];
   userNow:any;
   Fname:string="";
   Lname:string="";
   
   ngOnInit(): void {
+  this.CartVart="";
+  this.proff = " ";
+  
     this.userNow = this.getCurrentUser();
     if(this.userNow){
       this.Fname = this.userNow.fName;
@@ -48,6 +55,7 @@ export class UserComponent implements OnInit {
     }
     this.productService.getAllProducts().subscribe(res => this.products = res);
     this.addedCart=" ";
+    this.upUFunds= " ";
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
@@ -366,7 +374,7 @@ export class UserComponent implements OnInit {
       this.userService.checkout(order).
       subscribe((res:any) =>{
         if(res.funds || res.orders){
-          alert('Both funds and orders have been updated.');
+          this.CartVart="Both funds and orders have been updated."
           let tempUserObjforFunds = this.getCurrentUser();
           this.currentBalance = tempUserObjforFunds.balance;
           this.currentFunds = tempUserObjforFunds.funds;
@@ -377,12 +385,12 @@ export class UserComponent implements OnInit {
           this.setCurrentUser();
 
         }else{
-          alert('Failed to updated funds and /or orders');
+          this.CartVart="Failed to updated funds and /or orders"
         }
       })
     }
     else{
-      alert("Your cart is Empty!");
+      this.CartVart="Your cart is Empty!"
     }
   };
 //profile functions
@@ -418,6 +426,7 @@ update_User(myUpdateForm:any){
 
 //profile functions
 updateUser(myUpdateForm:any){
+  
   console.log("Update User is called:", myUpdateForm);
   let tempSignedInUser:any = this.signedInUserDetails;
   function clean(obj:any) {
@@ -433,11 +442,15 @@ updateUser(myUpdateForm:any){
   console.log("Cleaned Update Form: ", myUpdateForm);
   console.log(merged);
   this.userService.updateProfile(merged).subscribe((result:string)=> {
+    
+    this.proff=result;
+
     let tempResult = JSON.stringify(merged);
     console.log("Temp Result after updating user ", tempResult);
     sessionStorage.setItem('LoggedInUserDetails', tempResult);
-    alert(result);
+    
   });
+  
   //console.log();
 }
 
@@ -477,16 +490,16 @@ updateUserFunds(myUpdateFundsForm:any){
           let tempUserObjforFunds = this.getCurrentUser();
           this.currentBalance = tempUserObjforFunds.balance;
           this.currentFunds = tempUserObjforFunds.funds;
-
-          alert(result);
+          this.upUFunds= result;
+          
         });
       }
       else{
-        alert("You can't add funds more than your balance!");
+        this.upUFunds= "You can't add funds more than your balance!";
       }
     }
     else{
-      alert("Your total balance is empty!");
+      this.upUFunds= "Your total balance is empty!";
     }
     /* let tempFundsObj = { funds: myUpdateFundsForm.fundsToAdd };
     console.log(tempFundsObj);
@@ -494,7 +507,7 @@ updateUserFunds(myUpdateFundsForm:any){
     console.log(merged); */
   }
   else{
-    alert("Your account number or phone number doesn't match");
+    this.upUFunds= "Your account number or phone number doesn't match"
   }
 }
 
