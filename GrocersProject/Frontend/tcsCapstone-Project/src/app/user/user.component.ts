@@ -477,12 +477,8 @@ updateUserFunds(myUpdateFundsForm:any){
       this.userService.retrieveUserById(newObj).
       subscribe(res => {
         sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(res));
-<<<<<<< HEAD
-        console.log('New User in Session sotorage', res);
-=======
         this.currentBalance = userObj.balance;
         this.currentFunds = userObj.funds;
->>>>>>> NewManiBranch
       }, (err) => console.log(err));
     }
 
