@@ -88,8 +88,8 @@
                     <div class="card-body">
                       <h5 class="card-title">Add Product</h5>
                       <form #productRef = "ngForm"  (ngSubmit) = "addProduct(productRef.value);Prod_Resetter()" ngNativeValidate>
-                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
-                        <br/>
+                        <!-- <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
+                        <br/> -->
 
                         <input type = "text" class="form-control" name = "name" placeholder = "Product Name" ngModel required>
                         <br/>
@@ -129,7 +129,7 @@
                     <div class="card-body">
                       <h5 class="card-title">Update Price</h5>
                       <form #updatePriceRef = "ngForm"  (ngSubmit) = "updateProductCost(updatePriceRef.value);Prod_Resetter()"ngNativeValidate>
-                        <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
+                        <input type = "number" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
                         <br/>
                       
                         <input name = "cost" class="form-control" placeholder = "Price of products" ngModel required>
@@ -150,7 +150,9 @@
                         <form #updateRef = "ngForm" (ngSubmit) = 'updateProductQuantity(updateRef.value);Prod_Resetter()' ngNativeValidate >
                             
                           
-                            <input type = "text" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
+
+                            <input type = "number" class="form-control" name = "id" placeholder = "Product ID" ngModel required>
+
                             <br/>
                           
                             <input name = "quantity" class="form-control" placeholder = "Quantity of products" ngModel required>

@@ -41,13 +41,11 @@ export class UserComponent implements OnInit {
   Lname:string="";
   
   ngOnInit(): void {
-    
     this.userNow = this.getCurrentUser();
     if(this.userNow){
       this.Fname = this.userNow.fName;
       this.Lname = this.userNow.lName;
     }
-    
     this.productService.getAllProducts().subscribe(res => this.products = res);
     this.addedCart=" ";
     let cart:string|null;
@@ -56,7 +54,7 @@ export class UserComponent implements OnInit {
      if(cart){
        this.tempCart = JSON.parse(cart);
      }
-     
+
      // Get storage of users
      let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
       console.log(tempUserDetails);
@@ -148,7 +146,26 @@ export class UserComponent implements OnInit {
   }
 
 
-  
+  // showOrders(){
+  //   let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+  //   if(sessionString){
+  //     console.log("Got session storage");
+  //     let userObj = JSON.parse(sessionString);
+      
+      
+
+  //     for(let x of userObj.Orders){
+  //       let newOrder = {
+  //         name: userObj.fName,
+  //         cost: x.cost,
+  //         status: x.status,
+  //         products: x.products
+  //       };
+  //       this.userOrders.push(newOrder);
+  //     }
+  //   }
+
+  // }
 
 //delete product
   deleteProduct(deleteID:any){
@@ -227,6 +244,8 @@ export class UserComponent implements OnInit {
         // update product and money in backen
         if(res == "Success"){
           this.setCurrentUser();
+          let repalceProds = this.userOrders.filter(o => o.id == orderID);
+          this.replaceProducts(repalceProds);
           this.userOrders = this.userOrders.filter(o => o.id != orderID);
           let userObj = this.getCurrentUser();
           if(userObj){
@@ -237,7 +256,7 @@ export class UserComponent implements OnInit {
             this.userService.retrieveUserById(userObj).subscribe(res => {
               this.currentBalance = res.balance;
               this.currentFunds = res.funds;
-              //this.userOrders = res.Orders;
+
             });
             //let getCurUserFromDB = this.userService.
             
@@ -246,6 +265,26 @@ export class UserComponent implements OnInit {
         
       })
     }
+
+  replaceProducts(userObj:any){
+    console.log(userObj);
+    let prods = userObj[0].products;
+
+    for(let p of userObj[0].products){
+      // call service to add back the product hopefully works
+      let split = p.split('_');
+      let newObj ={
+        name:split[0],
+        quantity:split[1]
+      }
+
+      this.productService.replaceProductQuantity(newObj).
+      subscribe(res => {
+        this.refillProducts();
+      }, (err) => console.log(err));
+
+    }
+  }
 
 
   checkFunds(checkoutDate:string){// take in the date info and pass to checkout to store date info
@@ -465,14 +504,17 @@ updateUserFunds(myUpdateFundsForm:any){
       console.log("In Updated Quantities",newObj);
       this.productService.reduceProductQuantity(newObj).subscribe((res:any) =>{
         console.log(res);
+        this.refillProducts()
       }, (err) => console.log(err))
     }
     return true;
     // need to figure out how to check if there is not enough product quantities
   }
 
-  
-
+  refillProducts(){
+    this.productService.getAllProducts().
+    subscribe(res => this.products = res, (err) => console.log(err));
+  }
 
   getCurrentUser(){
     let sessionString = sessionStorage.getItem("LoggedInUserDetails");

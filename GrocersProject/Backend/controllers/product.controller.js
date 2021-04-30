@@ -3,7 +3,7 @@ let ProductModel = require("../models/product.model");
 // Add a product
 let addProduct = (req, res) => {
   let product = new ProductModel({
-    _id: req.body.id,
+    _id: Math.floor(Math.random() * 10000),
     name: req.body.name,
     quantity: req.body.quantity,
     initQuantity: req.body.quantity,
@@ -159,25 +159,37 @@ let reduceQuantity = (req, res) => {
       res.send("cant find the product to redue its quanitity");
     }
   });
+};
 
-  // ProductModel.updateOne(
-  //   { _id: id },
-  //   { $set: { quantity: newAmount } },
-  //   (err, result) => {
-  //     if (!err) {
-  //       if (result.nModified > 0) {
-  //         let newObj = {
-  //           approved: true,
-  //         };
-  //         res.json(newObj);
-  //       } else {
-  //         res.send("Could not find prodct");
-  //       }
-  //     } else {
-  //       res.send("Error");
-  //     }
-  //   }
-  // );
+let replaceProducts = (req, res) => {
+  let prodName = req.body.name;
+  let newQuantity = req.body.quantity;
+
+  let quantityInt = parseInt(newQuantity);
+
+  ProductModel.find({ name: prodName }, (err, result) => {
+    if (!err) {
+      quantityInt += result[0].quantity;
+
+      ProductModel.updateOne(
+        { name: prodName },
+        { $set: { quantity: quantityInt } },
+        (err, result) => {
+          if (!err) {
+            if (result.nModified > 0) {
+              res.send("Success");
+            } else {
+              res.send("couldnt find the record");
+            }
+          } else {
+            res.send("error");
+          }
+        }
+      );
+    } else {
+      res.send("error");
+    }
+  });
 };
 
 module.exports = {
@@ -188,4 +200,5 @@ module.exports = {
   updateCost,
   getAllProducts,
   reduceQuantity,
+  replaceProducts,
 };
