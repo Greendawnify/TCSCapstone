@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
       else{
         console.log("tempUserDetails is null");
       }
-
+      
       this.currentBalance = this.signedInUserDetails.balance;
       this.currentFunds = this.signedInUserDetails.funds;
   }
@@ -223,25 +223,12 @@ export class UserComponent implements OnInit {
 
           this.userOrders = this.userOrders.filter(o => o.id != userID);
         }
-<<<<<<< HEAD
         let userObj = this.getCurrentUser();
         if(userObj){
           
           userObj.Orders = this.userOrders;
           this.setCurrentUser();
         }
-=======
-        console.log('User Orders after filtering', this.userOrders);
-        let sessionString = sessionStorage.getItem("LoggedInUserDetails");
-
-        if(sessionString){ console.log("Got session storage");
-          let userObj = JSON.parse(sessionString); 
-          userObj.Orders = this.userOrders;
-          sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(userObj));
-          console.log('Reset sesesion storage after deleting', userObj);
-        }
-        //
->>>>>>> NewManiBranch
       })
     }
 
@@ -320,6 +307,9 @@ export class UserComponent implements OnInit {
       subscribe((res:any) =>{
         if(res.funds || res.orders){
           alert('Both funds and orders have been updated.');
+          let tempUserObjforFunds = this.getCurrentUser();
+          this.currentBalance = tempUserObjforFunds.balance;
+          this.currentFunds = tempUserObjforFunds.funds;
           //empty out the cart
           this.tempCart = [];
           localStorage.setItem("cart", JSON.stringify(this.tempCart));
@@ -339,8 +329,14 @@ export class UserComponent implements OnInit {
 triggerModal(content:any) {
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic'}).result.then((res) => {
     this.closeModal = `Closed with: ${res}`;
+    let tempUserObjforFunds = this.getCurrentUser();
+    this.currentBalance = tempUserObjforFunds.balance;
+    this.currentFunds = tempUserObjforFunds.funds;
   }, (res) => {
     this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+    let tempUserObjforFunds = this.getCurrentUser();
+    this.currentBalance = tempUserObjforFunds.balance;
+    this.currentFunds = tempUserObjforFunds.funds;
   });
   refresh: true
 }
@@ -417,8 +413,11 @@ updateUserFunds(myUpdateFundsForm:any){
           let tempResult = JSON.stringify(merged);
           console.log("Temp Result after updating user funds ", tempResult);
           sessionStorage.setItem('LoggedInUserDetails', tempResult);
-          this.currentBalance = merged.balance;
-          this.currentFunds = merged.funds;
+          
+          let tempUserObjforFunds = this.getCurrentUser();
+          this.currentBalance = tempUserObjforFunds.balance;
+          this.currentFunds = tempUserObjforFunds.funds;
+
           alert(result);
         });
       }
@@ -474,12 +473,8 @@ updateUserFunds(myUpdateFundsForm:any){
       this.userService.retrieveUserById(newObj).
       subscribe(res => {
         sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(res));
-<<<<<<< HEAD
-        console.log('New User in Session sotorage', res);
-=======
         this.currentBalance = userObj.balance;
         this.currentFunds = userObj.funds;
->>>>>>> NewManiBranch
       }, (err) => console.log(err));
     }
 
