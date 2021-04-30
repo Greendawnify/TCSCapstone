@@ -25,9 +25,18 @@ export class UserComponent implements OnInit {
   currentFunds?:string;
 
   userOrders: any [] = [];
-   
+  userNow:any;
+  Fname:string="";
+  Lname:string="";
   
   ngOnInit(): void {
+    
+    this.userNow = this.getCurrentUser();
+    if(this.userNow){
+      this.Fname = this.userNow.fName;
+      this.Lname = this.userNow.lName;
+    }
+    
     this.productService.getAllProducts().subscribe(res => this.products = res);
     this.addedCart="";
     let cart:string|null;
@@ -36,7 +45,7 @@ export class UserComponent implements OnInit {
      if(cart){
        this.tempCart = JSON.parse(cart);
      }
-
+     
      // Get storage of users
      let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
       console.log(tempUserDetails);
@@ -315,16 +324,11 @@ export class UserComponent implements OnInit {
         //empty out the cart
         this.tempCart = [];
         localStorage.setItem("cart", JSON.stringify(this.tempCart));
-<<<<<<< HEAD
-        this.currentFunds = order.newFunds;
-        window.location.reload();
-=======
 
       
         
         // update the user in session storage
         this.setCurrentUser();
->>>>>>> 5cf6779142cabfd9b9c9ffb34b19d0c0dc75c070
 
       }else{
         alert('Failed to updated funds and /or orders');
@@ -454,6 +458,9 @@ updateUserFunds(myUpdateFundsForm:any){
     return true;
     // need to figure out how to check if there is not enough product quantities
   }
+
+  
+
 
   getCurrentUser(){
     let sessionString = sessionStorage.getItem("LoggedInUserDetails");

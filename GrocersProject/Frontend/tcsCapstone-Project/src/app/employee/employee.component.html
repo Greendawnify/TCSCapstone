@@ -104,10 +104,10 @@
                       <form>
                       
                       <!---Button to Display all Products and user -->
-                      <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(ProductModal)" data-toggle="modal" data-target="#modalData" >Product Catlog</button>
+                      <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(ProductModal)" data-toggle="modal" data-target="#ProductModal" >Product Catlog</button>
                       <br>
                       <br>
-                      <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(userModal)" data-toggle="modal" data-target="#modalData" >User Catlog</button>
+                      <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(userModal)" data-toggle="modal" data-target="#userModal" >User Catlog</button>
                     </form>
                     </div>
                   </div>
@@ -232,7 +232,7 @@
                   </tr>
                 </thead>
                 <tbody class = 'tbody'>
-                  <tr *ngFor="let user of users">
+                  <tr *ngFor="let user of usersWithOrders">
                     <th>{{user.fName}} {{user.lName}}</th>
                     <th>{{user.autoGenID}}</th>
                     <th>{{user.email}}</th>
@@ -273,7 +273,7 @@
                   </tr>
                 </thead>
                 <tbody class = 'tbody'>
-                  <tr *ngFor="let product of products">
+                  <tr *ngFor="let product of allproducts">
                     <th>{{product.name}}</th>
                     <th>{{product._id}}</th>
                     <th>{{product.quantity}}</th>

@@ -6,6 +6,7 @@ import { UserService } from '../user.service';
 import { User } from '../model.user';
 import { Employee } from './../model.employee';
 import { ElementRef, ViewChild } from '@angular/core';
+import { ProductServiceService } from './../product.service.service';
 
 import { Product } from './../model.product';
 
@@ -19,9 +20,15 @@ import { Product } from './../model.product';
 export class EmployeeComponent implements OnInit {
   
   products:Product[] = new Array;
+  
   users:User[]=new Array;
   closeModal: string="";
-  constructor(public requestService:RequestService,public employeeSer: EmployeeService,private modalService: NgbModal, public userService:UserService) { }
+  constructor(public requestService:RequestService,
+    public employeeSer: EmployeeService,
+    private modalService: NgbModal,
+    public productService:ProductServiceService, 
+    public userService:UserService) { }
+
   viewReq:boolean=false
 
   lockedUsers:User[] = [];
@@ -31,7 +38,7 @@ export class EmployeeComponent implements OnInit {
   orderStatus:any[] = [];
   currentUserID:string = '';
   
- 
+  allproducts:Product[] = new Array;
 
 //displays user that have account locked
   ngOnInit(): void {
@@ -62,6 +69,7 @@ export class EmployeeComponent implements OnInit {
     }
     let element1:HTMLElement = document.getElementById('reset_pass') as HTMLElement;
   element1.click()
+  this.productService.getAllProducts().subscribe(res=> this.allproducts = res,(err)=> console.log(err));
    
   }
 
