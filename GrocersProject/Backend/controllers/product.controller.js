@@ -3,7 +3,7 @@ let ProductModel = require("../models/product.model");
 // Add a product
 let addProduct = (req, res) => {
   let product = new ProductModel({
-    _id: req.body.id,
+    _id: Math.floor(Math.random() * 10000),
     name: req.body.name,
     quantity: req.body.quantity,
     initQuantity: req.body.quantity,
