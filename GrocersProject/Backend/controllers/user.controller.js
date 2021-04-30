@@ -554,8 +554,8 @@ let updateOrderStatus = (req, res) => {
 };
 
 let deleteOrder = (req, res) => {
-  let user = req.body.orderID;
-  let oId = req.body.userID;
+  let user = req.body.userID;
+  let oId = req.body.orderID;
   console.log("OID:", oId);
 
   UserModel.updateOne(
