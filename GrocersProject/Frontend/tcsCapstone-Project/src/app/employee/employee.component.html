@@ -104,7 +104,11 @@
                       <form>
                       
                       <!---Button to Display all Products and user -->
+<<<<<<< HEAD
                       <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(ProductModal)" data-toggle="modal" data-target="#ProductModal" >Product Catlog</button>
+=======
+                      <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(ProductModal); " data-toggle="modal" data-target="#modalData" >Product Catlog</button>
+>>>>>>> 578952c5c6c4a6b2037c255a2e7d3f7873bafa7a
                       <br>
                       <br>
                       <button type="button" id="openModal" #openModal style="margin-left: 20%; width: 10rem; height: 3rem;" class="btn btn-outline-dark" (click)="triggerModal(userModal)" data-toggle="modal" data-target="#userModal" >User Catlog</button>
@@ -273,7 +277,7 @@
                   </tr>
                 </thead>
                 <tbody class = 'tbody'>
-                  <tr *ngFor="let product of allproducts">
+                  <tr *ngFor="let product of allProducts">
                     <th>{{product.name}}</th>
                     <th>{{product._id}}</th>
                     <th>{{product.quantity}}</th>

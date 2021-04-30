@@ -177,6 +177,9 @@ viewOrders(user_id:any){
     console.log(selectedUser.Orders);
     this.orderStatus = selectedUser.Orders;
     this.currentUserID = selectedUser.autoGenID;
+  }else{
+    console.log("Incorrect userID")
+    // display some string to let the user know
   }
 }
 

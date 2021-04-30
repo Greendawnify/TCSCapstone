@@ -126,8 +126,11 @@ export class AdminComponent implements OnInit {
     
     this.requestService.delete(sender, description, type).
     subscribe((res:string) => {
-      console.log(res);
-      window.location.reload();
+      if(res == "record succesfully deleted"){
+        //call refill the request array
+        this.refillRequestList();
+      }
+      
     }, err => console.log(err));
   }
 //add product to database
@@ -392,6 +395,11 @@ export class AdminComponent implements OnInit {
   refilProducts(){
     this.productService.getAllProducts().
     subscribe(res => this.products = res, (err)=> console.log(err));
+  }
+
+  refillRequestList(){
+    this.requestService.getAllRequests().
+    subscribe(res => this.requests = res, (err) => console.log(err));
   }
 
 
