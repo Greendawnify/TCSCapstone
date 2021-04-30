@@ -207,7 +207,11 @@ statusUpdate(status:any, currentText:any, orderID:number, userAutoGenID:String){
             //status: x.status, 
             //products: x.products 
           }
+          this.replaceProducts(x);
         } 
+        // this.productService.replaceProductQuantity(x).subscribe(res => {
+        //   this.refillProducts();
+        // }, (err) => console.log(err));
       }
       this.userService.deleteOrder(orderToCancel).subscribe(res =>{
         if(res == "Success"){
@@ -218,6 +222,24 @@ statusUpdate(status:any, currentText:any, orderID:number, userAutoGenID:String){
 
     }
   }
+}
+
+replaceProducts(userObj:any){
+   console.log(userObj); 
+   for(let p of userObj.products){
+      // call service to add back the product hopefully works 
+      let split = p.split('_'); 
+      let newObj ={ name:split[0], quantity:split[1] }
+       console.log("New Obj: ", newObj); 
+       this.productService.replaceProductQuantity(newObj).subscribe(res => {
+          this.refillProducts(); 
+        }, (err) => console.log(err)); 
+    } 
+}
+
+refillProducts(){
+  this.productService.getAllProducts().
+  subscribe(res => this.allProducts = res, (err) =>console.log(err));
 }
 
 }
