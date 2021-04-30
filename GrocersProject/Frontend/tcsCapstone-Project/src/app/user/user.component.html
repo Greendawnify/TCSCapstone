@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>User</title>
 </head>
 <body>
@@ -12,36 +14,26 @@
 
 <!--- Landing page diaplaying static images -->
   <div *ngIf="notShopping" class="lightbox">
-    <div class="row">
-      <div class="col-lg-6">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-          data-mdb-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-          alt="Lightbox image 1"
-          class="w-100 mb-2 mb-md-4 shadow-1-strong rounded"
-        />
-        <img
-          src="https://mdbootstrap.com/img/Photos/Thumbnails/Square/1.jpg"
-          data-mdb-img="https://mdbootstrap.com/img/Photos/Square/1.jpg"
-          alt="Lightbox image 2"
-          class="w-100 shadow-1-strong rounded"
-        />
+    <div style="margin-left:47%; font: times ;" class="row">
+     <div class="col">
+        <h1>  Welcome </h1>
+        <h1>{{Fname}} {{Lname}}</h1>
+        
       </div>
       
-      <div class="col-lg-5">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Thumbnails/Vertical/1.jpg"
-          data-mdb-img="https://mdbootstrap.com/img/Photos/Vertical/1.jpg"
-          alt="Lightbox image 3"
-          class="w-100 shadow-1-strong rounded"
-        />
+      
+        
       <p></p>
-<!---- Button to take to user component -->
-          <button style="width: 200px; height: 100px; " class="btn btn-dark" type="button"  (click)=" is_Shopping()" >Start Shopping</button>
-       
-      </div>
-      
     </div>
+<!---- Button to take to user component -->
+  <br>
+  <br>
+  <br>
+          <button style="size: auto ;margin-left:40%; " class="btn btn-light" type="button"  (click)=" is_Shopping()" ><img src="https://cdn.quotesgram.com/img/92/68/938158124-img-thing_.jpg"></button>
+       
+     
+      
+    
   </div>
 
 
@@ -55,10 +47,14 @@
            <!----- Side Cart checkout and all features integrated -->
            
           <div *ngIf="isShopping" class="card" style="width: 14rem;margin-left:5%; height: 4cm;">
-            <button style="width: 14rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">Check Out</button>
+            <h2 style="margin-left: 20%;"> Check Out</h2>
+           
+            <a><img style="width:3rem ; height:2rem ; margin-left:15%;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png"></a>
            <div class="card-body">
-            <button type="button" style="margin-left: 40%;" class="btn btn-dark" (click)="triggerModal(CartModal)">View Cart</button>
-
+             
+            
+            <button type="button" style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(CartModal)">View Cart</button>
+          
             </div>
           </div>
           </div>
@@ -91,13 +87,18 @@
                     <p style="text-align: left;" class="price">{{product.quantity}} :Products left!</p>
                     <p style="text-align: center;" class="price">${{product.cost}}</p>
                     <input type="number" #quantity class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon1">
-                      <p> </p>
+                      <p>  </p>
+                      
+                    <p><button id="myBtn" class="btn btn-dark" (click)="addProduct(product, quantity.value)">Update Cart</button></p>
+                    
 
-                    <p><button  class="btn btn-dark" (click)="addProduct(product, quantity.value)">Update Cart</button></p>
+  
+                   </div>
+                   
                   </div>
                 </div>
               </div> 
-            </div>
+           
            
             
          
@@ -117,8 +118,9 @@
         <div class="card-body">
         <div class="row">      
           <h1 style="margin-left: 20%;" class="card-title">View Order</h1>
-          <button  class="btn btn-dark" style="margin-left:55% ;" (click) = "showOrders()">View All</button>
+          <button  class="btn btn-dark" style="margin-left:55% ;" (click) = "showOrders()" >View All</button>
           <table class="table">
+
             <thead class="thead-dark">
               <tr >
                 <th>Name</th>
@@ -129,16 +131,17 @@
             </thead>
             <tbody class = 'tbody'>
               <tr *ngFor="let user of userOrders">
-                <th>{{user.name}}</th>
+                <th>{{user.fName}}</th>
                 <th>{{user.products}}</th>
                 <th>{{user.status}}</th>
                 <th>{{user.cost}}</th>
-                <button>Delete</button>
+                <!-- <button (click) = "deleteOrder(user.user, user.id, user.cost)" > Delete</button> -->
               </tr>
             </tbody>
     
             
           </table>
+
         </div>   
         <br>
         
@@ -155,6 +158,7 @@
                 <p>Current Funding: {{currentFunds}}</p>
             
                 <button style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(AddFundsModal)">Add Funds</button>
+                <p>{{upUFunds}}</p>
                 <!--Modal to add funds--->
                 <ng-template #AddFundsModal let-modal>
                   <form #myUpdateFundsForm = "ngForm"  (ngSubmit)="updateUserFunds(myUpdateFundsForm.value)">
@@ -210,6 +214,7 @@
                   <h1 style="margin-left:1%; height: 3.3cm;" class="card-title">Profile View</h1>
                   
                   <button style="margin-right:20% ; text-align: left;" class="btn btn-dark" (click)="triggerModal(modalDataa)">Update Profile</button>
+                  <h4>{{proff}}</h4>
                 </div>   
 
 
@@ -302,7 +307,9 @@
 <!------ Modal for cart -->
 
 
-                <!--- Modal to raise ticket -->
+                <!--- Modal to cart -->
+
+                <p>{{CartVart}}</p>
               <ng-template #CartModal let-modal>
                 <div class="modal-header">
                   <h4 class="modal-title" id="modal-basic-title">Cart</h4>
@@ -330,6 +337,9 @@
                 </div>
                   
                       <div class="modal-footer">
+                        <div style="animation: erase-in 4s;">
+                          {{displayText}}
+                        </div>
                         <button style="margin-top:10% ;" (click) ="checkFunds(checkoutDate.value)" style="width: 14rem; height: 5rem;" class="btn btn-dark">Check Out</button>
                       </div>
                     

@@ -5,6 +5,8 @@ import { UserService } from './../user.service';
 import { Cart } from './../cart.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { stringify } from '@angular/compiler/src/util';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -14,22 +16,46 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class UserComponent implements OnInit {
   addedCart="";
+  CartVart="";
+  proff=" "
   isShopping:boolean= false;
   notShopping:boolean = true;
   signedInUserDetails:any = {};
   closeModal: string="";
   products:Product[] = new Array;
   tempCart:any[]= [];
-  constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
+
+  
+
+  constructor(public productService:ProductServiceService, 
+    public userService:UserService,
+    private modalService: NgbModal,public toastr: ToastrService) { }
+
+
+
   currentBalance?:number;
   currentFunds?:string;
 
+  displayText:string = "";
+  interval :any;
+  upUFunds:string = " ";
   userOrders: any [] = [];
-   
+  userNow:any;
+  Fname:string="";
+  Lname:string="";
   
   ngOnInit(): void {
+  this.CartVart="";
+  this.proff = " ";
+  
+    this.userNow = this.getCurrentUser();
+    if(this.userNow){
+      this.Fname = this.userNow.fName;
+      this.Lname = this.userNow.lName;
+    }
     this.productService.getAllProducts().subscribe(res => this.products = res);
-    this.addedCart="";
+    this.addedCart=" ";
+    this.upUFunds= " ";
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
@@ -49,11 +75,12 @@ export class UserComponent implements OnInit {
       else{
         console.log("tempUserDetails is null");
       }
-
+      
       this.currentBalance = this.signedInUserDetails.balance;
       this.currentFunds = this.signedInUserDetails.funds;
   }
 
+  
 
   is_Shopping(){
 
@@ -65,13 +92,19 @@ export class UserComponent implements OnInit {
   // add functionality if the name of this new order is the same as a previous order to add to the quanitity and cost of previous order
   // and dont append a new object to the cart
   addProduct(addProductRef:any, quantity:string){
+
+    if(parseInt(quantity) <= 0 || quantity == ""){
+      this.toastr.error("Must be greater than 0" );
+      return;
+    }
+
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
      let id = Math.floor(Math.random() * 10000).toString() + addProductRef.name + addProductRef.cost.toString();
      let quanityNumber = parseInt(quantity);
      let price = addProductRef.cost * quanityNumber;
-
+     this.toastr.success( addProductRef.name, " added to cart" )
      let newObj ={
        id,
       name:addProductRef.name,
@@ -90,19 +123,22 @@ export class UserComponent implements OnInit {
        this.tempCart = cartObjs;
 
        jsonString = JSON.stringify(cartObjs);
-
+       
      }else{
       let oldCart = JSON.parse(cart);
 
       // check if I am updating the same product to the checkout list
       for(let c of oldCart){
+      
         if(c.name == addProductRef.name){
+          
           // update the value in the checkout cart
           // let cartQ = parseInt(c.quantity);
           // cartQ += quanityNumber;
           c.quantity = quanityNumber;
           c.price = price;
-
+          //toast added product
+          
           this.tempCart = oldCart;
           localStorage.setItem('cart', JSON.stringify(oldCart));
           console.log("Temp cart after updating", this.tempCart);
@@ -119,9 +155,10 @@ export class UserComponent implements OnInit {
 
      localStorage.setItem('cart', jsonString);
      console.log("Temp cart after adding", this.tempCart);
-     this.addedCart="Added to cart"
+    
      
   }
+
 
   // showOrders(){
   //   let sessionString = sessionStorage.getItem("LoggedInUserDetails");
@@ -193,9 +230,10 @@ export class UserComponent implements OnInit {
     let sessionString = sessionStorage.getItem("LoggedInUserDetails");
      if(sessionString){ console.log("Got session storage");
       let userObj = JSON.parse(sessionString); 
+      
       for(let x of userObj.Orders){
          let newOrder = { 
-           name: userObj.fName,
+           fName: userObj.fName,
            user:userObj.autoGenID,
            id:x.id, 
            cost: x.cost, 
@@ -207,36 +245,60 @@ export class UserComponent implements OnInit {
       } 
     }
 
-    deleteOrder(userID:any, orderID:any){
+    deleteOrder(userID:any, orderID:any, cost:any){
+      let tempUserObj = this.getCurrentUser();
+      cost = tempUserObj.funds + cost; 
       let newObj = {
         userID,
-        orderID
+        orderID,
+        cost
       }
       this.userService.deleteOrder(newObj).subscribe(res => {
         console.log(res);
         // update product and money in backen
-        let newArray;
         if(res == "Success"){
+          this.setCurrentUser();
+          let repalceProds = this.userOrders.filter(o => o.id == orderID);
+          this.replaceProducts(repalceProds);
+          this.userOrders = this.userOrders.filter(o => o.id != orderID);
+          let userObj = this.getCurrentUser();
+          if(userObj){
+            console.log("USER OBJ, ", userObj);
+            //userObj.Orders = this.userOrders;
+            userObj.Orders = this.userOrders;
+            console.log("USER OBJ, ", userObj);
+            this.userService.retrieveUserById(userObj).subscribe(res => {
+              this.currentBalance = res.balance;
+              this.currentFunds = res.funds;
 
-          this.userOrders = this.userOrders.filter(o => o.id != userID);
-          console.log("New array", newArray);
+            });
+            //let getCurUserFromDB = this.userService.
+            
+          }
         }
-        let sessionString = sessionStorage.getItem("LoggedInUserDetails");
-        if(sessionString){ console.log("Got session storage");
-          let userObj = JSON.parse(sessionString); 
-          userObj.Orders = this.userOrders;
-          sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(userObj));
-          console.log('Reset sesesion storage after deelting', userObj);
-        } 
-
-
-
-
-        //
+        
       })
-
-      
     }
+
+  replaceProducts(userObj:any){
+    console.log(userObj);
+    let prods = userObj[0].products;
+
+    for(let p of userObj[0].products){
+      // call service to add back the product hopefully works
+      let split = p.split('_');
+      let newObj ={
+        name:split[0],
+        quantity:split[1]
+      }
+
+      this.productService.replaceProductQuantity(newObj).
+      subscribe(res => {
+        this.refillProducts();
+      }, (err) => console.log(err));
+
+    }
+  }
 
 
   checkFunds(checkoutDate:string){// take in the date info and pass to checkout to store date info
@@ -280,7 +342,8 @@ export class UserComponent implements OnInit {
             }
           }else{
             console.log('you dont have the proper funds');
-            
+            // need to figure out have to make this dissapear
+            this.displayText = "Not enough Funds to purchase";
           }
         }, (err) => console.log(err));
 
@@ -295,50 +358,53 @@ export class UserComponent implements OnInit {
     console.log('Start checkout');
     let id = currentUser.autoGenID;
     let autoGenID = currentUser.autoGenID;
-
     id += "_"+ Math.floor(Math.random()*10000).toString();
 
-    let order = {
-      products :allProducts,
-      newFunds, // i get from check proper funds
-      user:autoGenID,// should be user id
-      id,//order id
-      cost:totalCost,
-      date:checkoutDate
-    }
-
-    console.log("order is", order);
-    this.userService.checkout(order).
-    subscribe((res:any) =>{
-      if(res.funds || res.orders){
-        alert('Both funds and orders have been updated.');
-        //empty out the cart
-        this.tempCart = [];
-        localStorage.setItem("cart", JSON.stringify(this.tempCart));
-<<<<<<< HEAD
-        this.currentFunds = order.newFunds;
-        window.location.reload();
-=======
-
-      
-        
-        // update the user in session storage
-        this.setCurrentUser();
->>>>>>> 5cf6779142cabfd9b9c9ffb34b19d0c0dc75c070
-
-      }else{
-        alert('Failed to updated funds and /or orders');
+    if(totalCost != 0){
+      let order = {
+        products :allProducts,
+        newFunds, // i get from check proper funds
+        user:autoGenID,// should be user id
+        id,//order id
+        cost:totalCost,
+        date:checkoutDate
       }
-    })
+  
+      console.log("order is", order);
+      this.userService.checkout(order).
+      subscribe((res:any) =>{
+        if(res.funds || res.orders){
+          this.CartVart="Both funds and orders have been updated."
+          let tempUserObjforFunds = this.getCurrentUser();
+          this.currentBalance = tempUserObjforFunds.balance;
+          this.currentFunds = tempUserObjforFunds.funds;
+          //empty out the cart
+          this.tempCart = [];
+          localStorage.setItem("cart", JSON.stringify(this.tempCart));
+          // update the user in session storage
+          this.setCurrentUser();
 
-
+        }else{
+          this.CartVart="Failed to updated funds and /or orders"
+        }
+      })
+    }
+    else{
+      this.CartVart="Your cart is Empty!"
+    }
   };
 //profile functions
 triggerModal(content:any) {
   this.modalService.open(content, {ariaLabelledBy: 'modal-basic'}).result.then((res) => {
     this.closeModal = `Closed with: ${res}`;
+    let tempUserObjforFunds = this.getCurrentUser();
+    this.currentBalance = tempUserObjforFunds.balance;
+    this.currentFunds = tempUserObjforFunds.funds;
   }, (res) => {
     this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+    let tempUserObjforFunds = this.getCurrentUser();
+    this.currentBalance = tempUserObjforFunds.balance;
+    this.currentFunds = tempUserObjforFunds.funds;
   });
   refresh: true
 }
@@ -360,6 +426,7 @@ update_User(myUpdateForm:any){
 
 //profile functions
 updateUser(myUpdateForm:any){
+  
   console.log("Update User is called:", myUpdateForm);
   let tempSignedInUser:any = this.signedInUserDetails;
   function clean(obj:any) {
@@ -375,11 +442,15 @@ updateUser(myUpdateForm:any){
   console.log("Cleaned Update Form: ", myUpdateForm);
   console.log(merged);
   this.userService.updateProfile(merged).subscribe((result:string)=> {
+    
+    this.proff=result;
+
     let tempResult = JSON.stringify(merged);
     console.log("Temp Result after updating user ", tempResult);
     sessionStorage.setItem('LoggedInUserDetails', tempResult);
-    alert(result);
+    
   });
+  
   //console.log();
 }
 
@@ -415,17 +486,20 @@ updateUserFunds(myUpdateFundsForm:any){
           let tempResult = JSON.stringify(merged);
           console.log("Temp Result after updating user funds ", tempResult);
           sessionStorage.setItem('LoggedInUserDetails', tempResult);
-          this.currentBalance = merged.balance;
-          this.currentFunds = merged.funds;
-          alert(result);
+          
+          let tempUserObjforFunds = this.getCurrentUser();
+          this.currentBalance = tempUserObjforFunds.balance;
+          this.currentFunds = tempUserObjforFunds.funds;
+          this.upUFunds= result;
+          
         });
       }
       else{
-        alert("You can't add funds more than your balance!");
+        this.upUFunds= "You can't add funds more than your balance!";
       }
     }
     else{
-      alert("Your total balance is empty!");
+      this.upUFunds= "Your total balance is empty!";
     }
     /* let tempFundsObj = { funds: myUpdateFundsForm.fundsToAdd };
     console.log(tempFundsObj);
@@ -433,7 +507,7 @@ updateUserFunds(myUpdateFundsForm:any){
     console.log(merged); */
   }
   else{
-    alert("Your account number or phone number doesn't match");
+    this.upUFunds= "Your account number or phone number doesn't match"
   }
 }
 
@@ -449,10 +523,16 @@ updateUserFunds(myUpdateFundsForm:any){
       console.log("In Updated Quantities",newObj);
       this.productService.reduceProductQuantity(newObj).subscribe((res:any) =>{
         console.log(res);
+        this.refillProducts()
       }, (err) => console.log(err))
     }
     return true;
     // need to figure out how to check if there is not enough product quantities
+  }
+
+  refillProducts(){
+    this.productService.getAllProducts().
+    subscribe(res => this.products = res, (err) => console.log(err));
   }
 
   getCurrentUser(){
@@ -472,6 +552,8 @@ updateUserFunds(myUpdateFundsForm:any){
       this.userService.retrieveUserById(newObj).
       subscribe(res => {
         sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(res));
+        this.currentBalance = userObj.balance;
+        this.currentFunds = userObj.funds;
       }, (err) => console.log(err));
     }
 

@@ -554,13 +554,14 @@ let updateOrderStatus = (req, res) => {
 };
 
 let deleteOrder = (req, res) => {
-  let user = req.body.orderID;
-  let oId = req.body.userID;
+  let user = req.body.userID;
+  let oId = req.body.orderID;
+  let rCost = req.body.cost;
   console.log("OID:", oId);
 
-  UserModel.updateOne(
+  UserModel.updateMany(
     { autoGenID: user },
-    { $pull: { Orders: { id: oId } } },
+    { $set: { funds: rCost } },
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {

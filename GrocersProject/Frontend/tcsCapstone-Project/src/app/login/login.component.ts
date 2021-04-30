@@ -17,7 +17,8 @@ import { FormGroup } from '@angular/forms';
 export class LoginComponent implements OnInit {
   closeModal: string="";
   adminRecord:Object ={};
-  
+  signing:string = "";
+  sign_up:string = "";
   constructor(
     private modalService: NgbModal,
     public router:Router, 
@@ -26,21 +27,27 @@ export class LoginComponent implements OnInit {
     public empService:EmployeeService 
     ) {}
   ngOnInit(): void {
+    this.signing = "";
+    this.sign_up=" ";
     let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
-  element.click();
-  let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
-  element1.click();
-  let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
-  element2.click();
+    element.click();
+    let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
+    element1.click();
+    let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
+    element2.click();
   }
   Resetter(){
+    this.sign_up=" ";
+    this.signing = "";
     let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
-  element.click();
-  let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
-  element1.click();
-  let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
-  element2.click();
+    element.click();
+    let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
+    element1.click();
+    let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
+    element2.click();
   }
+
+  
 //signIn function for user
   signIn(userID:any, userPword:any){
     console.log(userID, userPword);
@@ -55,7 +62,8 @@ export class LoginComponent implements OnInit {
       if(result != null){
         console.log("Sign In: " + result);
         if(result == "You are locked out! Raise ticket!")
-          alert(result);
+          {
+          this.signing="You are locked out! Raise ticket!";}
         else{
           if(result == "Password correct"){
             this.useService.retrieveUserById(tempObj).subscribe( result =>{
@@ -66,16 +74,20 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem('userToken', '123');
                 console.log("After Session Storage, result type and result is: " , typeof(tempResult) , tempResult);
                 sessionStorage.setItem('LoggedInUserDetails', tempResult);
+                localStorage.removeItem('cart');
                 this.router.navigate(["user"]);
               }
             });
           }
           else if(result == "User ID not found")
-            alert("User ID not found");
+            {
+            this.signing="User ID not found";}
           else if(Number(result) == 3 || Number(result) == 2 || Number(result) == 1)
-            alert("Incorrect Password! " + result + " tries left!");
+            {
+            this.signing= "Incorrect Password! " + result + " tries left!"}
           else if(result == "Your number of tries depleted. You are locked out! Raise ticket!")
-            alert(result);
+            {
+              this.signing = result }
         }
       }
     });
@@ -89,7 +101,7 @@ export class LoginComponent implements OnInit {
         if(data = "Record stored successfully!"){
           console.log(mySignUpForm);
           this.useService.generateUserID(mySignUpForm).subscribe((resultFinal:string)=> {
-            alert(resultFinal);
+            this.sign_up = resultFinal;
           });
         }
       }
@@ -109,6 +121,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["admin"]);
         }else{
           console.log('wrong password');
+          this.signing="wrong password Admin!"
         }
       }
     }, err => console.log(err));
@@ -117,17 +130,20 @@ export class LoginComponent implements OnInit {
   //employee sign IN
   employeeSignin(userID:any,userPword:any) {
     this.empService.validateEmpLogin(userID).subscribe(result => {
+      this.signing=result
       // console.log(result);
       if(result != null){
         if(userPword == result.password){
-          alert("Login Sucess")
+          
+          this.signing="Login Sucess"
           sessionStorage.setItem("employeeToken", "123");
           console.log("Employee obj",result);
           sessionStorage.setItem("currentEmployee", JSON.stringify(result));
           sessionStorage.setItem('employeeToken', '123');
           this.router.navigate(["employee"]);
         }else{
-          alert("Wrong Password")
+          
+          this.signing=result
         }
       }
     }, error =>console.log(error));
@@ -143,7 +159,7 @@ export class LoginComponent implements OnInit {
     console.log(myTicketForm);
 
     this.useService.raiseTicketService(myTicketForm).subscribe((result:string)=> {
-      alert(result);
+      this.signing=result
     });
   }
 

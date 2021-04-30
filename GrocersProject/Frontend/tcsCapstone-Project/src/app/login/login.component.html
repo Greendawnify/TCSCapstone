@@ -58,6 +58,7 @@
                 
               </form>
           
+            <p>{{sign_up}}</p>
             </div>
           </div>
         </div>
@@ -93,7 +94,7 @@
                 <input id="reset_login" type="reset" value="reset" class="btn btn-outline-light">
                 <br>
                    
-
+                <h3>{{signing}}</h3>
                 
                 <button type="button" style="margin-left: 40%;" class="btn btn-link" (click)="triggerModal(RaiseTicket)">Forgot Password/Username</button>
 
@@ -109,7 +110,7 @@
                 <div class="modal-body">
                   
 
-                  <form  ngNativeValidate #myTicketForm = "ngForm"  (ngSubmit)="raiseTicketFunc(myTicketForm.value);Resetter()">
+                  <form  ngNativeValidate #myTicketForm = "ngForm"  (ngSubmit)="raiseTicketFunc(myTicketForm.value);Resetter();modal.close('Save click')" ngNativeValidate>
                       <input type = "text" class="form-control" name = "fName" placeholder = "Your First Name" ngModel required>
                       <br/>
                     
@@ -127,7 +128,7 @@
                       <br>
                   
                       <div class="modal-footer">
-                        <input type="submit" value="Raise Ticket" class="btn btn-dark" (click)="modal.close('Save click')">
+                        <input type="submit" value="Raise Ticket" class="btn btn-dark">
                         <input id="reset_forgotLogin" type="reset" value="reset" class="btn btn-outline-light">
                         <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
                       </div>

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
@@ -53,7 +53,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     MatToolbarModule,
     MatTabsModule,
     FormsModule, HttpClientModule,NgbModule,BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()     
+    DatepickerModule.forRoot(),ToastrModule.forRoot()     
   ],
   providers: [UserAuthGuard, EmployeeAuthGuard, AdminAuthGuard],
   bootstrap: [AppComponent]

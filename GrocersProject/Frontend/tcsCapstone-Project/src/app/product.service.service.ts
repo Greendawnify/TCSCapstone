@@ -13,8 +13,7 @@ export class ProductServiceService {
   constructor(public http:HttpClient) { }
 
   addProduct(productRef:any){
-    this.http.post("http://localhost:9090/product/addProduct", productRef, {responseType:'text'}).
-    subscribe(res =>console.log(res), err => console.log(err));
+    return this.http.post("http://localhost:9090/product/addProduct", productRef, {responseType:'text'});
   }
 
   deleteProduct(ID:any):any{
@@ -35,5 +34,9 @@ export class ProductServiceService {
 
   reduceProductQuantity(reduceObj:any){
     return this.http.put("http://localhost:9090/product/reduceQuantity", reduceObj);
+  }
+
+  replaceProductQuantity(replaceObj:any){
+    return this.http.put("http://localhost:9090/product/replaceProducts", replaceObj, {responseType:"text"});
   }
 }
