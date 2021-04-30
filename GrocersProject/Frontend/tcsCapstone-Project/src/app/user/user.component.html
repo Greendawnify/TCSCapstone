@@ -231,20 +231,20 @@
                         
                           <div class="card-body">
                             <h2 class="card-title">Sign-Up</h2>
-                            <form #myUpdateForm = "ngForm"  (ngSubmit)="updateUser(myUpdateForm.value)">
-                              <input type = "text" class="form-control" name = "fName" placeholder = "Update First Name" ngModel>
+                            <form #myUpdateForm = "ngForm" ngNativeValidate  (ngSubmit)="updateUser(myUpdateForm.value)">
+                              <input type = "text" class="form-control" name = "fName" placeholder = "Update First Name" ngModel required>
                               <br/>             
-                              <input type = "text" class="form-control" name = "lName" placeholder = "Update Last Name" ngModel>
+                              <input type = "text" class="form-control" name = "lName" placeholder = "Update Last Name" ngModel required>
                               <br/>     
-                              <input type = "email" class="form-control" name = "email"  placeholder = "Update Email" ngModel>
+                              <input type = "email" class="form-control" name = "email"  placeholder = "Update Email" ngModel required>
                               <br/>
-                              <input type = "tel" class="form-control" name = "phoneNum"  placeholder = "Update Phone Number" ngModel>
+                              <input type = "tel" class="form-control" name = "phoneNum"  placeholder = "Update Phone Number" ngModel required>
                               <br/>
-                              <input type = "password" class="form-control" name = "pWord"  placeholder = "Update Password" ngModel>
+                              <input type = "password" class="form-control" name = "pWord"  placeholder = "Update Password" ngModel required>
                               <br/>
-                              <input type = "date" class="form-control" name = "dob"  placeholder = "Update Date of Birth: MM/DD/YR" ngModel>
+                              <input type = "date" class="form-control" name = "dob"  placeholder = "Update Date of Birth: MM/DD/YR" ngModel required>
                               <br/>
-                              <input type = "address" class="form-control" name = "street"  placeholder = "Update Street" ngModel>
+                              <input type = "address" class="form-control" name = "street"  placeholder = "Update Street" ngModel required>
                               <br/>
                               <input type="text" class="form-control"  name = "city" id="validationCustom03" placeholder = "Update City"  required>
                               <div class="invalid-feedback">
@@ -252,7 +252,7 @@
                                </div>
                                
                               <br/>
-                              <input type = "state" class="form-control" name = "state"  placeholder = "Update State" ngModel>
+                              <input type = "state" class="form-control" name = "state"  placeholder = "Update State" ngModel required>
                               <br/>
                        
                               <input type="text" class="form-control" id="validationCustom05" name = "zip"  placeholder = "Update Zipcode" required ngModel>
@@ -277,7 +277,7 @@
                               </div>
                                 <br>
                                 <div class="modal-footer">
-                                  <input type="submit" value="Update Profile" class="btn btn-dark" (click)="modal.close('Update Profile')"/>
+                                  <input type="submit" value="Update Profile" class="btn btn-dark" />
                                   <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Update Profile')">Update Profile</button> -->
                                 </div>      
                               

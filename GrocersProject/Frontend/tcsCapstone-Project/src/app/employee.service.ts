@@ -18,7 +18,7 @@ export class EmployeeService {
 
 
   deleteEmployeeById(id:any):any {
-    return this.http.delete("http://localhost:9090/employee/deleteEmployeeById/"+id, {responseType:"text"});
+    return this.http.delete("http://localhost:9090/employee/deleteEmployeeById/"+id.id, {responseType:"text"});
   }
 
 

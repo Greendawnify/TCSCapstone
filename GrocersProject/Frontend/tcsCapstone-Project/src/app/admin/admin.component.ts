@@ -178,7 +178,7 @@ export class AdminComponent implements OnInit {
 
   // deleteEmployee(idRef.value) if(confirm("Are you sure to delete "+name))
   deleteEmployee(id:any){
-    console.log("id is "+id);
+    console.log("id is ",id);
     
       this.empService.deleteEmployeeById(id).subscribe((result:string)=> {
         this.deleteMsg=result;

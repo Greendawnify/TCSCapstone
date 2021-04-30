@@ -25,6 +25,7 @@ export class EmployeeComponent implements OnInit {
   users:User[]=new Array;
   closeModal: string="";
   Requp: string="";
+  sentRequestString:string ='';
   constructor(
     public requestService:RequestService,
     public employeeSer: EmployeeService,
@@ -107,7 +108,11 @@ let element1:HTMLElement = document.getElementById('reset_pass') as HTMLElement;
   createRequest(subject:any, desc:any){
     // the values in the body have to be Type, and Description, and sender
     // need to add the current employee record to local storage and then add its id or name to this request
-
+    console.log(subject)
+    if(desc.value == "" || subject == "" || subject == "Subject..."){
+      this.sentRequestString = 'Please Enter valid';
+      return;
+    }
     let currentEmployeJson = sessionStorage.getItem("currentEmployee");
     let emp;
     if(currentEmployeJson){
@@ -120,6 +125,9 @@ let element1:HTMLElement = document.getElementById('reset_pass') as HTMLElement;
       sender: emp.firstname
     };
     this.requestService.createRequest(newObj);
+    this.sentRequestString = "";
+    desc.value = "";
+    alert("Sent request");
   }
 
 

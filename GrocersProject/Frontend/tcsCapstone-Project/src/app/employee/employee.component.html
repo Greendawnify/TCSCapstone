@@ -17,6 +17,7 @@
                   <div class="card bg-light mb-3">
                     <div class="card-body">
                       <h3 class="card-title">Add Request</h3>
+                      {{sentRequestString}}
                       <form #myform = "ngForm" >
         
                       <div>
@@ -39,7 +40,7 @@
                     </form>
                     
                     </div>
-                    <button class="btn btn-dark" (click) ="createRequest(subjectText.value, descText.value)">Submit</button>
+                    <button class="btn btn-dark" (click) ="createRequest(subjectText.value, descText)">Submit</button>
                 </div>
               </div>
            
