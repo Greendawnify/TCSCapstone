@@ -199,7 +199,7 @@ export class UserComponent implements OnInit {
       
       for(let x of userObj.Orders){
          let newOrder = { 
-           name: userObj.fName,
+           fName: userObj.fName,
            user:userObj.autoGenID,
            id:x.id, 
            cost: x.cost, 
@@ -211,24 +211,36 @@ export class UserComponent implements OnInit {
       } 
     }
 
-    deleteOrder(userID:any, orderID:any){
+    deleteOrder(userID:any, orderID:any, cost:any){
+      let tempUserObj = this.getCurrentUser();
+      cost = tempUserObj.funds + cost; 
       let newObj = {
         userID,
-        orderID
+        orderID,
+        cost
       }
       this.userService.deleteOrder(newObj).subscribe(res => {
         console.log(res);
         // update product and money in backen
         if(res == "Success"){
-
-          this.userOrders = this.userOrders.filter(o => o.id != userID);
-        }
-        let userObj = this.getCurrentUser();
-        if(userObj){
-          
-          userObj.Orders = this.userOrders;
           this.setCurrentUser();
+          this.userOrders = this.userOrders.filter(o => o.id != orderID);
+          let userObj = this.getCurrentUser();
+          if(userObj){
+            console.log("USER OBJ, ", userObj);
+            //userObj.Orders = this.userOrders;
+            userObj.Orders = this.userOrders;
+            console.log("USER OBJ, ", userObj);
+            this.userService.retrieveUserById(userObj).subscribe(res => {
+              this.currentBalance = res.balance;
+              this.currentFunds = res.funds;
+              //this.userOrders = res.Orders;
+            });
+            //let getCurUserFromDB = this.userService.
+            
+          }
         }
+        
       })
     }
 
