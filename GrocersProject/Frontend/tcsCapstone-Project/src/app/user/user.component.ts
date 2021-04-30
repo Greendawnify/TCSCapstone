@@ -135,27 +135,6 @@ export class UserComponent implements OnInit {
      
   }
 
-  // showOrders(){
-  //   let sessionString = sessionStorage.getItem("LoggedInUserDetails");
-  //   if(sessionString){
-  //     console.log("Got session storage");
-  //     let userObj = JSON.parse(sessionString);
-      
-      
-
-  //     for(let x of userObj.Orders){
-  //       let newOrder = {
-  //         name: userObj.fName,
-  //         cost: x.cost,
-  //         status: x.status,
-  //         products: x.products
-  //       };
-  //       this.userOrders.push(newOrder);
-  //     }
-  //   }
-
-  // }
-
 //delete product
   deleteProduct(deleteID:any){
     let cart:string|null;
