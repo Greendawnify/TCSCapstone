@@ -7,10 +7,6 @@ import { User } from '../model.user';
 import { Employee } from './../model.employee';
 import { ElementRef, ViewChild } from '@angular/core';
 import { ProductServiceService } from './../product.service.service';
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f2214f90319e97c485f606525cc4a9c1836fdf9
 import { Product } from './../model.product';
 
 
