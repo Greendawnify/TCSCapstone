@@ -42,7 +42,11 @@ export class AdminComponent implements OnInit {
   tableHeading2:string ='';
   tableHeading3:string ='';
   tableHeading4:string ='';
-
+  Addemp:string ="";
+  addprod:string = "";
+  delprod:string = "";
+  upQuant:string = "";
+  upPrice:string = "";
   //date variables
   
   duplicateArray=[]
@@ -56,6 +60,13 @@ export class AdminComponent implements OnInit {
 
   // Testing requests = [{ type:"hello", description:"this this" },{ type:"hello", description:"this this" }]
   ngOnInit(): void {
+    this.addprod = " ";
+    this.delprod = " ";
+    this.Addemp = " ";
+    this.deleteMsg=" ";
+    this.upQuant = " ";
+    this.upPrice = " ";
+    
     this.requestService.getAllRequests().subscribe(res => this.requests = res, (err) => console.log(err));
     this.userService.getUsersWithOrders().subscribe(res => this.users = res, (err) => console.log(err));
     this.productService.getAllProducts().subscribe(res => this.products = res, (err) => console.log(err));
@@ -82,10 +93,15 @@ export class AdminComponent implements OnInit {
   element.click();
   let element1:HTMLElement = document.getElementById('reset_DelEmployee') as HTMLElement;
   element1.click();
+  this.Addemp = " ";
+  this.deleteMsg = " ";
   }
   
   Prod_Resetter(){
-    
+    this.addprod = " ";
+    this.delprod = " ";
+    this.upQuant = " ";
+    this.upPrice = " ";
   let element2:HTMLElement = document.getElementById('reset_AddProduct') as HTMLElement;
   element2.click();
   let element3:HTMLElement = document.getElementById('reset_DelProduct') as HTMLElement;
@@ -94,6 +110,7 @@ export class AdminComponent implements OnInit {
   element4.click();
   let element5:HTMLElement = document.getElementById('reset_upQuantity') as HTMLElement;
   element5.click();
+  
   }
 //employee tab visible
   Emp_visible(){
@@ -136,7 +153,9 @@ export class AdminComponent implements OnInit {
 //add product to database
   addProduct(productRef:any){
     this.productService.addProduct(productRef).subscribe(res => {
+      this.addprod = res;
       if(res == "Record stored succesfully"){
+        
         // display text of succesfully insertion
         this.refilProducts();
       }
@@ -144,27 +163,30 @@ export class AdminComponent implements OnInit {
   }
 //add an employee to db
   addEmployee(employeeRef:any){
+    
     this.empService.addEmployeeDetails(employeeRef).
     subscribe(res => {
+      this.Addemp = res
       if(res == "Employee Record stored successfully"){
         // display text of successful insertion
+        
         this.refillEmployeeList();
       }
-    }, (err) => console.log(err));
+    }, (err) => this.Addemp = "Employee Record stored FAILED");
   }
   //delete employee from db
 
   // deleteEmployee(idRef.value) if(confirm("Are you sure to delete "+name))
   deleteEmployee(id:any){
     console.log("id is "+id);
-    if(confirm("Are you sure to delete")){
+    
       this.empService.deleteEmployeeById(id).subscribe((result:string)=> {
         this.deleteMsg=result;
         if(result == "Employee Record deleted successfully"){
           this.refillEmployeeList();
         }
-    })
-    }
+      })
+    
  
   }
 
@@ -172,16 +194,23 @@ export class AdminComponent implements OnInit {
   deleteProduct(deleteRef:any){
     this.productService.deleteProduct(deleteRef.id).subscribe((result:string) =>{
       console.log(result);
+      this.delprod = result;
       if(result == "record deleted succesfully"){
+        
         this.refilProducts();
       }
     })
   }
 //update the product quant
   updateProductQuantity(updateRef:any){
+    console.log("quant enter")
     this.productService.updateQuantity(updateRef).subscribe((result:string) => {
       // if succesfule
+      this.upQuant = result;
+      console.log(result)
       if(result == "record updated succesfully"){
+        
+        console.log( this.upQuant, " its working update quant");
         this.refilProducts();
       }
     });
@@ -190,7 +219,9 @@ export class AdminComponent implements OnInit {
   updateProductCost(updaetRef:any){
     this.productService.updateCost(updaetRef).subscribe(res => {
       // if succesful 
+      this.upPrice = res;
       if(res == "record updated succesfully"){
+        
         this.refilProducts();
       }
     });

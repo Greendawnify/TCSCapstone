@@ -69,6 +69,7 @@
                               <option value="Shipped">Shipped</option>
                               <option value="Canceled">Canceled</option>
                               <option value="Delivered">Delivered</option>
+                              <option value="Delivered">Cancelled</option>
                             </select>
                             <div class="input-group-append">
                               <!---Please add a function to update order status-->
@@ -148,13 +149,13 @@
             <div class="modal-body">
               
 
-              <form #myTicketForm = "ngForm"  >
+              <form #myTicketForm = "ngForm" (ngSubmit) ="modal.close('save click'); updateEmployeePwd(newPass.value)" ngNativeValidate>
                   
                   <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">@</span>
                       </div>
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Employee ID" aria-describedby="basic-addon1">
+                      <input type="text" class="form-control" placeholder="Username" aria-label="Employee ID" aria-describedby="basic-addon1" required>
                     </div>
                   <br>
                   
@@ -164,7 +165,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">old Pass</span>
                       </div>
-                    <input type = "password" class="form-control" placeholder=" Current Password" aria-label="Current Password" aria-describedby="basic-addon1">
+                    <input type = "password" class="form-control" placeholder=" Current Password" aria-label="Current Password" aria-describedby="basic-addon1" required>
                    
                   </div>
                 </div>
@@ -174,19 +175,14 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">New Pass</span>
                     </div>
-                  <input type = "password" #newPass class="form-control" placeholder=" New Password" aria-label="New Password" aria-describedby="basic-addon1">
+                  <input type = "password" #newPass class="form-control" placeholder=" New Password" aria-label="New Password" aria-describedby="basic-addon1" required>
                 
                   
                 </div> 
                 <input style="margin-left: 80%;" id="reset_pass" type="reset"  class="btn btn-outline-light">
               </div>
            
-                
-                    
-                    
-                  
-                  
-                    <input type="submit" value="Update Password" class="btn btn-dark" (click)="modal.close('save click'); updateEmployeePwd(newPass.value)">
+                    <input type="submit" value="Update Password" class="btn btn-dark" >
                     <!-- <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Raise Ticket</button> -->
                  
                 

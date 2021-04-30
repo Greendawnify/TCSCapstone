@@ -5,6 +5,8 @@ import { UserService } from './../user.service';
 import { Cart } from './../cart.model';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { stringify } from '@angular/compiler/src/util';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -20,7 +22,13 @@ export class UserComponent implements OnInit {
   closeModal: string="";
   products:Product[] = new Array;
   tempCart:any[]= [];
-  constructor(public productService:ProductServiceService, public userService:UserService,private modalService: NgbModal) { }
+
+  constructor(public productService:ProductServiceService, 
+    public userService:UserService,
+    private modalService: NgbModal,public toastr: ToastrService) { }
+
+
+
   currentBalance?:number;
   currentFunds?:string;
 
@@ -39,7 +47,7 @@ export class UserComponent implements OnInit {
       this.Lname = this.userNow.lName;
     }
     this.productService.getAllProducts().subscribe(res => this.products = res);
-    this.addedCart="";
+    this.addedCart=" ";
     let cart:string|null;
      cart = localStorage.getItem('cart');
 
@@ -64,6 +72,7 @@ export class UserComponent implements OnInit {
       this.currentFunds = this.signedInUserDetails.funds;
   }
 
+  
 
   is_Shopping(){
 
@@ -106,13 +115,16 @@ export class UserComponent implements OnInit {
 
       // check if I am updating the same product to the checkout list
       for(let c of oldCart){
+      
         if(c.name == addProductRef.name){
+          
           // update the value in the checkout cart
           // let cartQ = parseInt(c.quantity);
           // cartQ += quanityNumber;
           c.quantity = quanityNumber;
           c.price = price;
-
+          //toast added product
+          this.toastr.success( c.name ," added to cart" )
           this.tempCart = oldCart;
           localStorage.setItem('cart', JSON.stringify(oldCart));
           console.log("Temp cart after updating", this.tempCart);
@@ -129,9 +141,10 @@ export class UserComponent implements OnInit {
 
      localStorage.setItem('cart', jsonString);
      console.log("Temp cart after adding", this.tempCart);
-     this.addedCart="Added to cart"
+    
      
   }
+
 
   // showOrders(){
   //   let sessionString = sessionStorage.getItem("LoggedInUserDetails");
@@ -316,7 +329,7 @@ export class UserComponent implements OnInit {
           }else{
             console.log('you dont have the proper funds');
             // need to figure out have to make this dissapear
-            this.displayText = "Nto enough Funds to purchase";
+            this.displayText = "Not enough Funds to purchase";
           }
         }, (err) => console.log(err));
 
