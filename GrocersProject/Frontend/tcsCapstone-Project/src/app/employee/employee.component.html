@@ -67,11 +67,12 @@
                               <option selected>Update...</option>
                               <option value="Order Confirmed">Order Confirmed</option>
                               <option value="Shipped">Shipped</option>
+                              <option value="Canceled">Canceled</option>
                               <option value="Delivered">Delivered</option>
                             </select>
                             <div class="input-group-append">
                               <!---Please add a function to update order status-->
-                              <button class="btn btn-outline-dark" type="button" (click) = "statusUpdate(statsUpdate.value, currentStatus, o.id)">Button</button>
+                              <button class="btn btn-outline-dark" type="button" (click) = "statusUpdate(statsUpdate.value, currentStatus, o.id, userIdOrder.value)">Button</button>
                             </div>
                           </div>
                       </div>

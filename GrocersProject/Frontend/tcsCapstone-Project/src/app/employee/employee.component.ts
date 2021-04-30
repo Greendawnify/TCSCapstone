@@ -20,7 +20,8 @@ import { Product } from './../model.product';
 export class EmployeeComponent implements OnInit {
   
   products:Product[] = new Array;
-  
+  userOrders: any [] = [];
+
   users:User[]=new Array;
   closeModal: string="";
   constructor(
@@ -99,8 +100,6 @@ let element1:HTMLElement = document.getElementById('reset_pass') as HTMLElement;
       console.log('result')
     }, (err) => console.log(err));
   }
-
-
 
 
   createRequest(subject:any, desc:any){
@@ -183,12 +182,42 @@ viewOrders(user_id:any){
   }
 }
 
-statusUpdate(status:any, currentText:any, orderID:number){
+statusUpdate(status:any, currentText:any, orderID:number, userAutoGenID:String){
   currentText.innerHTML = "Current Status: "+status;
 
-  this.userService.updateOrderStatus(this.currentUserID,orderID,status).subscribe(result => {
-    console.log(result);
-  }, (err) => console.log(err));
+  if(status != "Canceled"){
+    this.userService.updateOrderStatus(this.currentUserID,orderID,status).subscribe(result => {
+      console.log(result);
+    }, (err) => console.log(err));
+  }
+  else{
+    console.log(userAutoGenID, " ", orderID);
+    let currentUser = this.usersWithOrders.find(element => element.autoGenID == userAutoGenID);
+    if(currentUser){
+      let orderToCancel : any;
+      for(let x of currentUser.Orders){
+        if(x.id == orderID){
+          //console.log("Current User Funds: ", currentUser.funds, " Order Cost: ", x.cost);
+          let newFund = parseInt(currentUser.funds.toString()) + parseInt(x.cost.toString()); 
+          //console.log("New Fund: ", newFund);
+          orderToCancel = {
+            userID: currentUser.autoGenID,
+            orderID: x.id, 
+            cost: newFund, 
+            //status: x.status, 
+            //products: x.products 
+          }
+        } 
+      }
+      this.userService.deleteOrder(orderToCancel).subscribe(res =>{
+        if(res == "Success"){
+          this.orderStatus = this.orderStatus.filter(o => o.id != orderID);
+         // this.userOrders = this.userOrders.filter(o => o.id != orderID);
+        }
+      });
+
+    }
+  }
 }
 
 }
