@@ -92,6 +92,12 @@ export class UserComponent implements OnInit {
   // add functionality if the name of this new order is the same as a previous order to add to the quanitity and cost of previous order
   // and dont append a new object to the cart
   addProduct(addProductRef:any, quantity:string){
+
+    if(parseInt(quantity) <= 0 || quantity == ""){
+      this.toastr.error("Must be greater than 0" );
+      return;
+    }
+
     let cart:string|null;
      cart = localStorage.getItem('cart');
 

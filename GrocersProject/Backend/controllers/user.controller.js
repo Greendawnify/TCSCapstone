@@ -561,7 +561,7 @@ let deleteOrder = (req, res) => {
 
   UserModel.updateMany(
     { autoGenID: user },
-    { $pull: { Orders: { id: oId } }, funds:rCost },
+    { $set: { funds: rCost } },
     (err, result) => {
       if (!err) {
         if (result.nModified > 0) {

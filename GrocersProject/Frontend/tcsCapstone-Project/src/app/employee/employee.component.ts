@@ -176,7 +176,7 @@ viewOrders(user_id:any){
 
   if(selectedUser){
     console.log(selectedUser.Orders);
-    this.orderStatus = selectedUser.Orders;
+    this.orderStatus = selectedUser.Orders.filter(order => order.status != "Canceled");
     this.currentUserID = selectedUser.autoGenID;
   }else{
     console.log("Incorrect userID")
@@ -186,6 +186,7 @@ viewOrders(user_id:any){
 
 statusUpdate(status:any, currentText:any, orderID:number, userAutoGenID:String){
   currentText.innerHTML = "Current Status: "+status;
+  
 
   if(status != "Canceled"){
     this.userService.updateOrderStatus(this.currentUserID,orderID,status).subscribe(result => {
@@ -193,12 +194,17 @@ statusUpdate(status:any, currentText:any, orderID:number, userAutoGenID:String){
     }, (err) => console.log(err));
   }
   else{
+    this.userService.updateOrderStatus(this.currentUserID,orderID,status).subscribe(result => {
+      console.log(result);
+    }, (err) => console.log(err));
+
+
     console.log(userAutoGenID, " ", orderID);
     let currentUser = this.usersWithOrders.find(element => element.autoGenID == userAutoGenID);
     if(currentUser){
       let orderToCancel : any;
       for(let x of currentUser.Orders){
-        if(x.id == orderID){
+        if(x.id == orderID && x.status != status){
           //console.log("Current User Funds: ", currentUser.funds, " Order Cost: ", x.cost);
           let newFund = parseInt(currentUser.funds.toString()) + parseInt(x.cost.toString()); 
           //console.log("New Fund: ", newFund);
@@ -215,9 +221,10 @@ statusUpdate(status:any, currentText:any, orderID:number, userAutoGenID:String){
         //   this.refillProducts();
         // }, (err) => console.log(err));
       }
+      this.orderStatus = this.orderStatus.filter(o => o.id != orderID);
       this.userService.deleteOrder(orderToCancel).subscribe(res =>{
         if(res == "Success"){
-          this.orderStatus = this.orderStatus.filter(o => o.id != orderID);
+          
          // this.userOrders = this.userOrders.filter(o => o.id != orderID);
         }
       });
