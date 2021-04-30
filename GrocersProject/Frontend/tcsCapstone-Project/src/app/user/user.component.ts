@@ -90,7 +90,7 @@ export class UserComponent implements OnInit {
      let id = Math.floor(Math.random() * 10000).toString() + addProductRef.name + addProductRef.cost.toString();
      let quanityNumber = parseInt(quantity);
      let price = addProductRef.cost * quanityNumber;
-
+     this.toastr.success( addProductRef.name, " added to cart" )
      let newObj ={
        id,
       name:addProductRef.name,
@@ -109,7 +109,7 @@ export class UserComponent implements OnInit {
        this.tempCart = cartObjs;
 
        jsonString = JSON.stringify(cartObjs);
-
+       
      }else{
       let oldCart = JSON.parse(cart);
 
@@ -124,7 +124,7 @@ export class UserComponent implements OnInit {
           c.quantity = quanityNumber;
           c.price = price;
           //toast added product
-          this.toastr.success( c.name ," added to cart" )
+          
           this.tempCart = oldCart;
           localStorage.setItem('cart', JSON.stringify(oldCart));
           console.log("Temp cart after updating", this.tempCart);
