@@ -28,9 +28,16 @@ export class UserComponent implements OnInit {
   interval :any;
 
   userOrders: any [] = [];
-   
+  userNow:any;
+  Fname:string="";
+  Lname:string="";
   
   ngOnInit(): void {
+    this.userNow = this.getCurrentUser();
+    if(this.userNow){
+      this.Fname = this.userNow.fName;
+      this.Lname = this.userNow.lName;
+    }
     this.productService.getAllProducts().subscribe(res => this.products = res);
     this.addedCart="";
     let cart:string|null;
@@ -236,7 +243,7 @@ export class UserComponent implements OnInit {
             this.userService.retrieveUserById(userObj).subscribe(res => {
               this.currentBalance = res.balance;
               this.currentFunds = res.funds;
-              //this.userOrders = res.Orders;
+
             });
             //let getCurUserFromDB = this.userService.
             
