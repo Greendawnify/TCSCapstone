@@ -130,6 +130,7 @@ export class LoginComponent implements OnInit {
   //employee sign IN
   employeeSignin(userID:any,userPword:any) {
     this.empService.validateEmpLogin(userID).subscribe(result => {
+      this.signing=result
       // console.log(result);
       if(result != null){
         if(userPword == result.password){
@@ -142,7 +143,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["employee"]);
         }else{
           
-          this.signing="wrong password Employee!"
+          this.signing=result
         }
       }
     }, error =>console.log(error));
@@ -158,7 +159,7 @@ export class LoginComponent implements OnInit {
     console.log(myTicketForm);
 
     this.useService.raiseTicketService(myTicketForm).subscribe((result:string)=> {
-      alert(result);
+      this.signing=result
     });
   }
 
