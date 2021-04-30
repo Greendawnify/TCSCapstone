@@ -12,36 +12,26 @@
 
 <!--- Landing page diaplaying static images -->
   <div *ngIf="notShopping" class="lightbox">
-    <div class="row">
-      <div class="col-lg-6">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-          data-mdb-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-          alt="Lightbox image 1"
-          class="w-100 mb-2 mb-md-4 shadow-1-strong rounded"
-        />
-        <img
-          src="https://mdbootstrap.com/img/Photos/Thumbnails/Square/1.jpg"
-          data-mdb-img="https://mdbootstrap.com/img/Photos/Square/1.jpg"
-          alt="Lightbox image 2"
-          class="w-100 shadow-1-strong rounded"
-        />
+    <div style="margin-left:47%; font: times ;" class="row">
+     <div class="col">
+        <h1>  Welcome </h1>
+        <h1>{{Fname}} {{Lname}}</h1>
+        
       </div>
       
-      <div class="col-lg-5">
-        <img
-          src="https://mdbootstrap.com/img/Photos/Thumbnails/Vertical/1.jpg"
-          data-mdb-img="https://mdbootstrap.com/img/Photos/Vertical/1.jpg"
-          alt="Lightbox image 3"
-          class="w-100 shadow-1-strong rounded"
-        />
+      
+        
       <p></p>
-<!---- Button to take to user component -->
-          <button style="width: 200px; height: 100px; " class="btn btn-dark" type="button"  (click)=" is_Shopping()" >Start Shopping</button>
-       
-      </div>
-      
     </div>
+<!---- Button to take to user component -->
+  <br>
+  <br>
+  <br>
+          <button style="size: auto ;margin-left:40%; " class="btn btn-light" type="button"  (click)=" is_Shopping()" ><img src="https://cdn.quotesgram.com/img/92/68/938158124-img-thing_.jpg"></button>
+       
+     
+      
+    
   </div>
 
 
@@ -55,10 +45,13 @@
            <!----- Side Cart checkout and all features integrated -->
            
           <div *ngIf="isShopping" class="card" style="width: 14rem;margin-left:5%; height: 4cm;">
-            <button style="width: 14rem; height: 5rem;" class="btn btn-light"> <img style="width:3rem ; height:2rem ;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png">Check Out</button>
+            <h2 style="margin-left: 20%;"> Check Out</h2>
+            <a><img style="width:6rem ; height:2rem ; margin-left:15%;" src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/shopping_cart-256.png"></a>
            <div class="card-body">
-            <button type="button" style="margin-left: 40%;" class="btn btn-dark" (click)="triggerModal(CartModal)">View Cart</button>
-
+             
+            
+            <button type="button" style="margin-left: 20%;" class="btn btn-dark" (click)="triggerModal(CartModal)">View Cart</button>
+          
             </div>
           </div>
           </div>
@@ -117,8 +110,9 @@
         <div class="card-body">
         <div class="row">      
           <h1 style="margin-left: 20%;" class="card-title">View Order</h1>
-          <button  class="btn btn-dark" style="margin-left:55% ;" (click) = "showOrders()">View All</button>
+          <button  class="btn btn-dark" style="margin-left:55% ;" (click) = "showOrders()" >View All</button>
           <table class="table">
+
             <thead class="thead-dark">
               <tr >
                 <th>Name</th>
@@ -139,6 +133,7 @@
     
             
           </table>
+
         </div>   
         <br>
         

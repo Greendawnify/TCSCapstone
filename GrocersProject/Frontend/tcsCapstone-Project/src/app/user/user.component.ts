@@ -28,9 +28,18 @@ export class UserComponent implements OnInit {
   interval :any;
 
   userOrders: any [] = [];
-   
+  userNow:any;
+  Fname:string="";
+  Lname:string="";
   
   ngOnInit(): void {
+    
+    this.userNow = this.getCurrentUser();
+    if(this.userNow){
+      this.Fname = this.userNow.fName;
+      this.Lname = this.userNow.lName;
+    }
+    
     this.productService.getAllProducts().subscribe(res => this.products = res);
     this.addedCart="";
     let cart:string|null;
@@ -39,7 +48,7 @@ export class UserComponent implements OnInit {
      if(cart){
        this.tempCart = JSON.parse(cart);
      }
-
+     
      // Get storage of users
      let tempUserDetails =  sessionStorage.getItem("LoggedInUserDetails");
       console.log(tempUserDetails);
@@ -125,27 +134,6 @@ export class UserComponent implements OnInit {
      this.addedCart="Added to cart"
      
   }
-
-  // showOrders(){
-  //   let sessionString = sessionStorage.getItem("LoggedInUserDetails");
-  //   if(sessionString){
-  //     console.log("Got session storage");
-  //     let userObj = JSON.parse(sessionString);
-      
-      
-
-  //     for(let x of userObj.Orders){
-  //       let newOrder = {
-  //         name: userObj.fName,
-  //         cost: x.cost,
-  //         status: x.status,
-  //         products: x.products
-  //       };
-  //       this.userOrders.push(newOrder);
-  //     }
-  //   }
-
-  // }
 
 //delete product
   deleteProduct(deleteID:any){
@@ -467,6 +455,9 @@ updateUserFunds(myUpdateFundsForm:any){
     return true;
     // need to figure out how to check if there is not enough product quantities
   }
+
+  
+
 
   getCurrentUser(){
     let sessionString = sessionStorage.getItem("LoggedInUserDetails");
