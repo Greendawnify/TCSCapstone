@@ -128,7 +128,7 @@
                 <th>{{user.products}}</th>
                 <th>{{user.status}}</th>
                 <th>{{user.cost}}</th>
-                <button>Delete</button>
+                <button (click) = "deleteOrder(user.user, user.id)" > Delete</button>
               </tr>
             </tbody>
     
@@ -325,6 +325,9 @@
                 </div>
                   
                       <div class="modal-footer">
+                        <div style="animation: erase-in 4s;">
+                          {{displayText}}
+                        </div>
                         <button style="margin-top:10% ;" (click) ="checkFunds(checkoutDate.value)" style="width: 14rem; height: 5rem;" class="btn btn-dark">Check Out</button>
                       </div>
                     
