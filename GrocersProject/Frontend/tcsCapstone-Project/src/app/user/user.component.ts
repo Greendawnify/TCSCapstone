@@ -219,18 +219,29 @@ export class UserComponent implements OnInit {
       this.userService.deleteOrder(newObj).subscribe(res => {
         console.log(res);
         // update product and money in backen
-        let newArray;
         if(res == "Success"){
 
           this.userOrders = this.userOrders.filter(o => o.id != userID);
-          console.log("New array", newArray);
         }
+<<<<<<< HEAD
         let userObj = this.getCurrentUser();
         if(userObj){
           
           userObj.Orders = this.userOrders;
           this.setCurrentUser();
         }
+=======
+        console.log('User Orders after filtering', this.userOrders);
+        let sessionString = sessionStorage.getItem("LoggedInUserDetails");
+
+        if(sessionString){ console.log("Got session storage");
+          let userObj = JSON.parse(sessionString); 
+          userObj.Orders = this.userOrders;
+          sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(userObj));
+          console.log('Reset sesesion storage after deleting', userObj);
+        }
+        //
+>>>>>>> NewManiBranch
       })
     }
 
@@ -292,38 +303,37 @@ export class UserComponent implements OnInit {
     console.log('Start checkout');
     let id = currentUser.autoGenID;
     let autoGenID = currentUser.autoGenID;
-
     id += "_"+ Math.floor(Math.random()*10000).toString();
 
-    let order = {
-      products :allProducts,
-      newFunds, // i get from check proper funds
-      user:autoGenID,// should be user id
-      id,//order id
-      cost:totalCost,
-      date:checkoutDate
-    }
-
-    console.log("order is", order);
-    this.userService.checkout(order).
-    subscribe((res:any) =>{
-      if(res.funds || res.orders){
-        alert('Both funds and orders have been updated.');
-        //empty out the cart
-        this.tempCart = [];
-        localStorage.setItem("cart", JSON.stringify(this.tempCart));
-
-      
-        
-        // update the user in session storage
-        this.setCurrentUser();
-
-      }else{
-        alert('Failed to updated funds and /or orders');
+    if(totalCost != 0){
+      let order = {
+        products :allProducts,
+        newFunds, // i get from check proper funds
+        user:autoGenID,// should be user id
+        id,//order id
+        cost:totalCost,
+        date:checkoutDate
       }
-    })
+  
+      console.log("order is", order);
+      this.userService.checkout(order).
+      subscribe((res:any) =>{
+        if(res.funds || res.orders){
+          alert('Both funds and orders have been updated.');
+          //empty out the cart
+          this.tempCart = [];
+          localStorage.setItem("cart", JSON.stringify(this.tempCart));
+          // update the user in session storage
+          this.setCurrentUser();
 
-
+        }else{
+          alert('Failed to updated funds and /or orders');
+        }
+      })
+    }
+    else{
+      alert("Your cart is Empty!");
+    }
   };
 //profile functions
 triggerModal(content:any) {
@@ -464,7 +474,12 @@ updateUserFunds(myUpdateFundsForm:any){
       this.userService.retrieveUserById(newObj).
       subscribe(res => {
         sessionStorage.setItem("LoggedInUserDetails", JSON.stringify(res));
+<<<<<<< HEAD
         console.log('New User in Session sotorage', res);
+=======
+        this.currentBalance = userObj.balance;
+        this.currentFunds = userObj.funds;
+>>>>>>> NewManiBranch
       }, (err) => console.log(err));
     }
 

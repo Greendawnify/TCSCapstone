@@ -133,7 +133,7 @@
                 <th>{{user.products}}</th>
                 <th>{{user.status}}</th>
                 <th>{{user.cost}}</th>
-                <button>Delete</button>
+                <button (click) = "deleteOrder(user.user, user.id)" > Delete</button>
               </tr>
             </tbody>
     

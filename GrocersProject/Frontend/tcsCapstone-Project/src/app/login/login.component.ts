@@ -27,19 +27,19 @@ export class LoginComponent implements OnInit {
     ) {}
   ngOnInit(): void {
     let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
-  element.click();
-  let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
-  element1.click();
-  let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
-  element2.click();
+    element.click();
+    let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
+    element1.click();
+    let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
+    element2.click();
   }
   Resetter(){
     let element:HTMLElement = document.getElementById('reset_signin') as HTMLElement;
-  element.click();
-  let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
-  element1.click();
-  let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
-  element2.click();
+    element.click();
+    let element1:HTMLElement = document.getElementById('reset_login') as HTMLElement;
+    element1.click();
+    let element2:HTMLElement = document.getElementById('reset_forgotLogin') as HTMLElement;
+    element2.click();
   }
 //signIn function for user
   signIn(userID:any, userPword:any){
@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem('userToken', '123');
                 console.log("After Session Storage, result type and result is: " , typeof(tempResult) , tempResult);
                 sessionStorage.setItem('LoggedInUserDetails', tempResult);
+                localStorage.removeItem('cart');
                 this.router.navigate(["user"]);
               }
             });
