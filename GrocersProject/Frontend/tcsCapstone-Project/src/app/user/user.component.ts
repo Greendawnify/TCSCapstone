@@ -263,7 +263,7 @@ export class UserComponent implements OnInit {
           }else{
             console.log('you dont have the proper funds');
             // need to figure out have to make this dissapear
-            this.displayText = "Nto enough Funds to purchase";
+            this.displayText = "Not enough Funds to purchase";
           }
         }, (err) => console.log(err));
 
